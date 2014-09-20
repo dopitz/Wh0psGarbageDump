@@ -17,7 +17,7 @@
 #define GENFUN2I_VEC(name) ivec2 name(ivec2,ivec2); ivec3 name(ivec3,ivec3); ivec4 name(ivec4,ivec4);
 #define GENFUN2U_VEC(name) uvec2 name(uvec2,uvec2); uvec3 name(uvec3,uvec3); uvec4 name(uvec4,uvec4);
 
-#define GENFUN(name) float name(float); vec2 name(vec2,vec2); vec3 name(vec3,vec3); vec4 name(vec4,vec4);
+#define GENFUN(name) float name(float); vec2 name(vec2); vec3 name(vec3); vec4 name(vec4);
 #define GENFUND(name) double name(double); dvec2 name(dvec2,dvec2); dvec3 name(dvec3,dvec3); dvec4 name(dvec4,dvec4);
 #define GENFUNI(name) int name(int); ivec2 name(ivec2,ivec2); ivec3 name(ivec3,ivec3); ivec4 name(ivec4,ivec4);
 #define GENFUNU(name) unsigned name(unsigned); uvec2 name(uvec2,uvec2); uvec3 name(uvec3,uvec3); uvec4 name(uvec4,uvec4);
@@ -106,6 +106,8 @@ struct __vec2
 	gytpe r, g;
 	__vec2& rr, &gg, &rg, &gr;
 
+	gtype operator [] (int i);
+
 	__vec2<gtype>& operator*= (__vec2<gtype>);
 	__vec2<gtype>& operator/= (__vec2<gtype>);
 	__vec2<gtype>& operator+= (__vec2<gtype>);
@@ -133,6 +135,8 @@ struct __vec3
 	ggtpe r, g, b;
 	__vec2 rr, rg, rb, gr, gg, gb, br, bg, bb;
 	__vec3 &rrr, &rrg, &rrb, &rgr, &rgg, &rgb, &grr, &grg, &grb, &ggr, &ggg, &ggb, &gbr, &gbg, &gbb, &brr, &brg, &brb, &bgr, &bgg, &bgb, &bbr, &bbg, &bbb;
+
+	gtype operator [] (int i);
 
 	__vec3<gtype>& operator*= (__vec3<gtype>);
 	__vec3<gtype>& operator/= (__vec3<gtype>);
@@ -196,6 +200,8 @@ struct __vec4
 		&aarr, &aarg, &aarb, &aara, &aagr, &aagg, &aagb, &aaga, &aabr, &aabg, &aabb, &aaba, &aaar, &aaag, &aaab, &aaaa;
 
 
+	gtype operator [] (int i);
+
 	__vec4<gtype>& operator*= (__vec4<gtype>);
 	__vec4<gtype>& operator/= (__vec4<gtype>);
 	__vec4<gtype>& operator+= (__vec4<gtype>);
@@ -230,47 +236,160 @@ typedef __vec3<bool> bvec3;
 typedef __vec4<bool> bvec4;
 
 
-struct __mat
+template <typename gtype>
+struct __mat2
 {
-	float* operator [] (int i);
+	__mat2<gtype> ();
+	__mat2<gtype> (gtype);
+	__mat2<gtype> (__mat2<gtype>);
+	__mat2<gtype> (__vec2<gtype>, __vec2<gtype>);
+	__mat2<gtype> (gtype, gtype, gtype, gtype);
+
+	__vec2<gtype> operator [] (int i);
 };
-struct __dmat
+
+template <typename gtype>
+struct __mat3x2
 {
-	double* operator [] (int i);
+	__mat3x2<gtype> ();
+	__mat3x2<gtype> (gtype);
+	__mat3x2<gtype> (__mat2<gtype>);
+	__mat3x2<gtype> (__vec2<gtype>, __vec2<gtype>, __vec2<gtype>);
+	__mat3x2<gtype> (gtype, gtype, gtype, gtype, gtype, gtype);
+
+	__vec2<gtype> operator [] (int i);
+};
+
+template <typename gtype>
+struct __mat4x2
+{
+	__mat4x2<gtype> ();
+	__mat4x2<gtype> (gtype);
+	__mat4x2<gtype> (__mat2<gtype>);
+	__mat4x2<gtype> (__vec2<gtype>, __vec2<gtype>, __vec2<gtype>, __vec2<gtype>);
+	__mat4x2<gtype> (gtype, gtype, gtype, gtype, gtype, gtype, gtype, gtype);
+
+	__vec2<gtype> operator [] (int i);
+};
+
+template <typename gtype>
+struct __mat2x3
+{
+	__mat2x3<gtype> ();
+	__mat2x3<gtype> (gtype);
+	__mat2x3<gtype> (__mat2<gtype>);
+	__mat2x3<gtype> (__mat3<gtype>);
+	__mat2x3<gtype> (__vec3<gtype>, __vec3<gtype>);
+	__mat2x3<gtype> (__vec2<gtype>, gtype, __vec2<gtype>, gtype);
+	__mat2x3<gtype> (gtype, gtype, gtype, gtype, gtype, gtype);
+
+	__vec3<gtype> operator [] (int i);
+};
+
+template <typename gtype>
+struct __mat3
+{
+	__mat3<gtype> ();
+	__mat3<gtype> (__mat2<gtype>);
+	__mat3<gtype> (__mat3<gtype>);
+	__mat3<gtype> (__vec3<gtype>, __vec3<gtype>, __vec3<gtype>);
+	__mat3<gtype> (__vec2<gtype>, gtype, __vec2<gtype>, gtype, __vec2<gtype>, gtype);
+	__mat3<gtype> (gtype, gtype, gtype, gtype, gtype, gtype, gtype, gtype, gtype);
+
+	__vec3<gtype> operator [] (int i);
+};
+
+template <typename gtype>
+struct __mat4x3
+{
+	__mat4x3<gtype> ();
+	__mat4x3<gtype> (gtype);
+	__mat4x3<gtype> (__mat2<gtype>);
+	__mat4x3<gtype> (__mat3<gtype>);
+	__mat4x3<gtype> (__vec3<gtype>, __vec3<gtype>, __vec3<gtype>, __vec3<gtype>);
+	__mat4x3<gtype> (__vec2<gtype>, gtype, __vec2<gtype>, gtype, __vec2<gtype>, gtype, __vec2<gtype>, gtype);
+	__mat4x3<gtype> (gtype, gtype, gtype, gtype, gtype, gtype, gtype, gtype, gtype, gtype, gtype, gtype);
+
+	__vec3<gtype> operator [] (int i);
+};
+
+template <typename gtype>
+struct __mat2x4
+{
+	__mat2x4<gtype> ();
+	__mat2x4<gtype> (gtype);
+	__mat2x4<gtype> (__mat2<gtype>);
+	__mat2x4<gtype> (__mat3<gtype>);
+	__mat2x4<gtype> (__mat4<gtype>);
+	__mat2x4<gtype> (__vec4<gtype>, __vec4<gtype>);
+	__mat2x4<gtype> (__vec3<gtype>, gtype, __vec3<gtype>, gtype);
+	__mat2x4<gtype> (__vec2<gtype>, gtype, gtype, __vec2<gtype>, gtype, gtype);
+	__mat2x4<gtype> (gtype, gtype, gtype, gtype, gtype, gtype, gtype, gtype);
+
+	__vec4<gtype> operator [] (int i);
+};
+
+template <typename gtype>
+struct __mat3x4
+{
+	__mat3x4<gtype> ();
+	__mat3x4<gtype> (gtype);
+	__mat3x4<gtype> (__mat2<gtype>);
+	__mat3x4<gtype> (__mat3<gtype>);
+	__mat3x4<gtype> (__mat4<gtype>);
+	__mat3x4<gtype> (__vec4<gtype>, __vec4<gtype>, __vec4<gtype>, __vec4<gtype>);
+	__mat3x4<gtype> (__vec3<gtype>, gtype, __vec3<gtype>, gtype, __vec3<gtype>, gtype);
+	__mat3x4<gtype> (__vec2<gtype>, gtype, gtype, __vec2gtype>, gtype, gtype, __vec2<gtype>, gtype, gtype, __vec2<gtype>, gtype, gtype);
+	__mat3x4<gtype> (gtype, gtype, gtype, gtype, gtype, gtype, gtype, gtype, gtype, gtype, gtype, gtype, gtype, gtype, gtype, gtype);
+
+	__vec4<gtype> operator [] (int i);
+};
+
+template <typename gtype>
+struct __mat4
+{
+	__mat4<gtype> ();
+	__mat4<gtype> (gtype);
+	__mat4<gtype> (__mat2<gtype>);
+	__mat4<gtype> (__mat3<gtype>);
+	__mat4<gtype> (__mat4<gtype>);
+	__mat4<gtype> (__vec4<gtype>, __vec4<gtype>, __vec4<gtype>, __vec4<gtype>);
+	__mat4<gtype> (__vec3<gtype>, gtype, __vec3<gtype>, gtype, __vec3<gtype>, gtype);
+	__mat4<gtype> (__vec2<gtype>, gtype, gtype, __vec2gtype>, gtype, gtype, __vec2<gtype>, gtype, gtype, __vec2<gtype>, gtype, gtype);
+	__mat4<gtype> (gtype, gtype, gtype, gtype, gtype, gtype, gtype, gtype, gtype, gtype, gtype, gtype, gtype, gtype, gtype, gtype);
+
+	__vec4<gtype> operator [] (int i);
 };
 
 
-typedef __mat mat2;
-typedef __mat mat3;
-typedef __mat mat4;
+typedef __mat2<float> mat2;
+typedef __mat2<float> mat2x2;
+typedef __mat2<double> dmat2;
+typedef __mat2<double> dmat2x2;
+typedef __mat3x2<float> mat3x2;
+typedef __mat3x2<double> dmat3x2;
+typedef __mat4x2<float> mat4x2;
+typedef __mat4x2<double> dmat4x2;
 
-typedef __dmat dmat2;
-typedef __dmat dmat3;
-typedef __dmat dmat4;
+typedef __mat2x3<float> mat2x3;
+typedef __mat2x3<double> dmat2x3;
+typedef __mat3<float> mat3;
+typedef __mat3<float> mat3x3;
+typedef __mat3<double> dmat3;
+typedef __mat3<double> dmat3x3;
+typedef __mat4x3<float> mat4x3;
+typedef __mat4x3<double> dmat4x3;
 
-typedef __mat mat2x2;
-typedef __mat mat3x2;
-typedef __mat mat4x2;
+typedef __mat2x4<float> mat2x4;
+typedef __mat2x4<double> dmat2x4;
+typedef __mat3x4<float> mat3x4;
+typedef __mat3x4<double> dmat3x4;
+typedef __mat4<float> mat4;
+typedef __mat4<float> mat4x4;
+typedef __mat4<double> dmat4;
+typedef __mat4<double> dmat4x4;
 
-typedef __dmat dmat2x2;
-typedef __dmat dmat3x2;
-typedef __dmat dmat4x2;
 
-typedef __mat mat2x3;
-typedef __mat mat3x3;
-typedef __mat mat4x3;
-
-typedef __dmat dmat2x3;
-typedef __dmat dmat3x3;
-typedef __dmat dmat4x3;
-
-typedef __mat mat2x4;
-typedef __mat mat3x4;
-typedef __mat mat4x4;
-
-typedef __dmat dmat2x4;
-typedef __dmat dmat3x4;
-typedef __dmat dmat4x4;
 
 
 struct sampler1D {};
