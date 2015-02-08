@@ -8,11 +8,36 @@
 " ================================================== 
 set nocompatible
 
+
+
+" ================================================== 
+" PLUGINS
+" ================================================== 
+filetype off
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+Plugin 'gmarik/vundle'
+
+Plugin 'scrooloose/nerdtree'
+
+filetype plugin indent on
+
+
+
 " ================================================== 
 " GLOBAL LEADER KEY
 " ================================================== 
 :let mapleader = ","
 map <leader>d dd
+
+" ================================================== 
+" NERDTree shortcuts
+" ================================================== 
+nnoremap <leader>t :NERDTree<CR>
+
+
+
 
 
 " ================================================== 
