@@ -8,6 +8,12 @@
 " ================================================== 
 set nocompatible
 
+" ================================================== 
+" GLOBAL LEADER KEY
+" ================================================== 
+:let mapleader = ","
+map <leader>d dd
+
 
 " ================================================== 
 " TEXT ENCODING AND FORMATTING
@@ -53,11 +59,14 @@ nnoremap <C-L> <C-W><C-L>
 
 
 
+
 " ================================================== 
-" LOAD SAVE KEYMAPS 
+" LOAD SAVE KEYMAPS FILES
 " ==================================================  
 nmap <C-S> :w<CR>
 imap <C-S> <ESC>:w<CR>i
+nnoremap <leader>e :e 
+nnoremap <leader>q :q<CR>
 
 
 " ================================================== 
@@ -70,8 +79,8 @@ map <S-F7> :make clean all -C ./build/<CR>
 " opwn/close errorlist and navigate errors
 nnoremap <C-Up> :cw<CR>
 nnoremap <C-Down> :ccl<CR>
-nnoremap <M-Left> :cp<CR>
-nnoremap <M-Right> :cn<CR>
+nnoremap <C-Left> :cp<CR>
+nnoremap <C-Right> :cn<CR>
 
 
 
