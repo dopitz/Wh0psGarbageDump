@@ -21,6 +21,11 @@ Plugin 'gmarik/vundle'
 
 Plugin 'scrooloose/nerdtree'
 
+Plugin 'kien/ctrlp.vim'
+
+Plugin 'msanders/snipmate.vim'
+
+Plugin 'Valloric/YouCompleteMe'
 filetype plugin indent on
 
 
@@ -36,7 +41,11 @@ map <leader>d dd
 " ================================================== 
 nnoremap <leader>t :NERDTree<CR>
 
+" ================================================== 
+" CtrlP shortcuts
+" ================================================== 
 
+nnoremap <leader>o :CtrlP<CR>
 
 
 
@@ -59,6 +68,7 @@ set textwidth=120
 " turn on syntaxhighlight with colorscheme wombat256
 set t_Co=256
 syntax on
+colorscheme candy.vim
 " turn line numbers on
 set number
 " highlight matching braces
