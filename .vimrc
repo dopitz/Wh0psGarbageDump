@@ -36,16 +36,28 @@ filetype plugin indent on
 :let mapleader = ","
 map <leader>d dd
 
+
+" ================================================== 
+" YouCompleteMe configs
+" ================================================== 
+let g:ycm_confirm_extra_conf = 0
+let g:ycm_error_symbol = '!>'
+let g:ycm_warning_symbol = 'o>'
+nnoremap <leader>cc :YcmDiag<CR>
+
 " ================================================== 
 " NERDTree shortcuts
 " ================================================== 
 nnoremap <leader>t :NERDTree<CR>
 
 " ================================================== 
-" CtrlP shortcuts
+" CtrlP shortcuts and ingnore
 " ================================================== 
-
 nnoremap <leader>o :CtrlP<CR>
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\.git$\|build$',
+  \ 'file': '\.out$\|\.dat$'
+  \ }
 
 
 
@@ -65,16 +77,43 @@ set shiftwidth=2
 set expandtab 
 " wrap lines at 120 chars. 80 is somewaht antiquated with nowadays displays.
 set textwidth=120
-" turn on syntaxhighlight with colorscheme wombat256
+" turn on syntaxhighlight with colorscheme candycode
 set t_Co=256
 syntax on
-colorscheme candy.vim
+colorscheme candycode
 " turn line numbers on
 set number
 " highlight matching braces
 set showmatch
 " intelligent comments
 set comments=sl:/*,mb:\ *,elx:\ */
+
+" astyle formatting
+func FormatCode(cmd)
+  let pos = getpos(".")
+  exec "%!" . a:cmd
+  call setpos(".", pos)
+endfunction
+
+if executable("astyle")
+  let astyle = "astyle --style=allman --indent=spaces=2 --indent-switches --indent-namespaces --indent-preproc-define --indent-col1-comments --min-conditional-indent=0 --pad-oper --pad-header --unpad-paren --align-pointer=type --align-reference=type" 
+  
+  nnoremap <leader>df :call FormatCode(astyle)<CR>
+endif
+
+
+
+
+
+
+" ================================================== 
+" CURSOR MOVEMENT
+" ================================================== 
+" center screen with space, on search next/previous, GOTO line
+nnoremap <space> zz
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap G Gzz
 
 
 
@@ -111,7 +150,7 @@ nnoremap <leader>q :q<CR>
 map <F7> :make -C ./build/<CR>
 " make clean
 map <S-F7> :make clean all -C ./build/<CR>
-" opwn/close errorlist and navigate errors
+" open/close errorlist and navigate errors
 nnoremap <C-Up> :cw<CR>
 nnoremap <C-Down> :ccl<CR>
 nnoremap <C-Left> :cp<CR>
