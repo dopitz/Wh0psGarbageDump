@@ -26,6 +26,8 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'msanders/snipmate.vim'
 
 Plugin 'Valloric/YouCompleteMe'
+
+Plugin 'mrtazz/DoxygenToolkit.vim'
 filetype plugin indent on
 
 
@@ -40,6 +42,8 @@ map <leader>d dd
 " ================================================== 
 " YouCompleteMe configs
 " ================================================== 
+"let g:clang_library_path = "/usr/lib/llvm-3.6/lib/"
+
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_error_symbol = '!>'
 let g:ycm_warning_symbol = 'o>'
@@ -55,7 +59,7 @@ nnoremap <leader>t :NERDTree<CR>
 " ================================================== 
 nnoremap <leader>o :CtrlP<CR>
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\.git$\|build$',
+  \ 'dir':  '\.git$\|build$\|doc$',
   \ 'file': '\.out$\|\.dat$'
   \ }
 
