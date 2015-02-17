@@ -114,7 +114,7 @@ nnoremap <space> zz
 nnoremap n nzz
 nnoremap N Nzz
 nnoremap G Gzz
-
+set scrolloff=25
 
 
 
