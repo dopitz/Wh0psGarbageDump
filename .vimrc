@@ -42,8 +42,6 @@ map <leader>d dd
 " ================================================== 
 " YouCompleteMe configs
 " ================================================== 
-"let g:clang_library_path = "/usr/lib/llvm-3.6/lib/"
-
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_error_symbol = '!>'
 let g:ycm_warning_symbol = 'o>'
