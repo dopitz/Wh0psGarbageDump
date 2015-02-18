@@ -46,6 +46,31 @@ let g:ycm_confirm_extra_conf = 0
 let g:ycm_error_symbol = '!>'
 let g:ycm_warning_symbol = 'o>'
 nnoremap <leader>cc :YcmDiag<CR>
+" This is a hack to copy the function prototype from the ycm preview window
+inoremap <leader>pp <ESC><C-W><C-J>/(<CR>y$<C-W><C-K>p?(<CR>w
+" Overwrite next function argument 
+" This functions deletes the current argument text (unless its the last argument then it fails miserably)
+func DelthisARGUMENT()
+  " TODO find the first '<' or ',' and delete the text before it
+  execute "normal dwd"
+
+  " Cache the cursor pos and search for template arguments
+  " And check if a template argument has been found
+  let pp = getpos('.')
+  let pos = searchpairpos('<', '', '>')
+  " No template just delete until the next ',' appears
+  if pos[0] == 0
+    execute "normal dt,"
+  " Templated parameter >> read out delta of positions and delete text
+  else
+    let d = (pos[1] - pp[2]) + 1
+    call setpos('.', pp)
+    execute "normal d" . d . "l"
+  endif
+endfunction
+
+nnoremap <leader>a :call DelthisARGUMENT()<CR>i
+
 
 " ================================================== 
 " NERDTree shortcuts
