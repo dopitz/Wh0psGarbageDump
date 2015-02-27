@@ -17,6 +17,8 @@ filetype off
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
+Plugin 'Wh0p/paraMark'
+
 Plugin 'gmarik/vundle'
 
 Plugin 'scrooloose/nerdtree'
@@ -28,6 +30,8 @@ Plugin 'msanders/snipmate.vim'
 Plugin 'Valloric/YouCompleteMe'
 
 Plugin 'mrtazz/DoxygenToolkit.vim'
+
+Plugin 'bling/vim-airline'
 filetype plugin indent on
 
 
@@ -37,6 +41,14 @@ filetype plugin indent on
 " ================================================== 
 :let mapleader = ","
 map <leader>d dd
+
+
+" ================================================== 
+" Airline config
+" ================================================== 
+set laststatus=2
+let g:airline#extensions#tabline#enabled = 1
+
 
 
 " ================================================== 
@@ -70,6 +82,13 @@ func DelthisARGUMENT()
 endfunction
 
 nnoremap <leader>a :call DelthisARGUMENT()<CR>i
+
+" ================================================== 
+" paraMark mappings
+" ================================================== 
+nnoremap <C-N> :NextArg<CR>
+vnoremap <C-N> <ESC>:NextArg<CR>
+nnoremap <C-A> :ThisArg<CR>
 
 
 " ================================================== 
@@ -156,17 +175,17 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-H> <C-W><C-H>
 nnoremap <C-L> <C-W><C-L>
-
-
+" tab cycle
+nnoremap <C-X> :tabn
+nnoremap <C-Z> :tabp
 
 
 
 " ================================================== 
 " LOAD SAVE KEYMAPS FILES
 " ==================================================  
-nmap <C-S> :w<CR>
-imap <C-S> <ESC>:w<CR>i
-nnoremap <leader>e :e 
+nnoremap <C-S> :w<CR>
+inoremap <C-S> <ESC>:w<CR>i
 nnoremap <leader>q :q<CR>
 
 
