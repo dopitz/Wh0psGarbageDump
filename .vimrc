@@ -106,6 +106,8 @@ let g:ctrlp_custom_ignore = {
   \ 'dir':  '\.git$\|build$\|doc$',
   \ 'file': '\.out$\|\.dat$'
   \ }
+let g:ctrlp_working_path_mode = ''
+
 
 
 
@@ -128,7 +130,7 @@ set textwidth=120
 " turn on syntaxhighlight with colorscheme candycode
 set t_Co=256
 syntax on
-colorscheme candycode
+colorscheme mycandycode
 " turn line numbers on
 set number
 " highlight matching braces
@@ -148,6 +150,15 @@ if executable("astyle")
   
   nnoremap <leader>df :call FormatCode(astyle)<CR>
 endif
+
+
+" gvim options remove toolbar and scrollbars
+set guioptions-=T
+set guioptions-=r
+set guioptions-=L
+
+set guifont=Droid\ Sans\ Mono\ 10
+
 
 
 
