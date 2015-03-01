@@ -17,6 +17,8 @@ filetype off
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
+Plugin 'Wh0p/FSwitch'
+
 Plugin 'Wh0p/paraMark'
 
 Plugin 'gmarik/vundle'
@@ -176,8 +178,11 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-H> <C-W><C-H>
 nnoremap <C-L> <C-W><C-L>
 " tab cycle
-nnoremap <C-X> :tabn
-nnoremap <C-Z> :tabp
+nnoremap <C-X> :tabn<CR>
+nnoremap <C-Z> :tabp<CR>
+" switch between header/source with F4
+map <F4> :FSHere<CR>
+
 
 
 
@@ -204,23 +209,3 @@ nnoremap <C-Right> :cn<CR>
 
 
 
-" switch between header/source with F4
-map <F4> :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
-" goto definition with F12
-map <F12> <C-]>
-" in diff mode we use the spell check keys for merging
-if &diff
-  ” diff settings
-  map <M-Down> ]c
-  map <M-Up> [c
-  map <M-Left> do
-  map <M-Right> dp
-  map <F9> :new<CR>:read !svn diff<CR>:set syntax=diff buftype=nofile<CR>gg
-else
-  " spell settings
-  :setlocal spell spelllang=en
-  " set the spellfile - folders must exist
-  set spellfile=~/.vim/spellfile.add
-  map <M-Down> ]s
-  map <M-Up> [s
-endif
