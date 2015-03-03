@@ -2,9 +2,36 @@
 " Description: Optimized for C/C++ development, but useful also for other things.
 " Author: Daniel Opitz 
 "
+"
+"
+" Keymaps by this file:
+"
+" <F4>            Switch headder/source file (FileSwitch)
+"
+" n<C-A>          paraMark:NextArg jumps to the next function parameter and marks it in visual mode
+" i<C-A>          paraMark:NextArg jumps to the next function parameter and marks it in visual mode
+" v<C-A>          paraMark:NextArg jumps to the next function parameter and marks it in visual mode
+" i<C-D>1-0       Copy the function header from the preview window
+" n<C-H/L/J/K>    Navigate to left/right/up/down split window
+" n<C-X/Z>        Navigate to next/previous tab window
+" n<C-S           Save file
+" n<C-Up/Down>    Open close errorlist after compile
+" n<C-Left/Right> Navigate to next/previsous error
+"
+" n<leader>df     Format code of current buffer via astyle
+" n<leader>o      Launch CtrlP
+" n<leader>t      Launch NERDTree
+
  
+
+
+
+
+
+
+
 " ================================================== 
-" DISABLE VI COMPATIBILITY 
+" ABLE VI COMPATIBILITY 
 " ================================================== 
 set nocompatible
 
@@ -42,7 +69,6 @@ filetype plugin indent on
 " GLOBAL LEADER KEY
 " ================================================== 
 :let mapleader = ","
-map <leader>d dd
 
 
 " ================================================== 
@@ -60,43 +86,58 @@ let g:ycm_confirm_extra_conf = 0
 let g:ycm_error_symbol = '!>'
 let g:ycm_warning_symbol = 'o>'
 nnoremap <leader>cc :YcmDiag<CR>
-" This is a hack to copy the function prototype from the ycm preview window
-inoremap <leader>pp <ESC><C-W><C-J>/(<CR>y$<C-W><C-K>p?(<CR>w
-" Overwrite next function argument 
-" This functions deletes the current argument text (unless its the last argument then it fails miserably)
-func DelthisARGUMENT()
-  " TODO find the first '<' or ',' and delete the text before it
-  execute "normal dwd"
 
-  " Cache the cursor pos and search for template arguments
-  " And check if a template argument has been found
-  let pp = getpos('.')
-  let pos = searchpairpos('<', '', '>')
-  " No template just delete until the next ',' appears
-  if pos[0] == 0
-    execute "normal dt,"
-  " Templated parameter >> read out delta of positions and delete text
+" This is a hack to copy the function prototype from the ycm preview window
+func! CopyParamList(line)
+  " switch to the preview window goto the end of line 'line' and search the first ')' backwards
+  silent! wincmd P
+  execute "normal! " . a:line . "G0"
+  call search('(', '', line('.'))
+  " save the end pos of the parameter list
+  let beg = getpos('.')
+  " search for the matching opening bracket
+  let res = searchpair('(', '', ')')
+  if res > 0
+    " if found copy the parameter list using visual mode
+    let end = getpos('.')
+    call setpos("'<", beg)
+    call setpos("'>", end)
+    normal! gvy
+    " return to the initial pos in the original file and paste the copied parameter list
+    silent! wincmd p
+    normal! p$h
   else
-    let d = (pos[1] - pp[2]) + 1
-    call setpos('.', pp)
-    execute "normal d" . d . "l"
+    echo "Error when parsin function parameter list"
   endif
 endfunction
+" Copy the parameter list for up to 10 diferent overloads
+inoremap <C-D>d <ESC>:call CopyParamList(1)<CR>
+inoremap <C-D>1 <ESC>:call CopyParamList(1)<CR>
+inoremap <C-D>2 <ESC>:call CopyParamList(2)<CR>
+inoremap <C-D>3 <ESC>:call CopyParamList(3)<CR>
+inoremap <C-D>4 <ESC>:call CopyParamList(4)<CR>
+inoremap <C-D>5 <ESC>:call CopyParamList(5)<CR>
+inoremap <C-D>6 <ESC>:call CopyParamList(6)<CR>
+inoremap <C-D>7 <ESC>:call CopyParamList(7)<CR>
+inoremap <C-D>8 <ESC>:call CopyParamList(8)<CR>
+inoremap <C-D>9 <ESC>:call CopyParamList(9)<CR>
+inoremap <C-D>0 <ESC>:call CopyParamList(0)<CR>
 
-nnoremap <leader>a :call DelthisARGUMENT()<CR>i
+
 
 " ================================================== 
 " paraMark mappings
 " ================================================== 
-nnoremap <C-N> :NextArg<CR>
-vnoremap <C-N> <ESC>:NextArg<CR>
-nnoremap <C-A> :ThisArg<CR>
+nnoremap <C-A> :NextArg<CR>
+inoremap <C-A> <ESC>:NextArg<CR>
+vnoremap <C-A> <ESC>:NextArg<CR>
 
 
 " ================================================== 
 " NERDTree shortcuts
 " ================================================== 
 nnoremap <leader>t :NERDTree<CR>
+
 
 " ================================================== 
 " CtrlP shortcuts and ingnore
@@ -130,16 +171,26 @@ set textwidth=120
 " turn on syntaxhighlight with colorscheme candycode
 set t_Co=256
 syntax on
-colorscheme mycandycode
-" turn line numbers on
+colorscheme candycode
+" turn relative line numbers on
 set number
-" highlight matching braces
+set relativenumber
+" highlight matching braces and cursor line
+set cursorline
 set showmatch
 " intelligent comments
 set comments=sl:/*,mb:\ *,elx:\ */
 
+" gvim options remove toolbar and scrollbars
+set guioptions-=T
+set guioptions-=r
+set guioptions-=L
+" gvim font
+set guifont=Droid\ Sans\ Mono\ 10
+
+
 " astyle formatting
-func FormatCode(cmd)
+func! FormatCode(cmd)
   let pos = getpos(".")
   exec "%!" . a:cmd
   call setpos(".", pos)
@@ -150,14 +201,6 @@ if executable("astyle")
   
   nnoremap <leader>df :call FormatCode(astyle)<CR>
 endif
-
-
-" gvim options remove toolbar and scrollbars
-set guioptions-=T
-set guioptions-=r
-set guioptions-=L
-
-set guifont=Droid\ Sans\ Mono\ 10
 
 
 
@@ -206,7 +249,7 @@ nnoremap <leader>q :q<CR>
 
 
 " ================================================== 
-" LOAD SAVE KEYMAPS 
+" BUILD AND DEBUG KEYMAPS
 " ==================================================  
 " make project 
 map <F7> :make -C ./build/<CR>
