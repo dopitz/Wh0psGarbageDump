@@ -11,7 +11,7 @@
 " n<C-A>          paraMark:NextArg jumps to the next function parameter and marks it in visual mode
 " i<C-A>          paraMark:NextArg jumps to the next function parameter and marks it in visual mode
 " v<C-A>          paraMark:NextArg jumps to the next function parameter and marks it in visual mode
-" i<C-D>1-0       Copy the function header from the preview window
+" i<C-D>d|1-0     Copy the function header from the preview window
 " n<C-H/L/J/K>    Navigate to left/right/up/down split window
 " n<C-X/Z>        Navigate to next/previous tab window
 " n<C-S           Save file
@@ -20,6 +20,7 @@
 "
 " n<leader>df     Format code of current buffer via astyle
 " n<leader>o      Launch CtrlP
+" n<leader>p      Launch RangerChooser
 " n<leader>t      Launch NERDTree
 
  
@@ -35,31 +36,21 @@
 " ================================================== 
 set nocompatible
 
-
-
 " ================================================== 
 " PLUGINS
 " ================================================== 
 filetype off
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
-
-Plugin 'Wh0p/FSwitch'
-
-Plugin 'Wh0p/paraMark'
-
 Plugin 'gmarik/vundle'
-
-Plugin 'scrooloose/nerdtree'
-
+Plugin 'Wh0p/FSwitch'
+Plugin 'Wh0p/paraMark'
 Plugin 'kien/ctrlp.vim'
-
-Plugin 'msanders/snipmate.vim'
-
+Plugin 'ervandew/supertab'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
 Plugin 'Valloric/YouCompleteMe'
-
 Plugin 'mrtazz/DoxygenToolkit.vim'
-
 Plugin 'bling/vim-airline'
 filetype plugin indent on
 
@@ -75,8 +66,13 @@ filetype plugin indent on
 " Airline config
 " ================================================== 
 set laststatus=2
+let g:airline_left_sep = '⯈' 
+let g:airline_left_alt_sep = '>'
 let g:airline#extensions#tabline#enabled = 1
-
+let g:airline#extensions#tabline#show_buffers = 0
+let g:airline#extensions#tabline#tab_nr_type = 2 " splits and tab number
+let g:airline#extensions#tabline#left_sep = '⯈' 
+let g:airline#extensions#tabline#left_alt_sep = '>'
 
 
 " ================================================== 
@@ -87,41 +83,16 @@ let g:ycm_error_symbol = '!>'
 let g:ycm_warning_symbol = 'o>'
 nnoremap <leader>cc :YcmDiag<CR>
 
-" This is a hack to copy the function prototype from the ycm preview window
-func! CopyParamList(line)
-  " switch to the preview window goto the end of line 'line' and search the first ')' backwards
-  silent! wincmd P
-  execute "normal! " . a:line . "G0"
-  call search('(', '', line('.'))
-  " save the end pos of the parameter list
-  let beg = getpos('.')
-  " search for the matching opening bracket
-  let res = searchpair('(', '', ')')
-  if res > 0
-    " if found copy the parameter list using visual mode
-    let end = getpos('.')
-    call setpos("'<", beg)
-    call setpos("'>", end)
-    normal! gvy
-    " return to the initial pos in the original file and paste the copied parameter list
-    silent! wincmd p
-    normal! p$h
-  else
-    echo "Error when parsin function parameter list"
-  endif
-endfunction
-" Copy the parameter list for up to 10 diferent overloads
-inoremap <C-D>d <ESC>:call CopyParamList(1)<CR>
-inoremap <C-D>1 <ESC>:call CopyParamList(1)<CR>
-inoremap <C-D>2 <ESC>:call CopyParamList(2)<CR>
-inoremap <C-D>3 <ESC>:call CopyParamList(3)<CR>
-inoremap <C-D>4 <ESC>:call CopyParamList(4)<CR>
-inoremap <C-D>5 <ESC>:call CopyParamList(5)<CR>
-inoremap <C-D>6 <ESC>:call CopyParamList(6)<CR>
-inoremap <C-D>7 <ESC>:call CopyParamList(7)<CR>
-inoremap <C-D>8 <ESC>:call CopyParamList(8)<CR>
-inoremap <C-D>9 <ESC>:call CopyParamList(9)<CR>
-inoremap <C-D>0 <ESC>:call CopyParamList(0)<CR>
+" Make ycm and ultisnips play along
+let g:ycm_key_list_select_completion=['<C-j>', '<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion=['<C-k>', '<C-p>', '<Up>']
+
+let g:SuperTabDefaultCompletionType='<C-n>'
+let g:SuperTabCrMapping=0
+
+let g:UltiSnipsExpandTrigger='<tab>'
+let g:UltiSnipsJumpForwardTrigger='<tab>'
+let g:UltiSnipsJumpBackwardTrigger='<s-tab>'
 
 
 
@@ -132,22 +103,31 @@ nnoremap <C-A> :NextArg<CR>
 inoremap <C-A> <ESC>:NextArg<CR>
 vnoremap <C-A> <ESC>:NextArg<CR>
 
+" Copy the parameter list for up to 10 diferent overloads
+inoremap <C-D>d <ESC>:CpyParamList 1<CR>
+inoremap <C-D>1 <ESC>:CpyParamList 1<CR>
+inoremap <C-D>2 <ESC>:CpyParamList 2<CR>
+inoremap <C-D>3 <ESC>:CpyParamList 3<CR>
+inoremap <C-D>4 <ESC>:CpyParamList 4<CR>
+inoremap <C-D>5 <ESC>:CpyParamList 5<CR>
+inoremap <C-D>6 <ESC>:CpyParamList 6<CR>
+inoremap <C-D>7 <ESC>:CpyParamList 7<CR>
+inoremap <C-D>8 <ESC>:CpyParamList 8<CR>
+inoremap <C-D>9 <ESC>:CpyParamList 9<CR>
+inoremap <C-D>0 <ESC>:CpyParamList 0<CR>
 
-" ================================================== 
-" NERDTree shortcuts
-" ================================================== 
-nnoremap <leader>t :NERDTree<CR>
 
 
 " ================================================== 
 " CtrlP shortcuts and ingnore
 " ================================================== 
-nnoremap <leader>o :CtrlP<CR>
+nnoremap <leader>p :CtrlP<CR>
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\.git$\|build$\|doc$',
   \ 'file': '\.out$\|\.dat$'
   \ }
 let g:ctrlp_working_path_mode = ''
+
 
 
 
@@ -166,8 +146,8 @@ set smartindent
 set tabstop=2
 set shiftwidth=2
 set expandtab 
-" wrap lines at 120 chars. 80 is somewaht antiquated with nowadays displays.
-set textwidth=120
+" wrap lines at 160 chars. 80 is somewaht antiquated with nowadays displays.
+set textwidth=160
 " turn on syntaxhighlight with colorscheme candycode
 set t_Co=256
 syntax on
@@ -202,6 +182,57 @@ if executable("astyle")
   nnoremap <leader>df :call FormatCode(astyle)<CR>
 endif
 
+
+
+
+" ================================================== 
+" CURSOR MOVEMENT
+" ==================================================
+function! <SID>RangerFileChooser()
+  let choosefile = '/tmp/ranger_choose_file.txt'
+
+  " The option "--choosefiles" requires ranger 1.5.1...
+  " Launch new terminal and execute shell commands: cd to directory of current file && launch ranger with --choosefile option
+  exec "!gnome-terminal -x sh -c 'cd " . expand('%:p:h') . " && ranger --choosefile=" . choosefile . "'"
+
+  " Prompt for how the file should be opened (this is mainly needed because I need a blocking function call untill the ranger dialogue is closed)
+  echohl Question
+  echo "Open mode: [h]ere (default)  |  [t]ab  |  [v]ertical split  |  horizontal [s]plit  |  [A]bort     "
+  echohl None
+  let mode = nr2char(getchar())
+
+  " Read the choosefile contents
+  if !filereadable(choosefile)
+      redraw!
+      echo "No temp choosefile..."
+      return
+  endif
+  let names = readfile(choosefile)
+  if empty(names)
+      redraw!
+      echo "No filename specified..."
+      return
+  endif
+
+  " Switch how the file should be opened
+  if mode == 'A'
+    echo 'Done nothing.'
+  elseif mode == 't'
+    exec ':tabedit ' . fnameescape(names[0])
+  elseif mode == 'v'
+    exec ':vsp ' . fnameescape(names[0])
+  elseif mode == 's'
+    exec ':sp ' . fnameescape(names[0])
+  else 
+    exec ':e ' . fnameescape(names[0])
+  endif
+
+  " Delete the file content of the choose file
+  exec '!>' . choosefile
+  redraw!
+endfunction
+command! -bar RangerDialog call <SID>RangerFileChooser()
+nnoremap <leader>o :RangerDialog<CR>
 
 
 
