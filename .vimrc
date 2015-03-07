@@ -53,14 +53,16 @@ Plugin 'honza/vim-snippets'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'mrtazz/DoxygenToolkit.vim'
 Plugin 'bling/vim-airline'
+Plugin 'lervag/vim-latex'
 filetype plugin indent on
 
 
 
 " ================================================== 
-" GLOBAL LEADER KEY
+" LEADER KEY
 " ================================================== 
 :let mapleader = ","
+:let maplocalleader = "\\"
 
 
 " ================================================== 
