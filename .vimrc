@@ -45,6 +45,7 @@ call vundle#rc()
 Plugin 'gmarik/vundle'
 Plugin 'Wh0p/FSwitch'
 Plugin 'Wh0p/paraMark'
+Plugin 'Wh0p/vim-usefulness'
 Plugin 'kien/ctrlp.vim'
 Plugin 'ervandew/supertab'
 Plugin 'SirVer/ultisnips'
@@ -186,56 +187,23 @@ endif
 
 
 " ================================================== 
-" CURSOR MOVEMENT
-" ==================================================
-function! <SID>RangerFileChooser()
-  let choosefile = '/tmp/ranger_choose_file.txt'
+" VIM-USEFULNESS CONFIG
+" ================================================== 
+" Configure vimopendialogue
+let g:vim_opendialogue_launch_terminal = 1
 
-  " The option "--choosefiles" requires ranger 1.5.1...
-  " Launch new terminal and execute shell commands: cd to directory of current file && launch ranger with --choosefile option
-  exec "!gnome-terminal -x sh -c 'cd " . expand('%:p:h') . " && ranger --choosefile=" . choosefile . "'"
-
-  " Prompt for how the file should be opened (this is mainly needed because I need a blocking function call untill the ranger dialogue is closed)
-  echohl Question
-  echo "Open mode: [h]ere (default)  |  [t]ab  |  [v]ertical split  |  horizontal [s]plit  |  [A]bort     "
-  echohl None
-  let mode = nr2char(getchar())
-
-  " Read the choosefile contents
-  if !filereadable(choosefile)
-      redraw!
-      echo "No temp choosefile..."
-      return
-  endif
-  let names = readfile(choosefile)
-  if empty(names)
-      redraw!
-      echo "No filename specified..."
-      return
-  endif
-
-  " Switch how the file should be opened
-  if mode == 'A'
-    echo 'Done nothing.'
-  elseif mode == 't'
-    exec ':tabedit ' . fnameescape(names[0])
-  elseif mode == 'v'
-    exec ':vsp ' . fnameescape(names[0])
-  elseif mode == 's'
-    exec ':sp ' . fnameescape(names[0])
-  else 
-    exec ':e ' . fnameescape(names[0])
-  endif
-
-  " Delete the file content of the choose file
-  exec '!>' . choosefile
-  redraw!
-endfunction
-command! -bar RangerDialog call <SID>RangerFileChooser()
-nnoremap <leader>o :RangerDialog<CR>
+nnoremap <leader>o :FMDialogue<CR>
 
 
 
+
+
+" ================================================== 
+" EDITING
+" ================================================== 
+inoremap <C-V> <ESC>pi
+noremap <C-V> p
+vnoremap <C-C> y
 
 
 

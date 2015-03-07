@@ -128,6 +128,14 @@ gvimandexit ()
   gvim $1
   exit
 }
-
-
 alias ggvim=gvimandexit
+
+
+btexfunc ()
+{
+  pdflatex $1
+  bibtex $1
+  pdflatex $1
+  pdflatex $1
+}
+alias btex=btexfunc
