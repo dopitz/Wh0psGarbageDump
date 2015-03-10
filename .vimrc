@@ -177,6 +177,7 @@ func! FormatCode(cmd)
   let pos = getpos(".")
   exec "%!" . a:cmd
   call setpos(".", pos)
+  exec "normal! :w"
 endfunction
 
 if executable("astyle")
@@ -234,10 +235,42 @@ nnoremap <C-H> <C-W><C-H>
 nnoremap <C-L> <C-W><C-L>
 " tab cycle
 nnoremap <C-X> :tabn<CR>
+inoremap <C-X> <ESC>:tabn<CR>a
 nnoremap <C-Z> :tabp<CR>
+inoremap <C-Z> <ESC>:tabp<CR>a
 " switch between header/source with F4
 map <F4> :FSHere<CR>
 
+
+
+
+function! CPPfold()
+  if (getline(v:lnum+1)[0] == '{')
+    return '>1'
+  elseif (getline(v:lnum+1)[0] == '}')
+    return '<1'
+  endif
+  return foldlevel(v:lnum-1)
+endfunction
+
+
+
+"set foldexpr=CPPfold()
+"set foldmethod=expr
+set foldmethod=syntax
+set foldlevel=0
+set foldenable
+
+
+
+" set the foldlevel
+let g:my_personal_foldlevel = 1
+function! ModFold(inc)
+  let g:my_personal_foldlevel = g:my_personal_foldlevel + a:inc
+  exec ":set foldlevel=" . g:my_personal_foldlevel
+endfunction
+nnoremap <leader>fc :call ModFold(-1)<CR>
+nnoremap <leader>fo :call ModFold(1)<CR>
 
 
 
