@@ -194,7 +194,7 @@ endif
 " ================================================== 
 " Configure vimopendialogue
 let g:vim_opendialogue_launch_terminal = 1
-
+let g:vim_opendialogue_launch_terminal_name = "xterm -e"
 
 nnoremap <leader>o :FMDialogue<CR>
 
@@ -248,7 +248,7 @@ map <F4> :FSHere<CR>
 "set foldexpr=CPPfold()
 "set foldmethod=expr
 set foldmethod=syntax
-set foldlevel=1
+set foldlevel=0
 set foldenable
 
 
