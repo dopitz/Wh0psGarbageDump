@@ -51,6 +51,7 @@ Plugin 'ervandew/supertab'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'Raimondi/delimitMate'
 Plugin 'mrtazz/DoxygenToolkit.vim'
 Plugin 'bling/vim-airline'
 Plugin 'lervag/vim-latex'
@@ -134,7 +135,6 @@ let g:ctrlp_working_path_mode = ''
 
 
 
-
 " ================================================== 
 " TEXT ENCODING AND FORMATTING
 " ================================================== 
@@ -195,6 +195,7 @@ endif
 " Configure vimopendialogue
 let g:vim_opendialogue_launch_terminal = 1
 
+
 nnoremap <leader>o :FMDialogue<CR>
 
 
@@ -244,21 +245,10 @@ map <F4> :FSHere<CR>
 
 
 
-function! CPPfold()
-  if (getline(v:lnum+1)[0] == '{')
-    return '>1'
-  elseif (getline(v:lnum+1)[0] == '}')
-    return '<1'
-  endif
-  return foldlevel(v:lnum-1)
-endfunction
-
-
-
 "set foldexpr=CPPfold()
 "set foldmethod=expr
 set foldmethod=syntax
-set foldlevel=0
+set foldlevel=1
 set foldenable
 
 

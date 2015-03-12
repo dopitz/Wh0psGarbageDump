@@ -7,12 +7,13 @@ then
   cp ~/.vimrc $DIR/.vimrc
   cp ~/.bashrc $DIR/.bashrc
   cp ~/.latexmkrc $DIR/.latexmkrc
+  cp ~/.Xresources $DIR/.XRecources
   echo "copy from home/ to " $DIR
 else if [ $1 == "out" ]
 then
   cp $DIR/.vimrc ~/.vimrc 
   cp $DIR/.bashrc ~/.bashrc 
-  cp $DIR/.latexmkrc ~/.latexmkrc 
+  cp $DIR/.Xresources ~/.Xresources 
   echo "copy from " $DIR " to home"
 fi
 fi
