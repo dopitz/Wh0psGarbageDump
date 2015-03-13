@@ -234,11 +234,13 @@ nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-H> <C-W><C-H>
 nnoremap <C-L> <C-W><C-L>
-" tab cycle
+"" tab cycle
 nnoremap <C-X> :tabn<CR>
 inoremap <C-X> <ESC>:tabn<CR>a
 nnoremap <C-Z> :tabp<CR>
 inoremap <C-Z> <ESC>:tabp<CR>a
+" new tab
+nnoremap <C-W><C-T> :tabe<CR>
 " switch between header/source with F4
 map <F4> :FSHere<CR>
 
@@ -268,7 +270,7 @@ nnoremap <leader>fo :call ModFold(1)<CR>
 " LOAD SAVE KEYMAPS FILES
 " ==================================================  
 nnoremap <C-S> :w<CR>
-inoremap <C-S> <ESC>:w<CR>i
+inoremap <C-S> <ESC>:w<CR>a
 nnoremap <leader>q :q<CR>
 
 
