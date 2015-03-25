@@ -255,23 +255,20 @@ set foldenable
 
 
 
-" set the foldlevel
-let g:my_personal_foldlevel = 1
-function! ModFold(inc)
-  let g:my_personal_foldlevel = g:my_personal_foldlevel + a:inc
-  exec ":set foldlevel=" . g:my_personal_foldlevel
-endfunction
-nnoremap <leader>fc :call ModFold(-1)<CR>
-nnoremap <leader>fo :call ModFold(1)<CR>
-
-
 
 " ================================================== 
 " LOAD SAVE KEYMAPS FILES
 " ==================================================  
+" save file
 nnoremap <C-S> :w<CR>
 inoremap <C-S> <ESC>:w<CR>a
-nnoremap <leader>q :q<CR>
+" save all
+nnoremap <C-S><C-A> :wa<CR>
+inoremap <C-S><C-A> <ESC>:wa<CR>a
+" save all, save session, exit all
+nnoremap <leader>qq :q<CR>
+nnoremap <leader>qa :mks!<CR> :qa<CR>
+
 
 
 " ================================================== 
