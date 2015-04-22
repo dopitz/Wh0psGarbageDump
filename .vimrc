@@ -21,7 +21,10 @@
 " n<leader>df     Format code of current buffer via astyle
 " n<leader>o      Launch CtrlP
 " n<leader>p      Launch RangerChooser
-" n<leader>t      Launch NERDTree
+"
+" n<leader>r      search replace word under cursor
+" n<leader>f      find word under cursor
+
 
  
 
@@ -46,6 +49,7 @@ Plugin 'gmarik/vundle'
 Plugin 'Wh0p/FSwitch'
 Plugin 'Wh0p/paraMark'
 Plugin 'Wh0p/vim-usefulness'
+Plugin 'rking/ag.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'ervandew/supertab'
 Plugin 'SirVer/ultisnips'
@@ -208,6 +212,9 @@ nnoremap <leader>o :FMDialogue<CR>
 inoremap <C-V> <ESC>pi
 noremap <C-V> p
 vnoremap <C-C> y
+" search replace/find word under the cursor
+nnoremap <leader>r :%s/\<<C-r><C-w>\>/
+nnoremap <leader>f /\<<C-r><C-w>\>
 
 
 
