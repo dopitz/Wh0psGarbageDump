@@ -70,17 +70,24 @@ filetype plugin indent on
 :let maplocalleader = "\\"
 
 
+
 " ================================================== 
-" Airline config
+" Ad ingnore docs
 " ================================================== 
-set laststatus=2
-let g:airline_left_sep = '⯈' 
-let g:airline_left_alt_sep = '>'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#show_buffers = 0
-let g:airline#extensions#tabline#tab_nr_type = 2 " splits and tab number
-let g:airline#extensions#tabline#left_sep = '⯈' 
-let g:airline#extensions#tabline#left_alt_sep = '>'
+let g:ag_prg="ag --column --nogroup --noheading --ignore-dir=docs"
+
+
+
+" ================================================== 
+" CtrlP shortcuts and ingnore
+" ================================================== 
+nnoremap <leader>p :CtrlP<CR>
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\.git$\|build$\|doc$',
+  \ 'file': '\.out$\|\.dat$'
+  \ }
+let g:ctrlp_working_path_mode = ''
+
 
 
 " ================================================== 
@@ -101,6 +108,42 @@ let g:SuperTabCrMapping=0
 let g:UltiSnipsExpandTrigger='<tab>'
 let g:UltiSnipsJumpForwardTrigger='<tab>'
 let g:UltiSnipsJumpBackwardTrigger='<s-tab>'
+
+
+
+" ================================================== 
+" Airline config
+" ================================================== 
+set laststatus=2
+let g:airline_left_sep = '⯈' 
+let g:airline_left_alt_sep = '>'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_buffers = 0
+let g:airline#extensions#tabline#tab_nr_type = 2 " splits and tab number
+let g:airline#extensions#tabline#left_sep = '⯈' 
+let g:airline#extensions#tabline#left_alt_sep = '>'
+
+
+
+" ================================================== 
+" YouCompleteMe configs
+" ================================================== 
+let g:ycm_confirm_extra_conf = 0
+let g:ycm_error_symbol = '!>'
+let g:ycm_warning_symbol = 'o>'
+nnoremap <leader>cc :YcmDiag<CR>
+
+" Make ycm and ultisnips play along
+let g:ycm_key_list_select_completion=['<C-j>', '<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion=['<C-k>', '<C-p>', '<Up>']
+
+let g:SuperTabDefaultCompletionType='<C-n>'
+let g:SuperTabCrMapping=0
+
+let g:UltiSnipsExpandTrigger='<tab>'
+let g:UltiSnipsJumpForwardTrigger='<tab>'
+let g:UltiSnipsJumpBackwardTrigger='<s-tab>'
+
 
 
 
@@ -126,15 +169,7 @@ inoremap <C-D>0 <ESC>:CpyParamList 0<CR>
 
 
 
-" ================================================== 
-" CtrlP shortcuts and ingnore
-" ================================================== 
-nnoremap <leader>p :CtrlP<CR>
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\.git$\|build$\|doc$',
-  \ 'file': '\.out$\|\.dat$'
-  \ }
-let g:ctrlp_working_path_mode = ''
+
 
 
 
