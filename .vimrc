@@ -83,7 +83,7 @@ let g:ag_prg="ag --column --nogroup --noheading --ignore-dir=docs"
 " ================================================== 
 nnoremap <leader>p :CtrlP<CR>
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\.git$\|build$\|doc$',
+  \ 'dir':  '\.git$\|build$\|docs$',
   \ 'file': '\.out$\|\.dat$'
   \ }
 let g:ctrlp_working_path_mode = ''
