@@ -48,14 +48,12 @@ call vundle#rc()
 Plugin 'gmarik/vundle'
 Plugin 'Wh0p/FSwitch'
 Plugin 'Wh0p/paraMark'
-Plugin 'Wh0p/vim-usefulness'
 Plugin 'rking/ag.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'ervandew/supertab'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'Valloric/YouCompleteMe'
-Plugin 'Raimondi/delimitMate'
 Plugin 'mrtazz/DoxygenToolkit.vim'
 Plugin 'bling/vim-airline'
 Plugin 'lervag/vim-latex'
@@ -229,19 +227,6 @@ endif
 
 
 " ================================================== 
-" VIM-USEFULNESS CONFIG
-" ================================================== 
-" Configure vimopendialogue
-let g:vim_opendialogue_launch_terminal = 1
-let g:vim_opendialogue_launch_terminal_name = "xterm -e"
-
-nnoremap <leader>o :FMDialogue<CR>
-
-
-
-
-
-" ================================================== 
 " EDITING
 " ================================================== 
 inoremap <C-V> <ESC>pi
@@ -250,6 +235,8 @@ vnoremap <C-C> y
 " search replace/find word under the cursor
 nnoremap <leader>r :%s/\<<C-r><C-w>\>/
 nnoremap <leader>f /\<<C-r><C-w>\>
+" auto close curly bracket
+inoremap { {<CR>}<ESC>O
 
 
 
