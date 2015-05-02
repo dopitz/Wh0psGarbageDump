@@ -48,6 +48,7 @@ call vundle#rc()
 Plugin 'gmarik/vundle'
 Plugin 'Wh0p/FSwitch'
 Plugin 'Wh0p/paraMark'
+Plugin 'vim-scripts/TaskList.vim'
 Plugin 'rking/ag.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'ervandew/supertab'
