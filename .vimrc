@@ -81,11 +81,13 @@ let g:ag_prg="ag --column --nogroup --noheading --ignore-dir=docs"
 " CtrlP shortcuts and ingnore
 " ================================================== 
 nnoremap <leader>p :CtrlP<CR>
+nnoremap <leader>o :tabe<CR>:CtrlP<CR>
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\.git$\|build$\|docs$',
   \ 'file': '\.out$\|\.dat$'
   \ }
 let g:ctrlp_working_path_mode = ''
+
 
 
 
@@ -210,16 +212,23 @@ set guioptions-=L
 set guifont=Droid\ Sans\ Mono\ 10
 
 
+" trim lines at the end of file
+func! TrimEndLines()
+    let save_cursor = getpos(".")
+    :silent! %s#\($\n\s*\)\+\%$##
+    call setpos('.', save_cursor)
+endfunc
+
 " astyle formatting
 func! FormatCode(cmd)
   let pos = getpos(".")
   exec "%!" . a:cmd
+  :silent! %s#\($\n\s*\)\+\%$##
   call setpos(".", pos)
-  exec "normal! :w"
 endfunction
 
 if executable("astyle")
-  let astyle = "astyle --style=allman --indent=spaces=2 --indent-switches --indent-namespaces --indent-preproc-define --indent-col1-comments --min-conditional-indent=0 --pad-oper --pad-header --unpad-paren --align-pointer=type --align-reference=type" 
+  let astyle = "astyle --style=allman --indent=spaces=2 --indent-switches --indent-namespaces --indent-preproc-define --indent-preproc-cond --indent-col1-comments --min-conditional-indent=0 --pad-oper --pad-header --unpad-paren --align-pointer=type --align-reference=type --convert-tabs --close-templates --break-after-logical" 
   
   nnoremap <leader>df :call FormatCode(astyle)<CR>
 endif
@@ -272,7 +281,9 @@ inoremap <C-Z> <ESC>:tabp<CR>a
 " new tab
 nnoremap <C-W><C-T> :tabe<CR>
 " switch between header/source with F4
-map <F4> :FSHere<CR>
+nnoremap <F4> :FSHere<CR>
+nnoremap <leader>; :FSHere<CR>
+nnoremap <leader># :tab split<CR>:FSHere<CR>
 
 
 
