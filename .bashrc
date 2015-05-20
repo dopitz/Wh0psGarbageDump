@@ -140,6 +140,7 @@ btexfunc ()
 }
 alias btex=btexfunc
 
+export PATH=${HOME}/.local/bin:${PATH}
 
 
 # CUDA

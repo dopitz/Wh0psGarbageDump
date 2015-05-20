@@ -147,7 +147,6 @@ let g:UltiSnipsJumpBackwardTrigger='<s-tab>'
 
 
 
-
 " ================================================== 
 " paraMark mappings
 " ================================================== 
@@ -259,6 +258,16 @@ nnoremap n nzz
 nnoremap N Nzz
 nnoremap G Gzz
 set scrolloff=25
+
+nnoremap <Up> <NOP>
+vnoremap <Up> <NOP>
+nnoremap <Down> <NOP>
+vnoremap <Down> <NOP>
+nnoremap <Left> <NOP>
+vnoremap <Left> <NOP>
+nnoremap <Right> <NOP>
+vnoremap <Right> <NOP>
+
 
 
 
