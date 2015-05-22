@@ -233,6 +233,8 @@ if executable("astyle")
 endif
 
 
+" enable spelling for git commits
+autocmd Filetype gitcommit setlocal spell textwidth=72
 
 
 " ================================================== 
