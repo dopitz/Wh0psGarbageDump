@@ -246,6 +246,20 @@ vnoremap <C-C> y
 " search replace/find word under the cursor
 nnoremap <leader>r :%s/\<<C-r><C-w>\>/
 nnoremap <leader>f /\<<C-r><C-w>\>
+
+let g:toggle_search_hl_indicator = 0
+func! ToggleSearchHL()
+  if g:toggle_search_hl_indicator == 0
+    exec ":set hlsearch"
+    let g:toggle_search_hl_indicator = 1
+  else
+    exec ":set nohlsearch"
+    let g:toggle_search_hl_indicator = 0
+  endif
+endfunc
+
+nnoremap <leader>hl :call ToggleSearchHL()<CR>
+
 " auto close curly bracket
 inoremap { {<CR>}<ESC>O
 
