@@ -12,9 +12,16 @@
 " i<C-A>          paraMark:NextArg jumps to the next function parameter and marks it in visual mode
 " v<C-A>          paraMark:NextArg jumps to the next function parameter and marks it in visual mode
 " i<C-D>d|1-0     Copy the function header from the preview window
+"
 " n<C-H/L/J/K>    Navigate to left/right/up/down split window
 " n<C-X/Z>        Navigate to next/previous tab window
-" n<C-S           Save file
+"
+" n<C-S>          Save file
+" i<C-S><C-S>     Save file
+" ni<C-S><C-A>    Save all
+" n<C-E><C-E>     Quit file
+" n<C-E><C-A>     Save session and exit all
+"
 " n<C-Up/Down>    Open close errorlist after compile
 " n<C-Left/Right> Navigate to next/previsous error
 "
@@ -24,6 +31,8 @@
 "
 " n<leader>r      search replace word under cursor
 " n<leader>f      find word under cursor
+" n<leader>hl     toggle highlight search
+" n<leader>ag     start Ag in new tab
 
 
  
@@ -48,7 +57,6 @@ call vundle#rc()
 Plugin 'gmarik/vundle'
 Plugin 'Wh0p/FSwitch'
 Plugin 'Wh0p/paraMark'
-Plugin 'vim-scripts/TaskList.vim'
 Plugin 'rking/ag.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'ervandew/supertab'
@@ -74,6 +82,7 @@ filetype plugin indent on
 " Ad ingnore docs
 " ================================================== 
 let g:ag_prg="ag --column --nogroup --noheading --ignore-dir=docs"
+nnoremap <leader>ag :tabe<Cr>:Ag 
 
 
 
@@ -97,6 +106,8 @@ let g:ctrlp_working_path_mode = ''
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_error_symbol = '!>'
 let g:ycm_warning_symbol = 'o>'
+let g:ycm_always_populate_location_list = 1
+let g:ycm_add_preview_to_completeopt = 0
 nnoremap <leader>cc :YcmDiag<CR>
 
 " Make ycm and ultisnips play along
@@ -188,8 +199,10 @@ set smartindent
 set tabstop=2
 set shiftwidth=2
 set expandtab 
-" wrap lines at 160 chars. 80 is somewaht antiquated with nowadays displays.
-set textwidth=160
+" wrap lines but do not insert any linebreaks
+set wrap
+set textwidth=0
+set wrapmargin=0
 " turn on syntaxhighlight with colorscheme candycode
 set t_Co=256
 syntax on
@@ -210,7 +223,18 @@ set guioptions-=L
 " gvim font
 set guifont=Droid\ Sans\ Mono\ 10
 
+" folds
+set foldmethod=syntax
+set foldlevel=0
+set foldenable
 
+" enable spelling for git commits
+autocmd Filetype gitcommit setlocal spell textwidth=72
+
+
+" ================================================== 
+" ASTYLE STUFF
+" ================================================== 
 " trim lines at the end of file
 func! TrimEndLines()
     let save_cursor = getpos(".")
@@ -226,15 +250,14 @@ func! FormatCode(cmd)
   call setpos(".", pos)
 endfunction
 
+" set the shortcut only for code
 if executable("astyle")
   let astyle = "astyle --style=allman --indent=spaces=2 --indent-switches --indent-namespaces --indent-preproc-define --indent-preproc-cond --indent-col1-comments --min-conditional-indent=0 --pad-oper --pad-header --unpad-paren --align-pointer=type --align-reference=type --convert-tabs --close-templates --break-after-logical" 
   
-  nnoremap <leader>df :call FormatCode(astyle)<CR>
+  autocmd Filetype cxx,cpp,c,h,hpp nnoremap <leader>df :call FormatCode(astyle)<CR>
 endif
 
 
-" enable spelling for git commits
-autocmd Filetype gitcommit setlocal spell textwidth=72
 
 
 " ================================================== 
@@ -251,9 +274,11 @@ let g:toggle_search_hl_indicator = 0
 func! ToggleSearchHL()
   if g:toggle_search_hl_indicator == 0
     exec ":set hlsearch"
+    echo "Search hightlight on"
     let g:toggle_search_hl_indicator = 1
   else
     exec ":set nohlsearch"
+    echo "Search hightlight off"
     let g:toggle_search_hl_indicator = 0
   endif
 endfunc
@@ -261,7 +286,7 @@ endfunc
 nnoremap <leader>hl :call ToggleSearchHL()<CR>
 
 " auto close curly bracket
-inoremap { {}<ESC>i
+autocmd Filetype cxx,cpp,c,h,hpp,tex,bib inoremap { {}<ESC>i
 
 
 
@@ -313,11 +338,6 @@ nnoremap <leader># :tab split<CR>:FSHere<CR>
 
 
 
-"set foldexpr=CPPfold()
-"set foldmethod=expr
-set foldmethod=syntax
-set foldlevel=0
-set foldenable
 
 
 
@@ -332,8 +352,8 @@ inoremap <C-S> <ESC>:w<CR>a
 nnoremap <C-S><C-A> :wa<CR>
 inoremap <C-S><C-A> <ESC>:wa<CR>a
 " save all, save session, exit all
-nnoremap <leader>qq :q<CR>
-nnoremap <leader>qa :mks!<CR> :qa<CR>
+nnoremap <C-E><C-E> :bd<CR>
+nnoremap <C-E><C-A> :mks!<CR> :qa<CR>
 
 
 
@@ -341,14 +361,14 @@ nnoremap <leader>qa :mks!<CR> :qa<CR>
 " BUILD AND DEBUG KEYMAPS
 " ==================================================  
 " make project 
-map <F7> :make -C ./build/<CR>
+autocmd Filetype cxx,cpp,c,h,hpp map <F7> :make -C ./build/<CR>
 " make clean
-map <S-F7> :make clean all -C ./build/<CR>
+autocmd Filetype cxx,cpp,c,h,hpp map <S-F7> :make clean all -C ./build/<CR>
 " open/close errorlist and navigate errors
-nnoremap <C-Up> :cw<CR>
-nnoremap <C-Down> :ccl<CR>
-nnoremap <C-Left> :cp<CR>
-nnoremap <C-Right> :cn<CR>
+autocmd Filetype cxx,cpp,c,h,hpp nnoremap <C-Up> :cw<CR>
+autocmd Filetype cxx,cpp,c,h,hpp nnoremap <C-Down> :ccl<CR>
+autocmd Filetype cxx,cpp,c,h,hpp nnoremap <C-Left> :cp<CR>
+autocmd Filetype cxx,cpp,c,h,hpp nnoremap <C-Right> :cn<CR>
 
 
 
