@@ -261,7 +261,7 @@ endfunc
 nnoremap <leader>hl :call ToggleSearchHL()<CR>
 
 " auto close curly bracket
-inoremap { {<CR>}<ESC>O
+inoremap { {}<ESC>i
 
 
 
