@@ -14,10 +14,10 @@ set cpo&vim
 " text {{{
 
 hi Normal       guifg=#ffffff       guibg=#050505       gui=NONE
-            \   ctermfg=white       ctermbg=NONE        cterm=NONE
+            \   ctermfg=white       ctermbg=black       cterm=NONE
 
 hi Folded       guifg=#c2bfa5       guibg=#050505       gui=underline
-            \   ctermfg=lightgray   ctermbg=NONE        cterm=underline
+            \   ctermfg=lightgray   ctermbg=black       cterm=underline
 
 hi LineNr       guifg=#928c75       guibg=NONE          gui=NONE
             \   ctermfg=darkgray    ctermbg=NONE        cterm=NONE

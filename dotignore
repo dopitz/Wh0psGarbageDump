@@ -1,3 +1,4 @@
-some
-ignores
-./.weechat
+syntax
+updatedot.sh
+copydotfiles.sh
+dotignore
