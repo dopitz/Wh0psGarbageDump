@@ -6,33 +6,56 @@
 "
 " Keymaps by this file:
 "
-" <F4>            Switch headder/source file (FileSwitch)
+" Open/Close/Navigate Windows/Tabs
+" =========================================================
+" n<leader>p              Launch CtrlP
+" n<leader>o              Launch CtrlP in new tab
 "
-" n<C-A>          paraMark:NextArg jumps to the next function parameter and marks it in visual mode
-" i<C-A>          paraMark:NextArg jumps to the next function parameter and marks it in visual mode
-" v<C-A>          paraMark:NextArg jumps to the next function parameter and marks it in visual mode
-" i<C-D>d|1-0     Copy the function header from the preview window
+" n<C-S>                  Save file
+" i<C-S><C-S>             Save file
+" ni<C-S><C-A>            Save all
+" n<C-E><C-E>             Quit file
+" n<C-E><C-A>             Save session and exit all
 "
-" n<C-H/L/J/K>    Navigate to left/right/up/down split window
-" n<C-X/Z>        Navigate to next/previous tab window
+" n<C-W><C-T>             New tab
+" ni<C-X>                 Go to next tab
+" ni<C-Z>                 Go to previous tab
 "
-" n<C-S>          Save file
-" i<C-S><C-S>     Save file
-" ni<C-S><C-A>    Save all
-" n<C-E><C-E>     Quit file
-" n<C-E><C-A>     Save session and exit all
+" n<C-H/L/J/K>            Navigate to left/right/up/down split window
+" n<C-X/Z>                Navigate to next/previous tab window
 "
-" n<C-Up/Down>    Open close errorlist after compile
-" n<C-Left/Right> Navigate to next/previsous error
+" n <space>/n/N/G         Keep cursor centered when jumping to search results
+" nv<Up/Down/Left/Right>  Don't allow arrow keys in normal and visual mode
 "
-" n<leader>df     Format code of current buffer via astyle
-" n<leader>o      Launch CtrlP
-" n<leader>p      Launch RangerChooser
 "
-" n<leader>r      search replace word under cursor
-" n<leader>f      find word under cursor
-" n<leader>hl     toggle highlight search
-" n<leader>ag     start Ag in new tab
+"
+" Editing
+" =========================================================
+" n<leader>r              Search and replace in file the word under the cursor
+" n<leader>f              Search in file the word under the cursor
+" n<leader>hl             Toggle highlighting search results
+" n<leader>ag             Start Ag in a new tab
+"
+" n<leader>sc             Cycle through spell check languages/disable spell check
+"
+"
+"
+" C++ Editing
+" =========================================================
+" <F4>                    Switch header/source file (FileSwitch)
+"
+" n<leader>df             Format file with astyle
+"
+" <F7>                    Make project
+" <S-F7>                  Make clean project
+" n<C-Up/Down>            Open close error list after compile
+" n<C-Left/Right>         Navigate to next/previous error
+"
+" niv<C-A>                Jumps to the next function parameter and marks it in visual mode
+" i<C-D>d|1-0             Copy the function header from the preview window
+"                           listed from YouCompleteMe
+"
+" i{                      Auto close curly bracket
 
 
  
@@ -79,7 +102,7 @@ filetype plugin indent on
 
 
 " ================================================== 
-" Ad ingnore docs
+" Ad ignore docs
 " ================================================== 
 let g:ag_prg="ag --column --nogroup --noheading --ignore-dir=docs"
 nnoremap <leader>ag :tabe<Cr>:Ag 
@@ -87,7 +110,7 @@ nnoremap <leader>ag :tabe<Cr>:Ag
 
 
 " ================================================== 
-" CtrlP shortcuts and ingnore
+" CtrlP shortcuts and ignore
 " ================================================== 
 nnoremap <leader>p :CtrlP<CR>
 nnoremap <leader>o :tabe<CR>:CtrlP<CR>
@@ -165,7 +188,7 @@ nnoremap <C-A> :NextArg<CR>
 inoremap <C-A> <ESC>:NextArg<CR>
 vnoremap <C-A> <ESC>:NextArg<CR>
 
-" Copy the parameter list for up to 10 diferent overloads
+" Copy the parameter list for up to 10 different overloads
 inoremap <C-D>d <ESC>:CpyParamList 1<CR>
 inoremap <C-D>1 <ESC>:CpyParamList 1<CR>
 inoremap <C-D>2 <ESC>:CpyParamList 2<CR>
@@ -199,11 +222,11 @@ set smartindent
 set tabstop=2
 set shiftwidth=2
 set expandtab 
-" wrap lines but do not insert any linebreaks
+" wrap lines but do not insert any line breaks
 set wrap
 set textwidth=0
 set wrapmargin=0
-" turn on syntaxhighlight with colorscheme candycode
+" turn on syntax highlight with colorscheme candycode
 set t_Co=256
 syntax on
 colorscheme candycode
@@ -228,8 +251,39 @@ set foldmethod=syntax
 set foldlevel=0
 set foldenable
 
+
+
+" ================================================== 
+" SPELLCHECKING
+" ================================================== 
+" Function for cycling through different spell checking configs.
+let g:cycle_spell_check_indicator = 0
+func! CycleSpellCheck()
+  if g:cycle_spell_check_indicator == 0
+    exec ":set nospell"
+    echo "Spellchecking disabled."
+    let g:cycle_spell_check_indicator = 1
+  elseif g:cycle_spell_check_indicator == 1
+    exec ":set spell spelllang=en_us"
+    echo "Spellchecking enabled: EN_US"
+    let g:cycle_spell_check_indicator = 2
+  else
+    exec ":set spell spelllang=de_de"
+    echo "Spellchecking enabled: DE_DE"
+    let g:cycle_spell_check_indicator = 0
+  endif
+endfunc
+
 " enable spelling for git commits
-autocmd Filetype gitcommit setlocal spell textwidth=72
+autocmd Filetype gitcommit setlocal spell spelllang=en_us textwidth=72
+
+" Call the CycleSpellCheck on startup once to initialize
+call CycleSpellCheck()
+
+nnoremap <leader>sc :call CycleSpellCheck()<CR>
+
+
+
 
 
 " ================================================== 
@@ -263,9 +317,6 @@ endif
 " ================================================== 
 " EDITING
 " ================================================== 
-inoremap <C-V> <ESC>pi
-noremap <C-V> p
-vnoremap <C-C> y
 " search replace/find word under the cursor
 nnoremap <leader>r :%s/\<<C-r><C-w>\>/
 nnoremap <leader>f /\<<C-r><C-w>\>
@@ -331,9 +382,7 @@ inoremap <C-Z> <ESC>:tabp<CR>a
 " new tab
 nnoremap <C-W><C-T> :tabe<CR>
 " switch between header/source with F4
-nnoremap <F4> :FSHere<CR>
-nnoremap <leader>; :FSHere<CR>
-nnoremap <leader># :tab split<CR>:FSHere<CR>
+autocmd Filetype cxx,cpp,c,h,hpp noremap <F4> :FSHere<CR>
 
 
 
@@ -364,7 +413,7 @@ nnoremap <C-E><C-A> :mks!<CR> :qa<CR>
 autocmd Filetype cxx,cpp,c,h,hpp map <F7> :make -C ./build/<CR>
 " make clean
 autocmd Filetype cxx,cpp,c,h,hpp map <S-F7> :make clean all -C ./build/<CR>
-" open/close errorlist and navigate errors
+" open/close error list and navigate errors
 autocmd Filetype cxx,cpp,c,h,hpp nnoremap <C-Up> :cw<CR>
 autocmd Filetype cxx,cpp,c,h,hpp nnoremap <C-Down> :ccl<CR>
 autocmd Filetype cxx,cpp,c,h,hpp nnoremap <C-Left> :cp<CR>
