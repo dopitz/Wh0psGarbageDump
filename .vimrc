@@ -112,7 +112,7 @@ nnoremap <leader>ag :tabe<Cr>:Ag
 " ================================================== 
 " CtrlP shortcuts and ignore
 " ================================================== 
-nnoremap <leader>p :CtrlP<CR>
+let g:ctrlp_map = '<leader>p'
 nnoremap <leader>o :tabe<CR>:CtrlP<CR>
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\.git$\|build$\|docs$',
