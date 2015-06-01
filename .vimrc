@@ -17,7 +17,8 @@
 " n<C-E><C-E>             Quit file
 " n<C-E><C-A>             Save session and exit all
 "
-" n<C-W><C-T>             New tab
+" n<C-T>                  New tab
+" n<C-W>                  Close tab
 " ni<C-X>                 Go to next tab
 " ni<C-Z>                 Go to previous tab
 "
@@ -35,6 +36,7 @@
 " n<leader>f              Search in file the word under the cursor
 " n<leader>hl             Toggle highlighting search results
 " n<leader>ag             Start Ag in a new tab
+" n<leader>tl             Start Ag in new tab and search for TODO
 "
 " n<leader>sc             Cycle through spell check languages/disable spell check
 "
@@ -107,6 +109,7 @@ filetype plugin indent on
 " ================================================== 
 let g:ag_prg="ag --column --nogroup --noheading --ignore-dir=docs"
 nnoremap <leader>ag :tabe<Cr>:Ag 
+nnoremap <leader>tl :tabe<Cr>:Ag TODO<CR>
 
 
 
@@ -373,17 +376,18 @@ vnoremap <Right> <NOP>
 set splitbelow
 set splitright
 " remap split window navigation
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-H> <C-W><C-H>
-nnoremap <C-L> <C-W><C-L>
+nnoremap <silent> <C-J> :wincmd j<CR>
+nnoremap <silent> <C-K> :wincmd k<CR>
+nnoremap <silent> <C-H> :wincmd h<CR>
+nnoremap <silent> <C-L> :wincmd l<CR>
 "" tab cycle
 nnoremap <C-X> :tabn<CR>
 inoremap <C-X> <ESC>:tabn<CR>a
 nnoremap <C-Z> :tabp<CR>
 inoremap <C-Z> <ESC>:tabp<CR>a
-" new tab
-nnoremap <C-W><C-T> :tabe<CR>
+" new tab, close tab
+nnoremap <C-T> :tabe<CR>
+nnoremap <C-W> :tabclose<CR>
 " switch between header/source with F4
 autocmd Filetype cxx,cpp,c,h,hpp noremap <F4> :FSHere<CR>
 
