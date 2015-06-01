@@ -17,7 +17,16 @@
 " n<C-E><C-E>             Quit file
 " n<C-E><C-A>             Save session and exit all
 "
-" n<C-T>                  New tab
+"
+" n<C-J>                  Move cursor to split window above
+" n<C-K>                  Move cursor to split window below
+" n<C-H>                  Move cursor to split window to the left
+" n<C-L>                  Move cursor to split window to the right
+"
+" n<C-PageUp>             Increase size of current split
+" n<C-PageDown>           Decrease size of current split
+"
+" n<C-T>                  New tab (with same buffer)
 " n<C-W>                  Close tab
 " ni<C-X>                 Go to next tab
 " ni<C-Z>                 Go to previous tab
@@ -28,6 +37,8 @@
 " n <space>/n/N/G         Keep cursor centered when jumping to search results
 " nv<Up/Down/Left/Right>  Don't allow arrow keys in normal and visual mode
 "
+"
+" n<leader>gs             Dublicate tab and launch :Gstatus with resized split
 "
 "
 " Editing
@@ -125,6 +136,11 @@ let g:ctrlp_custom_ignore = {
   \ }
 let g:ctrlp_working_path_mode = ''
 
+
+" ================================================== 
+" Fugitive shortcuts
+" ================================================== 
+nnoremap <leader>gs :tabe %<CR>:Gstatus<CR>:resize 30<CR>
 
 
 
@@ -380,13 +396,15 @@ nnoremap <silent> <C-J> :wincmd j<CR>
 nnoremap <silent> <C-K> :wincmd k<CR>
 nnoremap <silent> <C-H> :wincmd h<CR>
 nnoremap <silent> <C-L> :wincmd l<CR>
+nnoremap <silent> <C-PAGEUP> :wincmd +<CR>
+nnoremap <silent> <C-PAGEDOWN> :wincmd -<CR>
 "" tab cycle
 nnoremap <C-X> :tabn<CR>
 inoremap <C-X> <ESC>:tabn<CR>a
 nnoremap <C-Z> :tabp<CR>
 inoremap <C-Z> <ESC>:tabp<CR>a
 " new tab, close tab
-nnoremap <C-T> :tabe<CR>
+nnoremap <C-T> :tabe %<CR>
 nnoremap <C-W> :tabclose<CR>
 " switch between header/source with F4
 autocmd Filetype cxx,cpp,c,h,hpp noremap <F4> :FSHere<CR>
