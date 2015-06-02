@@ -171,6 +171,9 @@ let g:UltiSnipsJumpBackwardTrigger='<s-tab>'
 " Airline config
 " ================================================== 
 set laststatus=2
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
 let g:airline_symbols.branch = "⎇ "
 let g:airline_left_sep = '⯈'
 let g:airline_left_alt_sep = '>'
