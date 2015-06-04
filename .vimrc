@@ -127,7 +127,7 @@ nnoremap <leader>tl :tabe<Cr>:Ag TODO<CR>
 " ================================================== 
 " CtrlP shortcuts and ignore
 " ================================================== 
-let g:ctrlp_user_command = 'ag %s -l --hidden -g ""'
+let g:ctrlp_user_command = 'ag %s -l --hidden -g "" --ignore-dir=.git'
 let g:ctrlp_map = '<leader>p'
 nnoremap <leader>o :tabe<CR>:CtrlP<CR>
 let g:ctrlp_custom_ignore = {
