@@ -103,6 +103,8 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'mrtazz/DoxygenToolkit.vim'
 Plugin 'bling/vim-airline'
 Plugin 'lervag/vim-latex'
+Plugin 'rust-lang/rust.vim'
+Plugin 'phildawes/racer'
 filetype plugin indent on
 
 
@@ -232,6 +234,16 @@ inoremap <C-D>7 <ESC>:CpyParamList 7<CR>
 inoremap <C-D>8 <ESC>:CpyParamList 8<CR>
 inoremap <C-D>9 <ESC>:CpyParamList 9<CR>
 inoremap <C-D>0 <ESC>:CpyParamList 0<CR>
+
+
+
+
+" ================================================== 
+" RACER
+" ================================================== 
+let g:racer_cmd="$HOME/.vim/bundle/racer/target/release/racer"
+let $RUST_SRC_PATH="/usr/local/src/rust/src" 
+
 
 
 
