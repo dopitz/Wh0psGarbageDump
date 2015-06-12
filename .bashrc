@@ -147,3 +147,10 @@ export PATH=${HOME}/.local/bin:${PATH}
 export CUDA_HOME=/usr/local/cuda-7.0/
 export PATH=${CUDA_HOME}/bin:${PATH}
 export LD_LIBRARY_PATH=${CUDA_HOME}/lib64:${LD_LIBRARY_PATH}
+
+
+
+# CARGO aliases
+alias cb='cargo build'
+alias cr='cargo run'
+alias ct='cargo test'
