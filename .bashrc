@@ -154,3 +154,4 @@ export LD_LIBRARY_PATH=${CUDA_HOME}/lib64:${LD_LIBRARY_PATH}
 alias cb='cargo build'
 alias cr='cargo run'
 alias ct='cargo test'
+alias ce='cargo run --example '
