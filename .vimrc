@@ -99,6 +99,7 @@ Plugin 'Wh0p/paraMark'
 Plugin 'rking/ag.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-fugitive'
+Plugin 'airblade/vim-gitgutter'
 Plugin 'ervandew/supertab'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
@@ -470,7 +471,5 @@ autocmd Filetype cxx,cpp,c,h,hpp nnoremap <C-Left> :cp<CR>
 autocmd Filetype cxx,cpp,c,h,hpp nnoremap <C-Right> :cn<CR>
 
 " open definition in new tab
+autocmd Filetype cxx,cpp,c,h,hpp nnoremap <leader>ct :!ctags -R .<CR>
 autocmd Filetype cxx,cpp,c,h,hpp nnoremap <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
-
-
-
