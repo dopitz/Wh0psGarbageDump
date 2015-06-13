@@ -64,6 +64,9 @@
 " n<C-Up/Down>            Open close error list after compile
 " n<C-Left/Right>         Navigate to next/previous error
 "
+" n<leader>ct             Run Ctags
+"
+"
 " niv<C-A>                Jumps to the next function parameter and marks it in visual mode
 " i<C-D>d|1-0             Copy the function header from the preview window
 "                           listed from YouCompleteMe
@@ -426,7 +429,7 @@ inoremap <C-X> <ESC>:tabn<CR>a
 nnoremap <C-Z> :tabp<CR>
 inoremap <C-Z> <ESC>:tabp<CR>a
 " new tab, close tab
-nnoremap <C-T> :tabe %<CR>
+nnoremap <C-T> :tab split<CR>
 nnoremap <C-W> :tabclose<CR>
 " switch between header/source with F4
 autocmd Filetype cxx,cpp,c,h,hpp noremap <F4> :FSHere<CR>
@@ -465,6 +468,9 @@ autocmd Filetype cxx,cpp,c,h,hpp nnoremap <C-Up> :cw<CR>
 autocmd Filetype cxx,cpp,c,h,hpp nnoremap <C-Down> :ccl<CR>
 autocmd Filetype cxx,cpp,c,h,hpp nnoremap <C-Left> :cp<CR>
 autocmd Filetype cxx,cpp,c,h,hpp nnoremap <C-Right> :cn<CR>
+
+" open definition in new tab
+autocmd Filetype cxx,cpp,c,h,hpp nnoremap <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 
 
 
