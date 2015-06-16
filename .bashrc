@@ -150,6 +150,11 @@ export LD_LIBRARY_PATH=${CUDA_HOME}/lib64:${LD_LIBRARY_PATH}
 
 
 
+# cmake aliases
+alias cmrelease='cmake -DCMAKE_BUILD_TYPE=Release .. && make'
+alias cmdebug='cmake -DCMAKE_BUILD_TYPE=Debug .. && make'
+
+
 # CARGO aliases
 alias cb='cargo build'
 alias cr='cargo run'
