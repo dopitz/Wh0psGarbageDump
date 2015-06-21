@@ -109,6 +109,7 @@ Plugin 'bling/vim-airline'
 Plugin 'lervag/vim-latex'
 Plugin 'rust-lang/rust.vim'
 Plugin 'phildawes/racer'
+Plugin 'beyondmarc/glsl.vim'
 filetype plugin indent on
 
 
