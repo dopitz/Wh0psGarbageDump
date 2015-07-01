@@ -45,7 +45,7 @@ do
     continue  
   fi
 
-  # trim the './' befor each filename
+  # trim the './' before each filename
   nf=${f:2:${#f}}
 
   # If a file already exists delete it
