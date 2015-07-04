@@ -28,6 +28,7 @@
 
 'atom-text-editor.vim-mode.command-mode':
   'z a': 'editor:toggle-current-row-folding'
+  'z F': 'fold-functions:fold'
 
 '.platform-linux atom-workspace, .platform-win32 atom-workspace':
   'f4': 'switch-header-source:switch'
