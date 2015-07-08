@@ -51,13 +51,17 @@
 "
 " n<leader>sc             Cycle through spell check languages/disable spell check
 "
+" n<leader>zl             Toggle folds for all c-Style comments
+" n<leader>zL             Expand all folds recoursivly and then collaps folds for all c-Style comments
+"
 "
 "
 " C++ Editing
 " =========================================================
 " <F4>                    Switch header/source file (FileSwitch)
 "
-" n<leader>df             Format file with astyle
+" n<leader>df             Format file with clang-format
+" n<leader>dd             Format file with clang-format
 "
 " <F7>                    Make project
 " <S-F7>                  Make clean project
@@ -334,39 +338,14 @@ nnoremap <leader>sc :call CycleSpellCheck()<CR>
 
 
 
-
-" ================================================== 
-" ASTYLE STUFF
-" ================================================== 
-" trim lines at the end of file
-func! TrimEndLines()
-    let save_cursor = getpos(".")
-    :silent! %s#\($\n\s*\)\+\%$##
-    call setpos('.', save_cursor)
-endfunc
-
-" astyle formatting
-func! FormatCode(cmd)
-  let pos = getpos(".")
-  exec "%!" . a:cmd
-  :silent! %s#\($\n\s*\)\+\%$##
-  call setpos(".", pos)
-endfunction
-
-" set the shortcut only for code
-if executable("astyle")
-  let astyle = "astyle --style=allman --indent=spaces=2 --indent-switches --indent-namespaces --indent-preproc-define --indent-preproc-cond --indent-col1-comments --min-conditional-indent=0 --pad-oper --pad-header --unpad-paren --align-pointer=type --align-reference=type --convert-tabs --close-templates --break-after-logical" 
-  
-"  autocmd Filetype cxx,cpp,c,h,hpp nnoremap <leader>df :call FormatCode(astyle)<CR>
-endif
-
 " ================================================== 
 " CLANG FORMAT
 " ================================================== 
 if executable("clang-format-3.6")
   let clangfmt = "clang-format-3.6"
   
-  autocmd Filetype cxx,cpp,c,h,hpp nnoremap <leader>df :pyf /usr/share/vim/addons/syntax/clang-format-3.6.py<CR>
+  autocmd Filetype cxx,cpp,c,h,hpp nnoremap <leader>df ggVG:pyf /usr/share/vim/addons/syntax/clang-format-3.6.py<CR>
+  autocmd Filetype cxx,cpp,c,h,hpp nnoremap <leader>dd :pyf /usr/share/vim/addons/syntax/clang-format-3.6.py<CR>
 endif
 
 
@@ -410,8 +389,8 @@ func! ToggleFoldComments()
 
   call setpos(".", p)
 endfunc
-nnoremap zk :call ToggleFoldComments()<CR>
-nnoremap zK zMzR:call ToggleFoldComments()<CR>
+nnoremap zl :call ToggleFoldComments()<CR>
+nnoremap zL zMzR:call ToggleFoldComments()<CR>
 
 
 
