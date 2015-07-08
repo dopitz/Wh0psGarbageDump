@@ -39,12 +39,14 @@
   "atom-terminal-panel": {}
   "todo-show": {}
   minimap: {}
-".diff.source":
+  "center-screen":
+    followCursor: true
+".cpp.source":
   editor:
     preferredLineLength: 200
 ".c.source":
   editor:
     preferredLineLength: 200
-".cpp.source":
+".diff.source":
   editor:
     preferredLineLength: 200

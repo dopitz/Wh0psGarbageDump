@@ -357,7 +357,16 @@ endfunction
 if executable("astyle")
   let astyle = "astyle --style=allman --indent=spaces=2 --indent-switches --indent-namespaces --indent-preproc-define --indent-preproc-cond --indent-col1-comments --min-conditional-indent=0 --pad-oper --pad-header --unpad-paren --align-pointer=type --align-reference=type --convert-tabs --close-templates --break-after-logical" 
   
-  autocmd Filetype cxx,cpp,c,h,hpp nnoremap <leader>df :call FormatCode(astyle)<CR>
+"  autocmd Filetype cxx,cpp,c,h,hpp nnoremap <leader>df :call FormatCode(astyle)<CR>
+endif
+
+" ================================================== 
+" CLANG FORMAT
+" ================================================== 
+if executable("clang-format-3.6")
+  let clangfmt = "clang-format-3.6"
+  
+  autocmd Filetype cxx,cpp,c,h,hpp nnoremap <leader>df :pyf /usr/share/vim/addons/syntax/clang-format-3.6.py<CR>
 endif
 
 
@@ -387,6 +396,22 @@ nnoremap <leader>hl :call ToggleSearchHL()<CR>
 
 " auto close curly bracket
 autocmd Filetype cxx,cpp,c,h,hpp,tex,bib inoremap { {}<ESC>i
+
+" cold comments
+func! ToggleFoldComments()
+  let p = getpos(".")
+  call setpos(".", [p[0], 1, 1, 0])
+
+  let last_p = search("\\/\\*\\*")
+  exec "normal! za"
+  while (last_p != search("\\/\\*\\*"))
+    exec "normal! za"
+  endwhile
+
+  call setpos(".", p)
+endfunc
+nnoremap zk :call ToggleFoldComments()<CR>
+nnoremap zK zMzR:call ToggleFoldComments()<CR>
 
 
 
