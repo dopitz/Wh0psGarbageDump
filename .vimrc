@@ -341,10 +341,16 @@ nnoremap <leader>sc :call CycleSpellCheck()<CR>
 " ================================================== 
 " CLANG FORMAT
 " ================================================== 
+func! ClangFormatFile()
+  call setpos("'<", getpos("w0"))
+  call setpos("'>", getpos("w$"))
+  exec ":'<,'>pyf /usr/share/vim/addons/syntax/clang-format-3.6.py"
+endfunc
+
 if executable("clang-format-3.6")
   let clangfmt = "clang-format-3.6"
   
-  autocmd Filetype cxx,cpp,c,h,hpp nnoremap <leader>df ggVG:pyf /usr/share/vim/addons/syntax/clang-format-3.6.py<CR>
+  autocmd Filetype cxx,cpp,c,h,hpp nnoremap <leader>df :call ClangFormatFile()<CR>
   autocmd Filetype cxx,cpp,c,h,hpp nnoremap <leader>dd :pyf /usr/share/vim/addons/syntax/clang-format-3.6.py<CR>
 endif
 
