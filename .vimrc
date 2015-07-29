@@ -331,7 +331,7 @@ endfunc
 autocmd Filetype gitcommit setlocal spell spelllang=en_us textwidth=72
 
 " Call the CycleSpellCheck on startup once to initialize
-call CycleSpellCheck()
+silent call CycleSpellCheck()
 
 nnoremap <leader>sc :call CycleSpellCheck()<CR>
 
