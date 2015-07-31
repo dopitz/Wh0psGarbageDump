@@ -100,6 +100,7 @@ call vundle#rc()
 Plugin 'gmarik/vundle'
 Plugin 'Wh0p/FSwitch'
 Plugin 'Wh0p/paraMark'
+Plugin 'Wh0p/cyclespellcheck'
 Plugin 'rking/ag.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-fugitive'
@@ -309,31 +310,12 @@ set foldenable
 " ================================================== 
 " SPELLCHECKING
 " ================================================== 
-" Function for cycling through different spell checking configs.
-let g:cycle_spell_check_indicator = 0
-func! CycleSpellCheck()
-  if g:cycle_spell_check_indicator == 0
-    exec ":set nospell"
-    echo "Spellchecking disabled."
-    let g:cycle_spell_check_indicator = 1
-  elseif g:cycle_spell_check_indicator == 1
-    exec ":set spell spelllang=en_us"
-    echo "Spellchecking enabled: EN_US"
-    let g:cycle_spell_check_indicator = 2
-  else
-    exec ":set spell spelllang=de_de"
-    echo "Spellchecking enabled: DE_DE"
-    let g:cycle_spell_check_indicator = 0
-  endif
-endfunc
+let g:cycle_spell_check_modes = ["en_us", "de_de"]
+
+nnoremap <leader>sc :call CycleSpellCheck()<CR>
 
 " enable spelling for git commits
 autocmd Filetype gitcommit setlocal spell spelllang=en_us textwidth=72
-
-" Call the CycleSpellCheck on startup once to initialize
-silent call CycleSpellCheck()
-
-nnoremap <leader>sc :call CycleSpellCheck()<CR>
 
 
 
