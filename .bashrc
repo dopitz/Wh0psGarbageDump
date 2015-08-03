@@ -143,6 +143,9 @@ alias btex=btexfunc
 export PATH=${HOME}/.local/bin:${PATH}
 
 
+alias :q='exit'
+
+
 # CUDA
 export CUDA_HOME=/usr/local/cuda-7.0/
 export PATH=${CUDA_HOME}/bin:${PATH}
