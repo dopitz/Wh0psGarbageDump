@@ -113,10 +113,9 @@ Plugin 'mrtazz/DoxygenToolkit.vim'
 Plugin 'bling/vim-airline'
 Plugin 'lervag/vim-latex'
 Plugin 'rust-lang/rust.vim'
-" Plugin 'phildawes/racer'
+Plugin 'octol/vim-cpp-enhanced-highlight' 
 Plugin 'beyondmarc/glsl.vim'
 filetype plugin indent on
-
 
 
 " ================================================== 
@@ -249,10 +248,9 @@ inoremap <C-D>0 <ESC>:CpyParamList 0<CR>
 
 
 " ================================================== 
-" RACER
+" CPP-highlight enhancer
 " ================================================== 
-" let g:racer_cmd="$HOME/.vim/bundle/racer/target/release/racer"
-" let $RUST_SRC_PATH="/usr/local/src/rust/src" 
+let g:cpp_class_scope_highlight = 1
 
 
 
@@ -280,10 +278,10 @@ set expandtab
 set wrap
 set textwidth=0
 set wrapmargin=0
-" turn on syntax highlight with colorscheme candycode
+" turn on syntax highlight with colorscheme
 set t_Co=256
 syntax on
-colorscheme candycode
+colorscheme mymaui
 " turn relative line numbers on
 set number
 set relativenumber
