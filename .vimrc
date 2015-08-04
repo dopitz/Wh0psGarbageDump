@@ -113,7 +113,7 @@ Plugin 'mrtazz/DoxygenToolkit.vim'
 Plugin 'bling/vim-airline'
 Plugin 'lervag/vim-latex'
 Plugin 'rust-lang/rust.vim'
-Plugin 'phildawes/racer'
+" Plugin 'phildawes/racer'
 Plugin 'beyondmarc/glsl.vim'
 filetype plugin indent on
 
@@ -251,8 +251,8 @@ inoremap <C-D>0 <ESC>:CpyParamList 0<CR>
 " ================================================== 
 " RACER
 " ================================================== 
-let g:racer_cmd="$HOME/.vim/bundle/racer/target/release/racer"
-let $RUST_SRC_PATH="/usr/local/src/rust/src" 
+" let g:racer_cmd="$HOME/.vim/bundle/racer/target/release/racer"
+" let $RUST_SRC_PATH="/usr/local/src/rust/src" 
 
 
 
