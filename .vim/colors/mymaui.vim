@@ -37,10 +37,10 @@ hi DiffDelete term=bold guifg=#5f0000 ctermfg=52 guibg=#5f0000 ctermbg=52
 hi DiffText term=bold gui=bold cterm=bold guibg=#2a4f00 ctermbg=238
 hi SignColumn term=standout guifg=#87ff00 ctermfg=118 guibg=#262626 ctermbg=235
 hi Conceal guifg=#c0c0c0 ctermfg=7 guibg=#666666 ctermbg=242
-hi SpellBad term=reverse guibg=#5f0000 ctermbg=52
+hi SpellBad term=reverse guibg=#000000 ctermbg=52
 hi SpellCap term=reverse guibg=#00005f ctermbg=17
 hi SpellRare term=reverse gui=reverse cterm=reverse
-hi SpellLocal term=underline guibg=#00005f ctermbg=17
+hi SpellLocal term=underline guibg=#000000 ctermbg=17
 hi Pmenu guifg=#5fdfff ctermfg=81 guibg=#000000 ctermbg=16
 hi PmenuSel guifg=#eeeeee ctermfg=255 guibg=#666666 ctermbg=242
 hi PmenuSbar guibg=#080808 ctermbg=232
