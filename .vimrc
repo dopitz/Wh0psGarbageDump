@@ -315,7 +315,7 @@ nnoremap <leader>sc :call CycleSpellCheck()<CR>
 " enable spelling for git commits
 autocmd Filetype gitcommit setlocal spell spelllang=en_us textwidth=72
 " enable spelling for tex files
-autocmd Filetype tex setlocal spell spelllang=en_us wrap textwidth=120
+autocmd Filetype tex setlocal spell spelllang=en_us wrap linebreak textwidth=0 wrapmargin=0
 
 
 
