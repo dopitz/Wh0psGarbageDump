@@ -392,6 +392,7 @@ nnoremap N Nzz
 nnoremap G Gzz
 set scrolloff=25
 
+" disable the arrow keys in normal mode, 'cause they suck dick
 nnoremap <Up> <NOP>
 vnoremap <Up> <NOP>
 nnoremap <Down> <NOP>
@@ -400,6 +401,12 @@ nnoremap <Left> <NOP>
 vnoremap <Left> <NOP>
 nnoremap <Right> <NOP>
 vnoremap <Right> <NOP>
+
+" make j, k, 0 and $ operate on displayed lines rather than physical lines.
+noremap <silent> j gj
+noremap <silent> k gk
+noremap <silent> 0 g0
+noremap <silent> $ g$
 
 
 
