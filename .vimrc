@@ -76,7 +76,9 @@
 "                           listed from YouCompleteMe
 "
 " i{                      Auto close curly bracket
-
+"
+" n<leader>doc            Show the documentation in the preview window (:YcmCompleter GetDoc)
+" n<leader>cp             Close the preview window (:pclose)
 
  
 
@@ -164,6 +166,10 @@ let g:ycm_warning_symbol = 'o>'
 let g:ycm_always_populate_location_list = 1
 let g:ycm_add_preview_to_completeopt = 0
 nnoremap <leader>cc :YcmDiag<CR>
+nnoremap <leader>doc :YcmCompleter GetDoc<CR>
+nnoremap <leader>cp :pc<CR>
+
+
 
 " Make ycm and ultisnips play along
 let g:ycm_key_list_select_completion=['<C-j>', '<C-n>', '<Down>']
