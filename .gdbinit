@@ -3996,3 +3996,9 @@ end
 #
 #   Version 2
 #     Radix bugfix by elaine
+
+
+define ne
+  next
+end
+
