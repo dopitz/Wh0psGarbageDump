@@ -155,7 +155,13 @@ export LD_LIBRARY_PATH=${CUDA_HOME}lib64:${LD_LIBRARY_PATH}
 
 # cmake aliases
 cmakemake() {
-  cmake -DCMAKE_BUILD_TYPE=$1 .. && make -j $(grep -c ^processor /proc/cpuinfo)
+  DIR="${PWD##*/}"
+  if [ "$DIR" = "build" ];
+  then
+    cmake -DCMAKE_BUILD_TYPE=$1 .. && make -j $(grep -c ^processor /proc/cpuinfo)
+  else
+    echo "Calling cmake while not inside */build directory"
+  fi
 }
 alias cmm=cmakemake
 alias cmrelease='cmakemake Release'
