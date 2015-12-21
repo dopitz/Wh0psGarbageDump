@@ -209,25 +209,6 @@ let g:airline#extensions#tabline#right_alt_sep = '<'
 
 
 
-" ================================================== 
-" YouCompleteMe configs
-" ================================================== 
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_error_symbol = '!>'
-let g:ycm_warning_symbol = 'o>'
-nnoremap <leader>cc :YcmDiag<CR>
-
-" Make ycm and ultisnips play along
-let g:ycm_key_list_select_completion=['<C-j>', '<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion=['<C-k>', '<C-p>', '<Up>']
-
-let g:SuperTabDefaultCompletionType='<C-n>'
-let g:SuperTabCrMapping=0
-
-let g:UltiSnipsExpandTrigger='<tab>'
-let g:UltiSnipsJumpForwardTrigger='<tab>'
-let g:UltiSnipsJumpBackwardTrigger='<s-tab>'
-
 
 
 " ================================================== 

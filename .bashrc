@@ -145,6 +145,11 @@ export PATH=${HOME}/.local/bin:${PATH}
 
 alias :q='exit'
 
+alias gis='git status'
+alias gic='git commit'
+
+
+
 
 # CUDA
 export CUDA_HOME=/usr/local/cuda/
