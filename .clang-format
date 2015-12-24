@@ -28,7 +28,7 @@ ExperimentalAutoDetectBinPacking: false
 IndentCaseLabels: true
 IndentWrappedFunctionNames: false
 IndentFunctionDeclarationAfterType: false
-MaxEmptyLinesToKeep: 2
+MaxEmptyLinesToKeep: 3
 KeepEmptyLinesAtTheStartOfBlocks: false
 NamespaceIndentation: All
 ObjCBlockIndentWidth: 2
