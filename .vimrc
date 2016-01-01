@@ -405,10 +405,10 @@ noremap <silent> $ g$
 set splitbelow
 set splitright
 " remap split window navigation
-nnoremap <silent> <C-J> :wincmd j<CR>
-nnoremap <silent> <C-K> :wincmd k<CR>
-nnoremap <silent> <C-H> :wincmd h<CR>
-nnoremap <silent> <C-L> :wincmd l<CR>
+nnoremap <silent> J :wincmd j<CR>
+nnoremap <silent> K :wincmd k<CR>
+nnoremap <silent> H :wincmd h<CR>
+nnoremap <silent> L :wincmd l<CR>
 nnoremap <silent> <C-PAGEUP> :wincmd +<CR>
 nnoremap <silent> <C-PAGEDOWN> :wincmd -<CR>
 "" tab cycle

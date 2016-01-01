@@ -50,6 +50,9 @@ nnoremap l 3l
 nnoremap <C-J> gT
 nnoremap <C-K> gt
 
+nnoremap <C-H> :back<CR>
+nnoremap <C-L> :forward<CR>
+
 nnoremap I <S-Esc>
 
 nnoremap ~ <Nop>
