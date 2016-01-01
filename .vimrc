@@ -28,8 +28,8 @@
 "
 " n<C-T>                  New tab (with same buffer)
 " n<C-W>                  Close tab
-" ni<C-X>                 Go to next tab
-" ni<C-Z>                 Go to previous tab
+" ni<C-K>                 Go to next tab
+" ni<C-J>                 Go to previous tab
 "
 " n<C-H/L/J/K>            Navigate to left/right/up/down split window
 " n<C-X/Z>                Navigate to next/previous tab window
@@ -412,10 +412,10 @@ nnoremap <silent> <C-L> :wincmd l<CR>
 nnoremap <silent> <C-PAGEUP> :wincmd +<CR>
 nnoremap <silent> <C-PAGEDOWN> :wincmd -<CR>
 "" tab cycle
-nnoremap <C-X> :tabn<CR>
-inoremap <C-X> <ESC>:tabn<CR>a
-nnoremap <C-Z> :tabp<CR>
-inoremap <C-Z> <ESC>:tabp<CR>a
+nnoremap <C-K> :tabn<CR>
+inoremap <C-K> <ESC>:tabn<CR>a
+nnoremap <C-J> :tabp<CR>
+inoremap <C-J> <ESC>:tabp<CR>a
 " new tab, close tab
 nnoremap <C-T> :tab split<CR>
 nnoremap <C-W> :tabclose<CR>
