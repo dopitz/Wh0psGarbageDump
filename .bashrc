@@ -172,6 +172,7 @@ alias cmm=cmakemake
 alias cmrelease='cmakemake Release'
 alias cmdebug='cmakemake Debug'
 alias mr='make run'
+alias pmr='primusrun make run'
 
 
 # CARGO aliases
