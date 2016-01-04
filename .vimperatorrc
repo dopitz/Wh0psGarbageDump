@@ -51,10 +51,10 @@ nnoremap <C-J> gT
 nnoremap <C-K> gt
 
 nnoremap <C-H> :back<CR>
-nnoremap <C--> :back<CR>
+nnoremap = :back<CR>
 nnoremap <C-L> :forward<CR>
 nnoremap <C-=> :forward<CR>
-nnoremap <C-B> :bmarks! 
+nnoremap <C-B> :bmarks!
 
 nnoremap I <S-Esc>
 
