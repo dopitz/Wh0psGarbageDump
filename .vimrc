@@ -54,6 +54,9 @@
 " n<leader>zl             Toggle folds for all c-Style comments
 " n<leader>zL             Expand all folds recoursivly and then collaps folds for all c-Style comments
 "
+" nv<leader>cy           Copy to clipboard register
+" nv<leader>cp           Paste from clipboard register
+"
 "
 "
 " C++ Editing
@@ -366,6 +369,12 @@ func! ToggleFoldComments()
 endfunc
 nnoremap zl :call ToggleFoldComments()<CR>
 nnoremap zL zMzR:call ToggleFoldComments()<CR>
+
+" Copy to/Paste from clipboard
+nnoremap <leader>cy "+y
+vnoremap <leader>cy "+y
+nnoremap <leader>cp "+p
+vnoremap <leader>cp "+p
 
 
 
