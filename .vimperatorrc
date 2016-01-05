@@ -54,11 +54,12 @@ nnoremap <C-H> :back<CR>
 nnoremap = :back<CR>
 nnoremap <C-L> :forward<CR>
 nnoremap <C-=> :forward<CR>
-nnoremap <C-B> :bmarks!
+nnoremap <C-B> :js toggle_bottombar('on')<CR>:bmarks! 
 
 nnoremap I <S-Esc>
 
 nnoremap ~ <Nop>
+inoremap <C-J> <Nop>
 
 " ignorekeys
 
@@ -77,8 +78,6 @@ noremap O :js toggle_bottombar('on')<CR>O
 noremap t :js toggle_bottombar('on')<CR>t
 noremap T :js toggle_bottombar('on')<CR>t
 noremap / :js toggle_bottombar('on')<CR>/
-cnoremap <CR> <CR>:js toggle_bottombar('off')<CR>
-cnoremap <Esc> <Esc>:js toggle_bottombar('off')<CR>
 
 :js << EOF
 function toggle_bottombar(p) {
@@ -98,7 +97,6 @@ function toggle_bottombar(p) {
     bb.style.height = (bb.style.height == '') ? '0px' : '';
     bb.style.overflow = (bb.style.height == '') ? '' : 'hidden';
 }
-toggle_bottombar();
 EOF
 
 
