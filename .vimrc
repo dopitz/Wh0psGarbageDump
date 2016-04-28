@@ -328,6 +328,8 @@ if executable("clang-format-3.6")
   autocmd Filetype cxx,cpp,c,h,hpp nnoremap <leader>dd :pyf /usr/share/vim/addons/syntax/clang-format-3.6.py<CR>
 endif
 
+autocmd BufNewFile,BufReadPost *.cl set filetype=cpp
+
 
 
 
