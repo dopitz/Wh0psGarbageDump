@@ -145,8 +145,8 @@ export PATH=${HOME}/.local/bin:${PATH}
 
 alias :q='exit'
 
-alias gis='git status'
-alias gic='git commit'
+alias gits='git status'
+alias gitl='git log --decorate --oneline --graph'
 
 
 
