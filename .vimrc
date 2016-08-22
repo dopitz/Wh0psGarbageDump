@@ -108,7 +108,7 @@ Plugin 'Wh0p/FSwitch'
 Plugin 'Wh0p/paraMark'
 Plugin 'Wh0p/cyclespellcheck'
 Plugin 'rking/ag.vim'
-Plugin 'kien/ctrlp.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'ervandew/supertab'
@@ -151,7 +151,7 @@ let g:ctrlp_custom_ignore = {
   \ 'dir':  '\.git$\|build$\|docs$',
   \ 'file': '\.out$\|\.dat$'
   \ }
-let g:ctrlp_working_path_mode = ''
+let g:ctrlp_working_path_mode = 0
 
 
 " ================================================== 
@@ -288,12 +288,15 @@ set guioptions-=T
 set guioptions-=r
 set guioptions-=L
 " gvim font
-set guifont=Droid\ Sans\ Mono\ 10
+set guifont=Liberation\ Mono\ 10
 
 " folds
 set foldmethod=syntax
 set foldlevel=0
 set foldenable
+
+" automatically reload file if chenages detected
+set autoread
 
 
 
@@ -316,16 +319,16 @@ autocmd Filetype tex setlocal spell spelllang=en_us wrap linebreak textwidth=0 w
 " CLANG FORMAT
 " ================================================== 
 func! ClangFormatFile()
-  call setpos("'<", getpos("w0"))
-  call setpos("'>", getpos("w$"))
-  exec ":'<,'>pyf /usr/share/vim/addons/syntax/clang-format-3.6.py"
+  set autoread
+  silent exec ":! mv % %.old && clang-format %.old >> %"
+  set noautoread
 endfunc
 
-if executable("clang-format-3.6")
-  let clangfmt = "clang-format-3.6"
+if executable("clang-format")
+  let clangfmt = "clang-format"
   
   autocmd Filetype cxx,cpp,c,h,hpp nnoremap <leader>df :call ClangFormatFile()<CR>
-  autocmd Filetype cxx,cpp,c,h,hpp nnoremap <leader>dd :pyf /usr/share/vim/addons/syntax/clang-format-3.6.py<CR>
+  autocmd Filetype cxx,cpp,c,h,hpp nnoremap <leader>dd :pyf /usr/share/vim/addons/syntax/clang-format.py<CR>
 endif
 
 autocmd BufNewFile,BufReadPost *.cl set filetype=cpp
