@@ -319,7 +319,7 @@ autocmd Filetype tex setlocal spell spelllang=en_us wrap linebreak textwidth=0 w
 " CLANG FORMAT
 " ================================================== 
 func! ClangFormatFile()
-  silent exec ":! mv % %.old && clang-format %.old >> % && rm %.old"
+  silent exec ":%!clang-format"
 endfunc
 
 if executable("clang-format")
