@@ -342,6 +342,8 @@ autocmd BufNewFile,BufReadPost *.cl set filetype=cpp
 " search replace/find word under the cursor
 nnoremap <leader>r :%s/\<<C-r><C-w>\>/
 nnoremap <leader>f /\<<C-r><C-w>\>
+" Highlight the word under the current cursor position
+:autocmd CursorMoved * exe printf('match Search /\V\<%s\>/', escape(expand('<cword>'), '/\'))
 
 let g:toggle_search_hl_indicator = 0
 func! ToggleSearchHL()
@@ -382,6 +384,7 @@ nnoremap <leader>cy "+y
 vnoremap <leader>cy "+y
 nnoremap <leader>cp "+p
 vnoremap <leader>cp "+p
+
 
 
 
@@ -476,3 +479,8 @@ autocmd Filetype cxx,cpp,c,h,hpp nnoremap <C-Right> :cn<CR>
 " open definition in new tab
 autocmd Filetype cxx,cpp,c,h,hpp nnoremap <leader>ct :!ctags -R .<CR>
 autocmd Filetype cxx,cpp,c,h,hpp nnoremap <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+
+
+
+
+
