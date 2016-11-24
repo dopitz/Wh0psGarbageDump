@@ -159,17 +159,6 @@ export LD_LIBRARY_PATH=${CUDA_HOME}lib64:${LD_LIBRARY_PATH}
 
 
 # cmake aliases
-cmakemake2() {
-  DIR="${PWD##*/}"
-  if [ "$DIR" = "build" ];
-  then
-    cmake -DCMAKE_BUILD_TYPE=$1 .. && make -j $(grep -c ^processor /proc/cpuinfo)
-  else
-    echo "Calling cmake while not inside */build directory"
-  fi
-}
-
-# cmake aliases
 cmakemake() {
   DIR="${PWD##*/}"
   if [ "$DIR" = "debug" ]; then
@@ -184,14 +173,5 @@ cmakemake() {
 
 
 alias cmm=cmakemake
-alias cmrelease='cmakemake2 Release'
-alias cmdebug='cmakemake2 Debug'
 alias mr='make run'
 alias pmr='primusrun make run'
-
-
-# CARGO aliases
-alias cb='cargo build'
-alias cr='cargo run'
-alias ct='cargo test'
-alias ce='cargo run --example '
