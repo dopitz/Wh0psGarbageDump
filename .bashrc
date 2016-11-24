@@ -159,7 +159,7 @@ export LD_LIBRARY_PATH=${CUDA_HOME}lib64:${LD_LIBRARY_PATH}
 
 
 # cmake aliases
-cmakemake() {
+cmakemake2() {
   DIR="${PWD##*/}"
   if [ "$DIR" = "build" ];
   then
@@ -168,9 +168,24 @@ cmakemake() {
     echo "Calling cmake while not inside */build directory"
   fi
 }
+
+# cmake aliases
+cmakemake() {
+  DIR="${PWD##*/}"
+  if [ "$DIR" = "debug" ]; then
+    cmake -DCMAKE_BUILD_TYPE=Debug ../.. && make -j $(grep -c ^processor /proc/cpuinfo)
+  elif [ "$DIR" = "release" ]; then
+    cmake -DCMAKE_BUILD_TYPE=Release ../.. && make -j $(grep -c ^processor /proc/cpuinfo)
+  else
+    echo "Calling cmakemake while not inside */debug or */release directory"
+  fi
+}
+
+
+
 alias cmm=cmakemake
-alias cmrelease='cmakemake Release'
-alias cmdebug='cmakemake Debug'
+alias cmrelease='cmakemake2 Release'
+alias cmdebug='cmakemake2 Debug'
 alias mr='make run'
 alias pmr='primusrun make run'
 

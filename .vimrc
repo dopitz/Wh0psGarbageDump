@@ -158,6 +158,7 @@ let g:ctrlp_working_path_mode = 0
 " Fugitive shortcuts
 " ================================================== 
 nnoremap <leader>gs :tabe %<CR>:Gstatus<CR>:resize 30<CR>
+nnoremap <leader>gd :Gdiff<CR>
 
 
 
