@@ -82,6 +82,8 @@
 "
 " n<leader>cf             Automatically fix error as suggested by YouCompleteMe (:YouCompleter FixIt)
 " n<leader>doc            Show the documentation in the preview window (:YcmCompleter GetDoc)
+" n<leader>def            Show the documentation in the preview window (:YcmCompleter GoToDefinition)
+" n<leader>dec            Show the documentation in the preview window (:YcmCompleter GoToDeclaration)
 " n<leader>cp             Close the preview window (:pclose)
 
  
@@ -172,6 +174,8 @@ let g:ycm_always_populate_location_list = 1
 let g:ycm_add_preview_to_completeopt = 0
 nnoremap <leader>cc :YcmDiag<CR>
 nnoremap <leader>doc :YcmCompleter GetDoc<CR>
+nnoremap <leader>def :tab split<CR> :YcmCompleter GoToDefinition<CR>
+nnoremap <leader>dec :tab split<CR> :YcmCompleter GoToDeclaration<CR>
 nnoremap <leader>cf :YcmCompleter FixIt<CR>
 nnoremap <leader>cp :pc<CR>
 
