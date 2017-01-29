@@ -23,8 +23,8 @@
 " n<C-H>                  Move cursor to split window to the left
 " n<C-L>                  Move cursor to split window to the right
 "
-" n<C-PageUp>             Increase size of current split
-" n<C-PageDown>           Decrease size of current split
+" n<C-PAGEUP>             Increase size of current split
+" n<C-PAGEDOWN>           Decrease size of current split
 "
 " n<C-T>                  New tab (with same buffer)
 " n<C-W>                  Close tab
