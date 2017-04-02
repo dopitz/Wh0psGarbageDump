@@ -170,6 +170,8 @@ cmakemake() {
   fi
 }
 
+export -f cmakemake
+
 
 
 alias cmm=cmakemake
