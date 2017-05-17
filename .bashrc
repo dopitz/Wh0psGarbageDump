@@ -177,3 +177,8 @@ export -f cmakemake
 alias cmm=cmakemake
 alias mr='make run'
 alias pmr='primusrun make run'
+
+
+
+alias cgtunnel='ssh -i ~/cgtunnel dlopitz@cgtunnel.ivd.kit.edu -p 2342'
+alias cgcopy='scp -i ~/cgtunnel -P 2342 -r dlopitz@cgtunnel.ivd.kit.edu:out/* .'
