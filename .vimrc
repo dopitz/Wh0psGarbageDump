@@ -41,6 +41,11 @@
 " n<leader>gs             Dublicate tab and launch :Gstatus with resized split
 "
 "
+" :Wipeout                Delete all buffers that are not currently active
+"
+"
+"
+"
 " Editing
 " =========================================================
 " n<leader>r              Search and replace in file the word under the cursor
@@ -393,6 +398,27 @@ nnoremap <leader>cp "+p
 vnoremap <leader>cp "+p
 
 
+function! WipeoutBuffers()
+  " figure out which buffers are visible in any tab
+  let visible = {}
+  for t in range(1, tabpagenr('$'))
+    for b in tabpagebuflist(t)
+      let visible[b] = 1
+    endfor
+  endfor
+  " close any buffer that are loaded and not visible
+  let l:tally = 0
+  for b in range(1, bufnr('$'))
+    if (bufloaded(b) && !has_key(visible, b)) || ((!bufloaded(b)) && buflisted(bufname(b)))
+      let l:tally += 1
+      exe 'bd ' . b
+    endif
+  endfor
+  echon "Deleted " . l:tally . " buffers"
+endfun
+command! Wipe :call WipeoutBuffers()
+
+
 
 
 " ================================================== 
@@ -486,7 +512,6 @@ autocmd Filetype cxx,cpp,c,h,hpp nnoremap <C-Right> :cn<CR>
 " open definition in new tab
 autocmd Filetype cxx,cpp,c,h,hpp nnoremap <leader>ct :!ctags -R .<CR>
 autocmd Filetype cxx,cpp,c,h,hpp nnoremap <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
-
 
 
 
