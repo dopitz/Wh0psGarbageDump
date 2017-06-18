@@ -74,9 +74,9 @@ nnoremap s :set toolbars=none,bookmarks,tabs<CR>
 noremap <silent> <F8> :js toggle_bottombar()<CR>
 noremap : :js toggle_bottombar('on')<CR>:
 noremap o :js toggle_bottombar('on')<CR>o
-noremap O :js toggle_bottombar('on')<CR>O
+noremap O :js toggle_bottombar('on')<CR>t
 noremap t :js toggle_bottombar('on')<CR>t
-noremap T :js toggle_bottombar('on')<CR>t
+noremap T :js toggle_bottombar('on')<CR>O
 noremap / :js toggle_bottombar('on')<CR>/
 
 :js << EOF
