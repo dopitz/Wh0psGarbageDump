@@ -300,7 +300,7 @@ set guioptions-=T
 set guioptions-=r
 set guioptions-=L
 " gvim font
-set guifont=Liberation\ Mono\ 10
+set guifont=Liberation\ Mono\ 12
 
 " folds
 set foldmethod=syntax
