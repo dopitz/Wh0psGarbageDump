@@ -3,6 +3,8 @@
 apt install python-pip
 pip install neovim
 
+apt install xclip
+
 add-apt-repository ppa:neovim-ppa/unstable
 apt update
 apt install neovim

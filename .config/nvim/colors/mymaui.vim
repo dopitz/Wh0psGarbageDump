@@ -52,7 +52,7 @@ hi CursorColumn term=reverse guibg=#303030 ctermbg=255
 hi CursorLine term=none gui=none cterm=none guibg=#000000 ctermbg=235
 hi ColorColumn term=none guibg=#303030 ctermbg=255
 hi MatchParen term=reverse gui=bold cterm=bold guifg=#121212 ctermfg=233 guibg=#ff8700 ctermbg=208
-hi Normal guifg=#d0d0d0 ctermfg=252 guibg=#151515 ctermbg=233
+hi Normal guifg=#d0d0d0 ctermfg=252 guibg=#151515 ctermbg=none
 hi Cursor guifg=#151515 ctermfg=16 guibg=#dadada ctermbg=253
 hi Comment guifg=#CBFF6B ctermfg=28
 hi Constant term=underline gui=bold cterm=bold guifg=#df005f ctermfg=161

@@ -187,7 +187,6 @@ nnoremap <leader>Def :tab split<CR> :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>dec :YcmCompleter GoToDeclaration<CR>
 nnoremap <leader>Dec :tab split<CR> :YcmCompleter GoToDeclaration<CR>
 nnoremap <leader>fix :YcmCompleter FixIt<CR>
-nnoremap <leader>cp :pc<CR>
 
 " Make ycm and ultisnips play along
 let g:ycm_key_list_select_completion=['<C-j>', '<C-n>', '<Down>']
@@ -392,11 +391,21 @@ endfunc
 nnoremap zl :call ToggleFoldComments()<CR>
 nnoremap zL zMzR:call ToggleFoldComments()<CR>
 
+
+
+
 " Copy to/Paste from clipboard
-nnoremap <leader>cy "+y
-vnoremap <leader>cy "+y
-nnoremap <leader>cp "+p
-vnoremap <leader>cp "+p
+function! ClipboardYank()
+  call system('xclip -i -selection clipboard', @@)
+endfunction
+function! ClipboardPaste()
+  let @@ = system('xclip -o -selection clipboard')
+endfunction
+
+nnoremap <leader>cy y:call ClipboardYank()<CR>
+vnoremap <leader>cy y:call ClipboardYank()<CR>
+nnoremap <leader>cp :call ClipboardPaste()<CR>
+vnoremap <leader>cp :call ClipboardPaste()<CR>
 
 
 function! WipeoutBuffers()
