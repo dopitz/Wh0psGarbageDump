@@ -29,7 +29,7 @@ hi Visual term=reverse gui=none cterm=none guibg=#003366 ctermbg=236
 hi VisualNOS guibg=#444444 ctermbg=238
 hi WarningMsg term=standout gui=bold cterm=bold guifg=#ffffff ctermfg=231 guibg=#444444 ctermbg=238
 hi WildMenu term=standout guifg=#5fdfff ctermfg=81 guibg=#000000 ctermbg=16
-hi Folded guifg=#808080 ctermfg=252 guibg=#151515 ctermbg=233
+hi Folded guifg=#808080 ctermfg=240 guibg=#151515 ctermbg=233
 hi FoldColumn term=standout guifg=#5f87af ctermfg=67 guibg=#000000 ctermbg=16
 hi DiffAdd term=bold guibg=#1d3600 ctermbg=22
 hi DiffChange term=bold guibg=#1d3600 ctermbg=0
@@ -54,7 +54,7 @@ hi ColorColumn term=none guibg=#303030 ctermbg=236
 hi MatchParen term=reverse gui=bold cterm=bold guifg=#121212 ctermfg=233 guibg=#ff8700 ctermbg=208
 hi Normal guifg=#d0d0d0 ctermfg=252 guibg=#151515 ctermbg=233
 hi Cursor guifg=#151515 ctermfg=16 guibg=#dadada ctermbg=253
-hi Comment guifg=#CBFF6B ctermfg=240
+hi Comment guifg=#CBFF6B ctermfg=28
 hi Constant term=underline gui=bold cterm=bold guifg=#df005f ctermfg=161
 hi Identifier term=underline guifg=#5f87af ctermfg=67
 hi Statement term=bold gui=bold cterm=bold guifg=#df5f00 ctermfg=166
@@ -86,7 +86,7 @@ hi Typedef guifg=#5fdfff ctermfg=81
 hi Tag gui=bold cterm=bold guifg=#df005f ctermfg=161
 hi SpecialChar gui=bold cterm=bold guifg=#df005f ctermfg=161
 hi Delimiter guifg=#5f87af ctermfg=67
-hi SpecialComment gui=bold cterm=bold guifg=#8a8a8a ctermfg=245
+hi SpecialComment gui=bold cterm=bold guifg=#8a8a8a ctermfg=40
 hi Debug gui=bold cterm=bold guifg=#ffdfff ctermfg=225
 
 hi diffRemoved term=bold guibg=#5f0000 ctermbg=52

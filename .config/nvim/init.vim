@@ -104,31 +104,34 @@
 " ================================================== 
 set nocompatible
 
-" ================================================== 
-" PLUGINS
-" ================================================== 
-filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-Plugin 'gmarik/vundle'
-Plugin 'Wh0p/FSwitch'
-Plugin 'Wh0p/paraMark'
-Plugin 'Wh0p/cyclespellcheck'
-Plugin 'rking/ag.vim'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'tpope/vim-fugitive'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'ervandew/supertab'
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'mrtazz/DoxygenToolkit.vim'
-Plugin 'bling/vim-airline'
-Plugin 'lervag/vim-latex'
-Plugin 'rust-lang/rust.vim'
-Plugin 'octol/vim-cpp-enhanced-highlight' 
-Plugin 'beyondmarc/glsl.vim'
-filetype plugin indent on
+"" ================================================== 
+"" PLUGINS
+"" ================================================== 
+" Specify a directory for plugins
+" - For Neovim: ~/.local/share/nvim/plugged
+" - Avoid using standard Vim directory names like 'plugin'
+call plug#begin('~/.local/share/nvim/vimplug')
+" Make sure you use single quotes
+" Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
+Plug 'Wh0p/FSwitch'
+Plug 'Wh0p/paraMark'
+Plug 'Wh0p/cyclespellcheck'
+Plug 'rking/ag.vim'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'ervandew/supertab'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'Valloric/YouCompleteMe'
+Plug 'mrtazz/DoxygenToolkit.vim'
+Plug 'bling/vim-airline'
+Plug 'lervag/vimtex'
+Plug 'rust-lang/rust.vim'
+Plug 'octol/vim-cpp-enhanced-highlight' 
+Plug 'beyondmarc/glsl.vim'
+" Initialize plugin system
+call plug#end()
 
 
 " ================================================== 
@@ -140,7 +143,7 @@ filetype plugin indent on
 
 
 " ================================================== 
-" Ad ignore docs
+" PLUGIN  --  Ag
 " ================================================== 
 let g:ag_prg="ag --column --nogroup --noheading --ignore-dir=docs"
 nnoremap <leader>ag :tabe<Cr>:Ag 
@@ -149,7 +152,7 @@ nnoremap <leader>tl :tabe<Cr>:Ag TODO<CR>
 
 
 " ================================================== 
-" CtrlP shortcuts and ignore
+" PLUGIN  --  CtrlP 
 " ================================================== 
 let g:ctrlp_user_command = 'ag %s -l --hidden -g "" --ignore-dir=.git'
 nnoremap <leader>p :CtrlP<CR>
@@ -162,7 +165,7 @@ let g:ctrlp_working_path_mode = 0
 
 
 " ================================================== 
-" Fugitive shortcuts
+" PLUGIN  --  Fugitive
 " ================================================== 
 nnoremap <leader>gs :tabe %<CR>:Gstatus<CR>:resize 30<CR>
 nnoremap <leader>gd :Gdiff<CR>
@@ -170,7 +173,7 @@ nnoremap <leader>gd :Gdiff<CR>
 
 
 " ================================================== 
-" YouCompleteMe configs
+" PLUGIN  --  YouCompleteMe
 " ================================================== 
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_error_symbol = '!>'
@@ -186,8 +189,6 @@ nnoremap <leader>Dec :tab split<CR> :YcmCompleter GoToDeclaration<CR>
 nnoremap <leader>fix :YcmCompleter FixIt<CR>
 nnoremap <leader>cp :pc<CR>
 
-
-
 " Make ycm and ultisnips play along
 let g:ycm_key_list_select_completion=['<C-j>', '<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion=['<C-k>', '<C-p>', '<Up>']
@@ -202,7 +203,7 @@ let g:UltiSnipsJumpBackwardTrigger='<s-tab>'
 
 
 " ================================================== 
-" Airline config
+" PLUGIN  --  Airline
 " ================================================== 
 set laststatus=2
 if !exists('g:airline_symbols')
@@ -229,7 +230,7 @@ let g:airline#extensions#tabline#right_alt_sep = '<'
 
 
 " ================================================== 
-" paraMark mappings
+" PLUGIN  --  paraMark
 " ================================================== 
 nnoremap <C-A> :NextArg<CR>
 inoremap <C-A> <ESC>:NextArg<CR>
@@ -499,10 +500,6 @@ nnoremap <C-E><C-A> :mks!<CR> :qa<CR>
 " ================================================== 
 " BUILD AND DEBUG KEYMAPS
 " ==================================================  
-" make project 
-autocmd Filetype cxx,cpp,c,h,hpp map <F7> :make -C ./build/<CR>
-" make clean
-autocmd Filetype cxx,cpp,c,h,hpp map <S-F7> :make clean all -C ./build/<CR>
 " open/close error list and navigate errors
 autocmd Filetype cxx,cpp,c,h,hpp nnoremap <C-Up> :cw<CR>
 autocmd Filetype cxx,cpp,c,h,hpp nnoremap <C-Down> :ccl<CR>
