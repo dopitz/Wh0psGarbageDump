@@ -48,9 +48,9 @@ hi PmenuThumb guifg=#5fdfff ctermfg=81 guibg=#ffffff ctermbg=15
 hi TabLine term=underline gui=underline cterm=underline guifg=#ffffff ctermfg=15 guibg=#666666 ctermbg=242
 hi TabLineSel term=bold gui=bold cterm=bold
 hi TabLineFill term=reverse gui=reverse cterm=reverse
-hi CursorColumn term=reverse guibg=#303030 ctermbg=236
-hi CursorLine term=none gui=none cterm=none guibg=#000000 ctermbg=233
-hi ColorColumn term=none guibg=#303030 ctermbg=236
+hi CursorColumn term=reverse guibg=#303030 ctermbg=255
+hi CursorLine term=none gui=none cterm=none guibg=#000000 ctermbg=235
+hi ColorColumn term=none guibg=#303030 ctermbg=255
 hi MatchParen term=reverse gui=bold cterm=bold guifg=#121212 ctermfg=233 guibg=#ff8700 ctermbg=208
 hi Normal guifg=#d0d0d0 ctermfg=252 guibg=#151515 ctermbg=233
 hi Cursor guifg=#151515 ctermfg=16 guibg=#dadada ctermbg=253
