@@ -17,22 +17,16 @@
 " n<C-E><C-E>             Quit file
 " n<C-E><C-A>             Save session and exit all
 "
-"
-" n<C-J>                  Move cursor to split window above
-" n<C-K>                  Move cursor to split window below
-" n<C-H>                  Move cursor to split window to the left
-" n<C-L>                  Move cursor to split window to the right
-"
 " n<C-PAGEUP>             Increase size of current split
 " n<C-PAGEDOWN>           Decrease size of current split
+"
+" n<C-H/L/J/K>            Navigate to left/right/up/down split window
 "
 " n<C-T>                  New tab (with same buffer)
 " n<C-W>                  Close tab
 " ni<C-K>                 Go to next tab
 " ni<C-J>                 Go to previous tab
 "
-" n<C-H/L/J/K>            Navigate to left/right/up/down split window
-" n<C-X/Z>                Navigate to next/previous tab window
 "
 " n <space>/n/N/G         Keep cursor centered when jumping to search results
 " nv<Up/Down/Left/Right>  Don't allow arrow keys in normal and visual mode
@@ -71,17 +65,11 @@
 " n<leader>df             Format file with clang-format
 " n<leader>dd             Format file with clang-format
 "
-" <F7>                    Make project
-" <S-F7>                  Make clean project
-" n<C-Up/Down>            Open close error list after compile
-" n<C-Left/Right>         Navigate to next/previous error
-"
 " n<leader>ct             Run Ctags
 "
 "
 " niv<C-A>                Jumps to the next function parameter and marks it in visual mode
-" i<C-D>d|1-0             Copy the function header from the preview window
-"                           listed from YouCompleteMe
+" i<C-D>d|1-0             Copy the function header from the preview window listed from YouCompleteMe
 "
 " i{                      Auto close curly bracket
 "
