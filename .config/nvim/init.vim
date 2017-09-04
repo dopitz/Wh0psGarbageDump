@@ -255,7 +255,8 @@ inoremap <C-D>0 <ESC>:CpyParamList 0<CR>
 " CPP-highlight enhancer
 " ================================================== 
 let g:cpp_class_scope_highlight = 1
-
+let g:cpp_member_variable_highlight = 1
+let g:cpp_class_decl_highlight = 1
 
 
 
