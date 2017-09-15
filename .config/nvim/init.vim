@@ -320,10 +320,13 @@ let g:cycle_spell_check_modes = ["en_us", "de_de"]
 
 nnoremap <leader>sc :call CycleSpellCheck()<CR>
 
-" enable spelling for git commits
-autocmd Filetype gitcommit setlocal spell spelllang=en_us textwidth=72
-" enable spelling for tex files
-autocmd Filetype tex setlocal spell spelllang=en_us wrap linebreak textwidth=0 wrapmargin=0
+augroup git_commits
+  au!
+  " enable spelling for git commits
+  autocmd Filetype gitcommit setlocal spell spelllang=en_us textwidth=72
+  " enable spelling for tex files
+  autocmd Filetype tex setlocal spell spelllang=en_us wrap linebreak textwidth=0 wrapmargin=0
+augroup END
 
 
 
@@ -340,11 +343,12 @@ endfunc
 if executable("clang-format")
   let clangfmt = "clang-format"
   
-  autocmd Filetype cxx,cpp,c,h,hpp nnoremap <leader>df :call ClangFormatFile()<CR>
-  autocmd Filetype cxx,cpp,c,h,hpp nnoremap <leader>dd :pyf /usr/share/vim/addons/syntax/clang-format.py<CR>
+  augroup clang_format
+    au!
+    autocmd Filetype cxx,cpp,c,h,hpp nnoremap <leader>df :call ClangFormatFile()<CR>
+    autocmd Filetype cxx,cpp,c,h,hpp nnoremap <leader>dd :pyf /usr/share/vim/addons/syntax/clang-format.py<CR>
+  augroup END
 endif
-
-autocmd BufNewFile,BufReadPost *.cl set filetype=cpp
 
 
 
@@ -355,8 +359,11 @@ autocmd BufNewFile,BufReadPost *.cl set filetype=cpp
 " search replace/find word under the cursor
 nnoremap <leader>r :%s/\<<C-r><C-w>\>/
 nnoremap <leader>f /\<<C-r><C-w>\>
-" Highlight the word under the current cursor position
-:autocmd CursorMoved * exe printf('match Search /\V\<%s\>/', escape(expand('<cword>'), '/\'))
+augroup cursor_movement
+  au!
+  " Highlight the word under the current cursor position
+  autocmd CursorMoved * exe printf('match Search /\V\<%s\>/', escape(expand('<cword>'), '/\'))
+augroup END
 
 let g:toggle_search_hl_indicator = 0
 func! ToggleSearchHL()
@@ -373,8 +380,11 @@ endfunc
 
 nnoremap <leader>hl :call ToggleSearchHL()<CR>
 
-" auto close curly bracket
-autocmd Filetype cxx,cpp,c,h,hpp,tex,bib inoremap { {}<ESC>i
+augroup close_brackets
+  au!
+  " auto close curly bracket
+  autocmd Filetype cxx,cpp,c,h,hpp,tex,bib inoremap { {}<ESC>i
+augroup END
 
 " cold comments
 func! ToggleFoldComments()
@@ -430,6 +440,10 @@ endfun
 command! Wipe :call WipeoutBuffers()
 
 
+" Move to next fold and expand it
+nnoremap zt zjzx
+nnoremap zT zkzx
+
 
 
 " ================================================== 
@@ -482,8 +496,11 @@ inoremap <C-J> <ESC>:tabp<CR>a
 " new tab, close tab
 nnoremap <C-T> :tab split<CR>
 nnoremap <C-W> :tabclose<CR>
-" switch between header/source with F4
-autocmd Filetype cxx,cpp,c,h,hpp noremap <F4> :FSHere<CR>
+augroup switch_headder_src
+  au!
+  " switch between header/source with F4
+  autocmd Filetype cxx,cpp,c,h,hpp noremap <F4> :FSHere<CR>
+augroup END
 
 
 
@@ -504,21 +521,6 @@ inoremap <C-S><C-A> <ESC>:wa<CR>a
 " save all, save session, exit all
 nnoremap <C-E><C-E> :bd<CR>
 nnoremap <C-E><C-A> :mks!<CR> :qa<CR>
-
-
-
-" ================================================== 
-" BUILD AND DEBUG KEYMAPS
-" ==================================================  
-" open/close error list and navigate errors
-autocmd Filetype cxx,cpp,c,h,hpp nnoremap <C-Up> :cw<CR>
-autocmd Filetype cxx,cpp,c,h,hpp nnoremap <C-Down> :ccl<CR>
-autocmd Filetype cxx,cpp,c,h,hpp nnoremap <C-Left> :cp<CR>
-autocmd Filetype cxx,cpp,c,h,hpp nnoremap <C-Right> :cn<CR>
-
-" open definition in new tab
-autocmd Filetype cxx,cpp,c,h,hpp nnoremap <leader>ct :!ctags -R .<CR>
-autocmd Filetype cxx,cpp,c,h,hpp nnoremap <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 
 
 
