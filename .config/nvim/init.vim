@@ -489,6 +489,10 @@ nnoremap <silent> L :wincmd l<CR>
 nnoremap <silent> <C-PAGEUP> :wincmd +<CR>
 nnoremap <silent> <C-PAGEDOWN> :wincmd -<CR>
 "" tab cycle
+nnoremap <C-L> :tabn<CR>
+inoremap <C-L> <ESC>:tabn<CR>a
+nnoremap <C-H> :tabp<CR>
+inoremap <C-H> <ESC>:tabp<CR>a
 nnoremap <C-K> :tabn<CR>
 inoremap <C-K> <ESC>:tabn<CR>a
 nnoremap <C-J> :tabp<CR>
