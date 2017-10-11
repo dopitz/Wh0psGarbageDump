@@ -16,11 +16,11 @@ endsnippet
 
 
 snippet ctor "Constructor definition"
-${1:`!v substitute(substitute(vim_snippets#Filename('$1','ClassName'),'^.','\u&',''), '_\(\w\)', '\u\1', 'g')`}() $2;
+${1:`!v vim_snippets#Filename('$1','class_name')`}() $2;
 ~$1() $3;
 
-$1($1&& other) ${4:`!v substitute(substitute(vim_snippets#Filename('= default','AttributeMove'),'^.','\u&',''), '_\(\w\)', '\u\1', 'g')`};
+$1($1&& other) ${4:`!v vim_snippets#Filename('= default','attrib_move')`};
 $1& operator=($1&& other) $4;
-$1(const $1& other) ${5:`!v substitute(substitute(vim_snippets#Filename('= default','AttributeCopy'),'^.','\u&',''), '_\(\w\)', '\u\1', 'g')`};
+$1(const $1& other) ${5:`!v vim_snippets#Filename('= default','attrib_copy')`};
 $1& operator=(const $1& other) $5;
 endsnippet
