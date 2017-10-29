@@ -121,24 +121,8 @@ fi
 
 # MY OWN STUFF
 stty -ixon
-export EDITOR=gvim
+export EDITOR=nvim
 
-gvimandexit ()
-{
-  gvim $1
-  exit
-}
-alias ggvim=gvimandexit
-
-
-btexfunc ()
-{
-  pdflatex $1
-  bibtex $1
-  pdflatex $1
-  pdflatex $1
-}
-alias btex=btexfunc
 
 export PATH=${HOME}/.local/bin:${PATH}
 
@@ -179,6 +163,3 @@ alias mr='make run'
 alias pmr='primusrun make run'
 
 
-
-alias cgtunnel='ssh -i ~/cgtunnel dlopitz@cgtunnel.ivd.kit.edu -p 2342'
-alias cgcopy='scp -i ~/cgtunnel -P 2342 -r dlopitz@cgtunnel.ivd.kit.edu:out/* .'
