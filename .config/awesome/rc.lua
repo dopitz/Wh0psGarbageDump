@@ -15,6 +15,7 @@ local hotkeys_popup = require("awful.hotkeys_popup").widget
 require("awful.hotkeys_popup.keys")
 
 
+local lain = require("lain")
 require("awesome-wm-widgets.cpu-widget.cpu-widget")
 --require("awesome-wm-widgets.weather-widget.weather")
 require("awesome-wm-widgets.volumearc-widget.volumearc")
@@ -192,6 +193,12 @@ end
 
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", set_wallpaper)
+
+local cpu = lain.widget.cpu {
+    settings = function()
+        widget:set_markup("Cpu " .. cpu_now.usage)
+    end
+  }
 
 awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
