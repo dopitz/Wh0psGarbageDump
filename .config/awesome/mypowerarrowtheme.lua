@@ -139,44 +139,46 @@ local mail = lain.widget.imap({
 --]]
 
 -- ALSA volume
-theme.volume = lain.widget.alsabar({
-    --togglechannel = "IEC958,3",
-    notification_preset = { font = "xos4 Terminus 10", fg = theme.fg_normal },
+theme.volume = lain.widget.alsa({
+     --togglechannel = "IEC958,3",
+     settings = function()
+         header = " Vol "                                                                                                
+         vlevel  = volume_now.level
+ 
+         if volume_now.status == "off" or volume_now.level == 0 then
+             vlevel = vlevel .. "M "
+         else
+             vlevel = vlevel .. " "
+         end
+ 
+        widget:set_markup(markup.font(theme.font, markup(theme.fg_normal, header) .. markup(theme.fg_normal, vlevel)))
+     end
 })
 
+
 -- MPD
-local musicplr = awful.util.terminal .. " -title Music -g 130x34-320+16 -e ncmpcpp"
 local mpdicon = wibox.widget.imagebox(theme.widget_music)
-mpdicon:buttons(awful.util.table.join(
-    awful.button({ modkey }, 1, function () awful.spawn.with_shell(musicplr) end),
-    awful.button({ }, 1, function ()
-        awful.spawn.with_shell("mpc prev")
-        theme.mpd.update()
-    end),
-    awful.button({ }, 2, function ()
-        awful.spawn.with_shell("mpc toggle")
-        theme.mpd.update()
-    end),
-    awful.button({ }, 3, function ()
-        awful.spawn.with_shell("mpc next")
-        theme.mpd.update()
-    end)))
-theme.mpd = lain.widget.mpd({
-    settings = function()
-        if mpd_now.state == "play" then
-            artist = " " .. mpd_now.artist .. " "
-            title  = mpd_now.title  .. " "
-            mpdicon:set_image(theme.widget_music_on)
-            widget:set_markup(markup.font(theme.font, markup("#FF8466", artist) .. " " .. title))
-        elseif mpd_now.state == "pause" then
-            widget:set_markup(markup.font(theme.font, " mpd paused "))
-            mpdicon:set_image(theme.widget_music_pause)
-        else
-            widget:set_text("")
-            mpdicon:set_image(theme.widget_music)
-        end
-    end
-})
+--theme.mpd = lain.widget.mpd({
+--    music_dir = "~/Music",
+--    settings = function()
+--        local h1 = io.popen("banshee --query-title")
+--        local title = string.sub(h1:read("*a"), 7)
+--        h1:close()
+--        if string.len(title) > 8 then
+--          title = string.sub(title, 0, 8) .. ".."
+--        end
+--        local h2 = io.popen("banshee --query-album")
+--        local album = string.sub(h2:read("*a"), 7)
+--        h2:close()
+--        if string.len(album) > 8 then
+--          album = string.sub(album, 0, 8) .. ".."
+--        end
+--
+--        widget:set_markup(markup.font(theme.font, title .. " / " .. markup(theme.fg_focus, album)))
+--    end
+--})
+
+
 
 -- Weather
 local weathericon = wibox.widget.imagebox(theme.widget_weather)  
@@ -317,8 +319,8 @@ function theme.at_screen_connect(s)
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
             --spr,
-            wibox.container.background(wibox.container.margin(s.mytaglist, 4, 7),"#4B696D"),
-            arrowr("#4B696D", "#A43464"),
+            wibox.container.background(wibox.container.margin(s.mytaglist, 4, 7),"#5B799D"),
+            arrowr("#5B799D", "#A43464"),
             wibox.container.background(wibox.container.margin(s.mypromptbox, 4, 17), "#A43464"),
             arrowr("#A43464", theme.bg_normal),
         },
@@ -328,17 +330,16 @@ function theme.at_screen_connect(s)
             wibox.widget.systray(),
             arrow(theme.bg_normal, "#343434"),
             wibox.container.background(wibox.container.margin(wibox.widget { mailicon, mail and mail.widget, layout = wibox.layout.align.horizontal }, 4, 7), "#343434"),
-            arrow("#343434", theme.bg_normal),
-            wibox.container.background(wibox.container.margin(wibox.widget { mpdicon, theme.mpd.widget, layout = wibox.layout.align.horizontal }, 3, 6), theme.bg_focus),
-            arrow(theme.bg_normal, "#343434"),
-            wibox.container.background(wibox.container.margin(wibox.widget { weathericon, theme.weather.widget, layout = wibox.layout.align.horizontal }, 3, 6), "#343434"),
-            arrow("#343434", "#777E76"),
+            arrow("#343434", "#8F654B"),
+            wibox.container.background(wibox.container.margin(wibox.widget { mpdicon, theme.volume.widget, layout = wibox.layout.align.horizontal }, 3, 6), "#8F654B"),
+            arrow("#8F654B", "#7B99BD"),
+            wibox.container.background(wibox.container.margin(wibox.widget { weathericon, theme.weather.widget, layout = wibox.layout.align.horizontal }, 3, 6), "#7B99BD"),
+            arrow("#7B99BD", "#777E76"),
             wibox.container.background(wibox.container.margin(wibox.widget { memicon, mem.widget, layout = wibox.layout.align.horizontal }, 2, 3), "#777E76"),
             arrow("#777E76", "#4B696D"),
             wibox.container.background(wibox.container.margin(wibox.widget { cpuicon, cpu.widget, layout = wibox.layout.align.horizontal }, 3, 4), "#4B696D"),
             arrow("#4B696D", "#8DAA9A"),
             --arrow("#4B3B51", "#CB755B"),
-            --arrow("#CB755B", "#8DAA9A"),
             wibox.container.background(wibox.container.margin(wibox.widget { baticon, bat.widget, layout = wibox.layout.align.horizontal }, 3, 3), "#8DAA9A"),
             arrow("#8DAA9A", "#C0C0A2"),
             wibox.container.background(wibox.container.margin(wibox.widget { nil, neticon, net.widget, layout = wibox.layout.align.horizontal }, 3, 3), "#C0C0A2"),

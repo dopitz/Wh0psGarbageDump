@@ -219,6 +219,28 @@ local function moveto_tag()
         exe_callback = moveto_tag_name
     }
 end
+local function go_tag(d)
+  while d > 0 do
+    awful.tag.viewnext()
+    d = d - 1
+  end
+  while d < 0 do
+    awful.tag.viewprev()
+    d = d + 1
+  end
+end
+local function move_tag(d)
+  local c = client.focus
+  if not c then return end
+
+  go_tag(d)
+
+  local t = awful.screen.focused().selected_tag
+  if t then
+    c:tags({t})
+    t:view_only()
+  end
+end
 
 
 -- {{{ Key bindings
@@ -240,23 +262,23 @@ globalkeys = awful.util.table.join(
 
     -- Tags
     -- browsing (4x3 grid: up, down, left, right)
-    awful.key({ modkey, altkey    }, "h", function() awful.tag.viewprev() awful.tag.viewprev() awful.tag.viewprev() awful.tag.viewprev() end,
+    awful.key({ modkey, altkey    }, "h", function() go_tag(-4) end,
               {description = "view previous", group = "tag"}),
-    awful.key({ modkey, altkey    }, "l", function() awful.tag.viewnext() awful.tag.viewnext() awful.tag.viewnext() awful.tag.viewnext() end,
+    awful.key({ modkey, altkey    }, "l", function() go_tag(4) end,
               {description = "view previous", group = "tag"}),
     awful.key({ modkey,           }, "h",   awful.tag.viewprev,
               {description = "view previous", group = "tag"}),
     awful.key({ modkey,           }, "l",  awful.tag.viewnext,
               {description = "view next", group = "tag"}),
     -- move window
-    -- awful.key({ modkey, altkey    }, "h", function() awful.tag.viewprev() awful.tag.viewprev() awful.tag.viewprev() awful.tag.viewprev() end,
-    --           {description = "view previous", group = "tag"}),
-    -- awful.key({ modkey, altkey    }, "l", function() awful.tag.viewnext() awful.tag.viewnext() awful.tag.viewnext() awful.tag.viewnext() end,
-    --           {description = "view previous", group = "tag"}),
-    -- awful.key({ modkey,           }, "h",   awful.tag.viewprev,
-    --           {description = "view previous", group = "tag"}),
-    -- awful.key({ modkey,           }, "l",  awful.tag.viewnext,
-    --           {description = "view next", group = "tag"}),
+    awful.key({ modkey, altkey, "Control"}, "h", function() move_tag(-4) end,
+              {description = "view previous", group = "tag"}),
+    awful.key({ modkey, altkey, "Control"}, "l", function() move_tag(4) end,
+              {description = "view previous", group = "tag"}),
+    awful.key({ modkey,         "Control"}, "h", function() move_tag(-1) end,
+              {description = "view previous", group = "tag"}),
+    awful.key({ modkey,         "Control"}, "l", function() move_tag(1) end,
+              {description = "view next", group = "tag"}),
     -- goto tag
     awful.key({ modkey,           }, "g",  goto_tag,
               {description = "goto tag by name", group = "tag"}),
@@ -695,3 +717,6 @@ client.connect_signal("focus",
     end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
+
+
+awful.spawn("compton")
