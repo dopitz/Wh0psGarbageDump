@@ -253,6 +253,20 @@ local net = lain.widget.net({
     end
 })
 
+-- xkbmap
+kbdlayout = lain.widget.contrib.kbdlayout({
+    layouts = { { layout = "us", variant = "dvorak" },
+	            { layout = "gb" } },
+    settings = function()
+        if kbdlayout_now.variant then
+            widget:set_text(string.format("%s/%s", kbdlayout_now.layout,
+            kbdlayout_now.variant))
+        else
+            widget:set_text(kbdlayout_now.layout)
+        end
+    end
+})
+
 -- Separators
 local arrow = separators.arrow_left
 local arrowr = separators.arrow_right
@@ -344,6 +358,7 @@ function theme.at_screen_connect(s)
             arrow("#8DAA9A", "#C0C0A2"),
             wibox.container.background(wibox.container.margin(wibox.widget { nil, neticon, net.widget, layout = wibox.layout.align.horizontal }, 3, 3), "#C0C0A2"),
             arrow("#C0C0A2", "#777E76"),
+            wibox.container.background(wibox.container.margin(kbdlayout.widget, 4, 8), "#777E76"),
             wibox.container.background(wibox.container.margin(clock, 4, 8), "#777E76"),
             arrow("#777E76", "alpha"),
             --]]

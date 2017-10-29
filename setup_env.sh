@@ -15,6 +15,6 @@ cp ~/.config/awesome/mypowerarrowtheme.lua ~/.config/awesome/themes/powerarrow/t
 
 
 # programs
-apt install ranger cmake banshe silversearcher-ag
+apt install ranger cmake banshe silversearcher-ag vlc xtrlock
 
 apt install mesa-utils libglew-dev libfreetype6-dev libsqlite3-dev libncurses5-dev libnuma-dev
