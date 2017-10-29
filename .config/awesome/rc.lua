@@ -68,7 +68,7 @@ local modkey = "Mod4"
 local altkey = "Mod1"
 
 awful.util.terminal = terminal
-awful.util.tagnames = { "browse", "mail", "music", "x", "dr", "de", "dm", "dg", "a", "b", "c", "d" }
+awful.util.tagnames = { "browse", "mail", "music", "x", "a", "o", "e", "u", "ga", "go", "ge", "gu", "ha", "ho", "he", "hu" }
 awful.layout.layouts = {
     awful.layout.suit.magnifier,
     awful.layout.suit.floating,
@@ -205,12 +205,6 @@ awful.util.tasklist_buttons = awful.util.table.join(
 
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(
-    -- Take a screenshot
-    awful.key({ mod.alt }, "p", function() os.execute("gnome-screenshot -i") end,
-              {description = "take a screenshot", group = "hotkeys"}),
-
-    -- Tags
-
     -- Client
     -- focus
     awful.key({ mod.alt,           }, "t",
@@ -353,9 +347,9 @@ clientkeys = awful.util.table.join(
               {description = "toggle keep on top", group = "client"})
 )
 
-globalkeys = awful.util.table.join(globalkeys, awesomekeys)
-globalkeys = awful.util.table.join(globalkeys, launcherkeys)
-globalkeys = awful.util.table.join(globalkeys, tagkeys)
+globalkeys = awful.util.table.join(globalkeys, awesomekeys.keys(awful, hotkeys_popup))
+globalkeys = awful.util.table.join(globalkeys, launcherkeys.keys(awful, menubar, terminal))
+globalkeys = awful.util.table.join(globalkeys, tagkeys.keys(awful))
 
 
 

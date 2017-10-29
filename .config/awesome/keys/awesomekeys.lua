@@ -1,6 +1,3 @@
-local awful         = require("awful")
-local wibox         = require("wibox")
-local hotkeys_popup = require("awful.hotkeys_popup").widget
 local mod           = require("keys.modkeys")
 
 local function confirm(text, action) 
@@ -11,19 +8,27 @@ local function confirm(text, action)
   }
 end
 
-return awful.util.table.join(
-  awful.key({ mod.super, mod.alt, "Control"}, "r", awesome.restart,
-            {description = "reload awesome", group = "awesome"}),
-  awful.key({ mod.super, mod.alt, mod.ctrl}, "h", hotkeys_popup.show_help,
-            {description = "show help", group="awesome"}),
-  awful.key({ mod.super, mod.alt, mod.ctrl}, "q", function() confirm("Power off?", awesome.quit) end,
-            {description = "log out (quit awesome)", group = "awesome"}),
-  awful.key({ mod.super, mod.alt, mod.ctrl}, "l", function() awful.spawn("xtrlock -b") end,
-            {description = "lock screen", group = "awesome"}),
-  awful.key({ mod.super, mod.alt, mod.ctrl}, "s", function() confirm("Suspend?", function() awful.spawn("xtrlock -b") awful.spawn("systemctl hybrid-sleep") end) end,
-            {description = "suspend (hybernate)", group = "awesome"}),
-  awful.key({ mod.super, mod.alt, mod.ctrl}, "p", function() confirm("Power off?", function() awful.spawn("systemctl poweroff") end) end,
-            {description = "power off", group = "awesome"}),
-  awful.key({ mod.super, mod.alt, mod.ctrl}, "w", function() awful.util.mymainmenu:show() end,
-            {description = "show main menu", group = "awesome"})
+local awesomekeys = {}
+
+function awesomekeys.keys (awful, hotkeys_popup)
+  return awful.util.table.join(
+         awful.key({ mod.super, mod.alt, mod.ctrl}, "r", awesome.restart,
+                   {description = "reload awesome", group = "awesome"}),
+         awful.key({ mod.super, mod.alt, mod.ctrl}, "h", hotkeys_popup.show_help,
+                   {description = "show help", group="awesome"}),
+         awful.key({ mod.super, mod.alt, mod.ctrl}, "q", function() confirm("Power off?", awesome.quit) end,
+                   {description = "log out (quit awesome)", group = "awesome"}),
+         awful.key({ mod.super, mod.alt, mod.ctrl}, "l", function() awful.spawn("xtrlock -b") end,
+                   {description = "lock screen", group = "awesome"}),
+         awful.key({ mod.super, mod.alt, mod.ctrl}, "s", function() confirm("Suspend?", function() awful.spawn("xtrlock -b") awful.spawn("systemctl hybrid-sleep") end) end,
+                   {description = "suspend (hybernate)", group = "awesome"}),
+         awful.key({ mod.super, mod.alt, mod.ctrl}, "p", function() confirm("Power off?", function() awful.spawn("systemctl poweroff") end) end,
+                   {description = "power off", group = "awesome"}),
+         awful.key({ mod.super, mod.alt, mod.ctrl}, "w", function() awful.util.mymainmenu:show() end,
+                   {description = "show main menu", group = "awesome"})
 )
+end
+
+return awesomekeys
+
+

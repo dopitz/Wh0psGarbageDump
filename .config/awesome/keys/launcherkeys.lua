@@ -1,6 +1,3 @@
-local awful         = require("awful")
-local wibox         = require("wibox")
-local hotkeys_popup = require("awful.hotkeys_popup").widget
 local mod           = require("keys.modkeys")
 
 local function confirm(text, action) 
@@ -11,22 +8,28 @@ local function confirm(text, action)
   }
 end
 
-return awful.util.table.join(
-  awful.key({ mod.super }, "r", function () awful.screen.focused().mypromptbox:run() end,
-            {description = "prompt launcher (run)", group = "launcher"}),
-  awful.key({ mod.super }, "p", function() menubar.show() end,
-            {description = "prompt menubar", group = "launcher"}),
-  awful.key({ mod.super }, "x",
-            function ()
-                awful.prompt.run {
-                  prompt       = "Run Lua code: ",
-                  textbox      = awful.screen.focused().mypromptbox.widget,
-                  exe_callback = awful.util.eval,
-                  history_path = awful.util.get_cache_dir() .. "/history_eval"
-                }
-            end,
-            {description = "prompt lua", group = "launcher"}),
-  awful.key({ mod.super,           }, "Return", function () awful.spawn(terminal) end,
-            {description = "open a terminal", group = "launcher"})
-)
 
+local launcherkeys = {}
+
+function launcherkeys.keys (awful, menubar, terminal)
+  return awful.util.table.join(
+    awful.key({ mod.super }, "r", function () awful.screen.focused().mypromptbox:run() end,
+              {description = "prompt launcher (run)", group = "launcher"}),
+    awful.key({ mod.super }, "c", function() menubar.show() end,
+              {description = "prompt menubar", group = "launcher"}),
+    awful.key({ mod.super }, "x",
+              function ()
+                  awful.prompt.run {
+                    prompt       = "Run Lua code: ",
+                    textbox      = awful.screen.focused().mypromptbox.widget,
+                    exe_callback = awful.util.eval,
+                    history_path = awful.util.get_cache_dir() .. "/history_eval"
+                  }
+              end,
+              {description = "prompt lua", group = "launcher"}),
+    awful.key({ mod.super,           }, "Return", function () awful.spawn(terminal) end,
+              {description = "open a terminal", group = "launcher"})
+  )
+end
+
+return launcherkeys
