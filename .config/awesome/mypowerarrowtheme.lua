@@ -139,6 +139,7 @@ local mail = lain.widget.imap({
 --]]
 
 -- ALSA volume
+local volicon = wibox.widget.imagebox(theme.widget_music)
 theme.volume = lain.widget.alsa({
      --togglechannel = "IEC958,3",
      settings = function()
@@ -156,34 +157,11 @@ theme.volume = lain.widget.alsa({
 })
 
 
--- MPD
-local mpdicon = wibox.widget.imagebox(theme.widget_music)
---theme.mpd = lain.widget.mpd({
---    music_dir = "~/Music",
---    settings = function()
---        local h1 = io.popen("banshee --query-title")
---        local title = string.sub(h1:read("*a"), 7)
---        h1:close()
---        if string.len(title) > 8 then
---          title = string.sub(title, 0, 8) .. ".."
---        end
---        local h2 = io.popen("banshee --query-album")
---        local album = string.sub(h2:read("*a"), 7)
---        h2:close()
---        if string.len(album) > 8 then
---          album = string.sub(album, 0, 8) .. ".."
---        end
---
---        widget:set_markup(markup.font(theme.font, title .. " / " .. markup(theme.fg_focus, album)))
---    end
---})
-
-
-
 -- Weather
 local weathericon = wibox.widget.imagebox(theme.widget_weather)  
 theme.weather = lain.widget.weather({
-    city_id = 2643743, -- placeholder (London)
+    city_id = 2892794, -- karlsruhe
+    --city_id = 2882439, -- künzelnau
     notification_preset = { font = theme.font, fg = theme.fg_normal },
     weather_na_markup = markup.fontfg(theme.font, theme.fg_normal, "N/A "),
     settings = function()
@@ -255,7 +233,7 @@ local net = lain.widget.net({
 
 -- xkbmap
 kbdlayout = lain.widget.contrib.kbdlayout({
-    layouts = { { layout = "us", variant = "dvorak" },
+    layouts = { { layout = "dvorak" },
 	            { layout = "gb" } },
     settings = function()
         if kbdlayout_now.variant then
@@ -345,7 +323,7 @@ function theme.at_screen_connect(s)
             arrow(theme.bg_normal, "#343434"),
             wibox.container.background(wibox.container.margin(wibox.widget { mailicon, mail and mail.widget, layout = wibox.layout.align.horizontal }, 4, 7), "#343434"),
             arrow("#343434", "#8F654B"),
-            wibox.container.background(wibox.container.margin(wibox.widget { mpdicon, theme.volume.widget, layout = wibox.layout.align.horizontal }, 3, 6), "#8F654B"),
+            wibox.container.background(wibox.container.margin(wibox.widget { volicon, theme.volume.widget, layout = wibox.layout.align.horizontal }, 3, 6), "#8F654B"),
             arrow("#8F654B", "#7B99BD"),
             wibox.container.background(wibox.container.margin(wibox.widget { weathericon, theme.weather.widget, layout = wibox.layout.align.horizontal }, 3, 6), "#7B99BD"),
             arrow("#7B99BD", "#777E76"),

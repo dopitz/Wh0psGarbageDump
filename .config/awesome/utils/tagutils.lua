@@ -1,4 +1,4 @@
-local mod           = require("keys.modkeys")
+local mod           = require("utils.modkeys")
 
 local awful = {}
 
@@ -73,11 +73,24 @@ end
 
 
 
-local tagkeys = {}
+local tagutils = {}
 
-function tagkeys.keys (aw)
+function tagutils.init (aw)
   awful = aw;
-  return awful.util.table.join(
+
+  tagutils.names = { "browse", "mail", "music", "x", "a", "o", "e", "u", "ga", "go", "ge", "gu", "ha", "ho", "he", "hu" }
+
+  tagutils.layouts = {
+    awful.layout.suit.magnifier,
+    awful.layout.suit.floating,
+    awful.layout.suit.tile,
+    --awful.layout.suit.fair,
+    --awful.layout.suit.max.fullscreen,
+    --lain.layout.cascade,
+    --lain.layout.centerwork,
+  }
+
+  tagutils.keys = awful.util.table.join(
     -- browsing (4x3 grid: up, down, left, right)
     awful.key({ mod.super, mod.ctrl }, "h", function() goto_tag(-4) end,
               {description = "view previous", group = "tag"}),
@@ -143,6 +156,25 @@ function tagkeys.keys (aw)
     awful.key({ mod.super, mod.ctrl, mod.shift }, "z",  function() moveto_tag_name("u") end,
               {description = "moveto tag 'u'", group = "tag"})
   )
+
+
+  tagutils.buttons = awful.util.table.join(
+      awful.button({ }, 1, function(t) t:view_only() end),
+      awful.button({ mod.super }, 1, function(t)
+                                       if client.focus then
+                                           client.focus:move_to_tag(t)
+                                       end
+                                     end),
+      awful.button({ }, 3, awful.tag.viewtoggle),
+      awful.button({ mod.super }, 3, function(t)
+                                       if client.focus then
+                                           client.focus:toggle_tag(t)
+                                       end
+                                     end),
+      awful.button({ }, 4, function(t) awful.tag.viewnext(t.screen) end),
+      awful.button({ }, 5, function(t) awful.tag.viewprev(t.screen) end)
+    )
+
 end
 
-return tagkeys
+return tagutils
