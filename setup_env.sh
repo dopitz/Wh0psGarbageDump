@@ -4,6 +4,7 @@
 sudo add-apt-repository  ppa:klaus-vormweg/awesome -y
 sudo apt update
 sudo apt install awesome -y
+sudo apt install awesome-extra -y
 
 # awesome themes and widgets
 git clone https://github.com/Wh0p/awesomelaawesome.git ~/.config/awesome/themes/awesomelaawesome
