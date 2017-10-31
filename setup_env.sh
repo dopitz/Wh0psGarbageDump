@@ -6,6 +6,7 @@ sudo apt update
 sudo apt install awesome -y
 
 # awesome themes and widgets
+git clone https://github.com/Wh0p/awesomelaawesome.git ~/.config/awesome/themes/awesomelaawesome
 git clone https://github.com/lcpz/lain.git ~/.config/awesome/lain
 git clone https://github.com/lcpz/awesome-freedesktop.git ~/.config/awesome/freedesktop
 
