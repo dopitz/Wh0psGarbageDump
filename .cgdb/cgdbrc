@@ -1,0 +1,6 @@
+:map n :next<CR>
+:map N :step<CR>
+:map r :finish<CR>
+:map c :continue<CR>
+:map R :run<CR>
+
