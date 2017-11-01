@@ -24,6 +24,8 @@ local launcherutils = require("utils.launcherutils")
 local tagutils      = require("utils.tagutils")
 local clientutils   = require("utils.clientutils")
 
+local banshee       = require("banshee")
+
 
 
 -- ------------------------ --
@@ -73,9 +75,8 @@ run_once({ "unclutter -root" }) -- entries must be comma-separated
 -- ------------------------------ --
 local terminal     = "gnome-terminal"
 
-sysutils.init(awful, hotkeys_popup)
-launcherutils.init(awful, menubar, terminal)
-tagutils.init(awful)
+launcherutils.terminal = terminal
+
 
 awful.util.terminal = terminal
 awful.util.tagnames = tagutils.names
@@ -87,8 +88,8 @@ awful.util.taglist_buttons = tagutils.buttons
 local theme_path = string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), "awesomelaawesome")
 beautiful.init(theme_path)
 
--- needs initalized beautiful
-clientutils.init(awful, awesome, client, beautiful, wibox, lain)
+-- needs to be set 
+clientutils.beautiful = beautiful
 -- required before connect_for_each_screen
 awful.util.tasklist_buttons = clientutils.tasklist_buttons
 
@@ -145,15 +146,6 @@ end
 -- ---- KEY BINDINGS ---- --
 -- ---------------------- --
 globalkeys = awful.util.table.join(
-    awful.key({ mod.alt           }, "b", 
-      function () 
-
-
-
-        local s = capture("{ banshee --query-title; banshee --query-artist; banshee --query-album; }")
-        io.popen("notify-send -t 4000 -i .config/awesome/wp.png \"" .. s .. "\"", 'r')
-      end,
-      {description = "banshee currently playing", group = "screen"}),
 
     -- Layout 
     awful.key({ mod.super,           }, "n", function () awful.screen.focus_relative( 1) end,
@@ -179,43 +171,34 @@ globalkeys = awful.util.table.join(
     --awful.key({ }, "XF86MonBrightnessDown", function () awful.util.spawn("xbacklight -dec 10") end,
     --          {description = "-10%", group = "hotkeys"}),
 
-    -- ALSA volume control
-    awful.key({ mod.alt }, "Up",
-        function ()
-            os.execute(string.format("amixer -q set %s 1%%+", beautiful.volume.channel))
-            beautiful.volume.update()
-        end,
-        {description = "volume up", group = "hotkeys"}),
-    awful.key({ mod.alt }, "Down",
-        function ()
-            os.execute(string.format("amixer -q set %s 1%%-", beautiful.volume.channel))
-            beautiful.volume.update()
-        end,
-        {description = "volume down", group = "hotkeys"}),
-    awful.key({ mod.alt }, "m",
-        function ()
-            os.execute(string.format("amixer -q set %s toggle", beautiful.volume.togglechannel or beautiful.volume.channel))
-            beautiful.volume.update()
-        end,
-        {description = "toggle mute", group = "hotkeys"}),
-    awful.key({ mod.alt, mod.ctrl }, "m",
-        function ()
-            os.execute(string.format("amixer -q set %s 100%%", beautiful.volume.channel))
-            beautiful.volume.update()
-        end,
-        {description = "volume 100%", group = "hotkeys"}),
-    awful.key({ mod.alt, mod.ctrl }, "0",
-        function ()
-            os.execute(string.format("amixer -q set %s 0%%", beautiful.volume.channel))
-            beautiful.volume.update()
-        end,
-        {description = "volume 0%", group = "hotkeys"})
+    -- volume control
+    awful.key({ mod.ctrl }, "Page_Up",
+    function ()
+        os.execute(string.format("pactl set-sink-volume %d +1%%", beautiful.volume.device))
+        beautiful.volume.update()
+    end),
+    awful.key({ mod.ctrl }, "Page_Down",
+    function ()
+        os.execute(string.format("pactl set-sink-volume %d -1%%", beautiful.volume.device))
+        beautiful.volume.update()
+    end),
+    awful.key({ mod.ctrl, mod.shift }, "Page_Down",
+    function ()
+        os.execute(string.format("pactl set-sink-mute %d toggle", beautiful.volume.device))
+        beautiful.volume.update()
+    end),
+    awful.key({ mod.ctrl, mod.shift }, "Page_Up",
+    function ()
+        os.execute(string.format("pactl set-sink-volume %d 100%%", beautiful.volume.device))
+        beautiful.volume.update()
+    end)
 )
 
 globalkeys = awful.util.table.join(globalkeys, sysutils.keys)
 globalkeys = awful.util.table.join(globalkeys, launcherutils.keys)
 globalkeys = awful.util.table.join(globalkeys, tagutils.keys)
 globalkeys = awful.util.table.join(globalkeys, clientutils.keys)
+globalkeys = awful.util.table.join(globalkeys, banshee.keys)
 
 
 
@@ -228,7 +211,7 @@ clientbuttons = awful.util.table.join(
 root.keys(globalkeys)
 -- }}}
 
-awful.rules.rules = clientutils.rules
+awful.rules.rules = clientutils.make_rules()
 
 client.connect_signal("manage", clientutils.manage)
 client.connect_signal("request::titlebars", clientutils.request_titlebar)

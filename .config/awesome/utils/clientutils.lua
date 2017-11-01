@@ -1,23 +1,14 @@
-local mod = require("utils.modkeys")
+local awesome, client, mouse, screen, tag = awesome, client, mouse, screen, tag
 
-local clientutils = {}
+local mod           = require("utils.modkeys")
+local awful         = require("awful")
+local lain          = require("lain")
+local wibox         = require("wibox")
 
-local awful = {}
-local awesome = {}
-local beautiful = {}
-local wibox = {}
-local client = {}
-local lain = {}
+clients = {}
 
-function clientutils.init (_awful, _awesome, _client, _beautiful, _wibox, _lain)
-  awful = _awful
-  awesome = _awesome
-  client = _client
-  beautiful = _beautiful
-  wibox = _wibox
-  lain = _lain
-
-  clientutils.keys = awful.util.table.join(
+clients.beautiful = {}
+clients.keys = awful.util.table.join(
     awful.key({ mod.super,           }, "u", awful.client.urgent.jumpto,
               {description = "jump to urgent client", group = "client"}),
 
@@ -61,8 +52,7 @@ function clientutils.init (_awful, _awesome, _client, _beautiful, _wibox, _lain)
       end,
       {description = "focus right", group = "client"})
   )
-
-  clientutils.clientkeys = awful.util.table.join(
+clients.clientkeys = awful.util.table.join(
     awful.key({ mod.super, mod.alt }, "f",
                 function (c)
                   c.fullscreen = not c.fullscreen
@@ -74,9 +64,7 @@ function clientutils.init (_awful, _awesome, _client, _beautiful, _wibox, _lain)
     awful.key({ mod.super, mod.alt }, "o", function (c) c:move_to_screen() end,
               {description = "move client to screen", group = "client"})
   )
-
-
-  clientutils.tasklist_buttons = awful.util.table.join(
+clients.tasklist_buttons = awful.util.table.join(
     awful.button({ }, 1, function (c)
                           if c == client.focus then
                             c.minimized = true
@@ -95,7 +83,7 @@ function clientutils.init (_awful, _awesome, _client, _beautiful, _wibox, _lain)
                          end),
     awful.button({ }, 3, function()
                           local instance = nil
-
+  
                           return function ()
                             if instance and instance.wibox.visible then
                               instance:hide()
@@ -109,15 +97,15 @@ function clientutils.init (_awful, _awesome, _client, _beautiful, _wibox, _lain)
     awful.button({ }, 5, function () awful.client.focus.byidx(-1) end)
   )
 
-
-  -- window rules
-  clientutils.rules = {
+-- needs to be a function so that correct beautiful is used
+function clients.make_rules ()
+  return {
     -- All clients will match this rule.
-    { rule = { }, properties = { border_width = beautiful.border_width,
-                                 border_color = beautiful.border_normal,
+    { rule = { }, properties = { border_width = clients.beautiful.border_width,
+                                 border_color = clients.beautiful.border_normal,
                                  focus = awful.client.focus.filter,
                                  raise = true,
-                                 keys = clientutils.clientkeys,
+                                 keys = clients.clientkeys,
                                  buttons = clientbuttons,
                                  screen = awful.screen.preferred,
                                  placement = awful.placement.no_overlap+awful.placement.no_offscreen,
@@ -138,17 +126,13 @@ function clientutils.init (_awful, _awesome, _client, _beautiful, _wibox, _lain)
     { rule = { name = "Banshee Media Player" },
       properties = { screen = 1, tag = awful.util.tagnames[3] } },
   }
-
-
-
-
 end
 
 
 -- ----------------- --
 -- ---- SIGNALS ---- --
 -- ----------------- --
-function clientutils.manage (c)
+function clients.manage (c)
   if awesome.startup and
     not c.size_hints.user_position
     and not c.size_hints.program_position then
@@ -157,10 +141,10 @@ function clientutils.manage (c)
   end
 end
 
-function clientutils.request_titlebar (c)
+function clients.request_titlebar (c)
   -- Custom
-  if beautiful.titlebar_fun then
-    beautiful.titlebar_fun(c)
+  if clients.beautiful.titlebar_fun then
+    clients.beautiful.titlebar_fun(c)
     return
   end
 
@@ -208,7 +192,7 @@ function clientutils.request_titlebar (c)
 end
 
 
-function clientutils.mouse_enter (c)
+function clients.mouse_enter (c)
   if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
     and awful.client.focus.filter(c) then
     client.focus = c
@@ -216,17 +200,17 @@ function clientutils.mouse_enter (c)
 end
 
 
-function clientutils.focus (c)
+function clients.focus (c)
   if c.maximized then -- no borders if only 1 client visible
     c.border_width = 0
   elseif #awful.screen.focused().clients > 1 then
-    c.border_width = beautiful.border_width
-    c.border_color = beautiful.border_focus
+    c.border_width = clients.beautiful.border_width
+    c.border_color = clients.beautiful.border_focus
   end
 end
 
-function clientutils.unfocus (c)
-  c.border_color = beautiful.border_normal
+function clients.unfocus (c)
+  c.border_color = clients.beautiful.border_normal
 end
 
-return clientutils
+return clients

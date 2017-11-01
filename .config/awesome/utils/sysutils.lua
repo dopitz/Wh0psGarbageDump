@@ -1,6 +1,6 @@
 local mod           = require("utils.modkeys")
-
-local awful = {}
+local awful         = require("awful")
+local hotkeys_popup = require("awful.hotkeys_popup").widget
 
 local function confirm(text, action) 
   awful.prompt.run {
@@ -10,16 +10,14 @@ local function confirm(text, action)
   }
 end
 
-local sysutils = {}
+system = {}
 
-function sysutils.init (aw, hotkeys_popup)
-  awful = aw
-  sysutils.keys = awful.util.table.join(
+system.keys = awful.util.table.join(
     awful.key({ mod.super, mod.alt, mod.ctrl}, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
     awful.key({ mod.super, mod.alt, mod.ctrl}, "h", hotkeys_popup.show_help,
               {description = "show help", group="awesome"}),
-    awful.key({ mod.super, mod.alt, mod.ctrl}, "q", function() confirm("Power off?", awesome.quit) end,
+    awful.key({ mod.super, mod.alt, mod.ctrl}, "q", function() confirm("Log out?", awesome.quit) end,
               {description = "log out (quit awesome)", group = "awesome"}),
     awful.key({ mod.super, mod.alt, mod.ctrl}, "l", function() awful.spawn("xtrlock -b") end,
               {description = "lock screen", group = "awesome"}),
@@ -32,9 +30,8 @@ function sysutils.init (aw, hotkeys_popup)
               {description = "power off", group = "awesome"}),
     awful.key({ mod.super, mod.alt, mod.ctrl}, "w", function() awful.util.mymainmenu:show() end,
               {description = "show main menu", group = "awesome"})
-)
-end
+  )
 
-return sysutils
+return system
 
 

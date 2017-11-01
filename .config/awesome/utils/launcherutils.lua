@@ -1,9 +1,11 @@
 local mod           = require("utils.modkeys")
+local awful         = require("awful")
+local menubar       = require("menubar")
 
-local launcherkeys = {}
+launcher = {}
 
-function launcherkeys.init (awful, menubar, terminal)
-  launcherkeys.keys = awful.util.table.join(
+launcher.terminal = {}
+launcher.keys = awful.util.table.join(
     awful.key({ mod.super }, "r", function () awful.screen.focused().mypromptbox:run() end,
               {description = "prompt launcher (run)", group = "launcher"}),
     awful.key({ mod.super }, "c", function() menubar.show() end,
@@ -18,11 +20,10 @@ function launcherkeys.init (awful, menubar, terminal)
                   }
               end,
               {description = "prompt lua", group = "launcher"}),
-    awful.key({ mod.super,          }, "Return", function () awful.spawn(terminal) end,
+    awful.key({ mod.super,          }, "Return", function () awful.spawn(launcher.terminal) end,
               {description = "open a terminal", group = "launcher"}),
-    awful.key({ mod.super, mod.ctrl }, "Return", function () awful.spawn(terminal .. " -e ranger") end,
+    awful.key({ mod.super, mod.ctrl }, "Return", function () awful.spawn(launcher.terminal .. " -e ranger") end,
               {description = "open ranger", group = "launcher"})
   )
-end
 
-return launcherkeys
+return launcher
