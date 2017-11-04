@@ -25,6 +25,6 @@ then
 fi
 
 # programs
-sudo apt install ranger cmake banshe silversearcher-ag cgdb ffmpeg xtrlock -y
+sudo apt install ranger cmake banshe silversearcher-ag cgdb ffmpeg xtrlock compton -y
 
 sudo apt install mesa-utils libglew-dev libfreetype6-dev libsqlite3-dev libncurses5-dev libnuma-dev -y
