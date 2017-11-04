@@ -1,10 +1,10 @@
 #/bin/bash
 
 # awesome
-#sudo add-apt-repository  ppa:klaus-vormweg/awesome -y
-#sudo apt update
-#sudo apt install awesome -y
-#sudo apt install awesome-extra -y
+sudo add-apt-repository  ppa:klaus-vormweg/awesome -y
+sudo apt update
+sudo apt install awesome -y
+sudo apt install awesome-extra -y
 
 # awesome themes and widgets
 if [ ! -d "~/.config/awesome/themes/awesomelaawesome" ] 
