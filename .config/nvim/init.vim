@@ -361,6 +361,7 @@ endif
 " ================================================== 
 " EDITING
 " ================================================== 
+nnoremap <C-Z> <nop>
 " search replace/find word under the cursor
 nnoremap <leader>r :%s/\<<C-r><C-w>\>/
 nnoremap <leader>f /\<<C-r><C-w>\>

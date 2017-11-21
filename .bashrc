@@ -121,6 +121,7 @@ fi
 
 # MY OWN STUFF
 stty -ixon
+stty susp undef
 export EDITOR=nvim
 
 
