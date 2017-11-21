@@ -527,7 +527,7 @@ nnoremap <C-S> :w<CR>
 inoremap <C-S> <ESC>:w<CR>a
 " save all
 nnoremap <C-S-S> :wa<CR>:mksession!<CR>:echo "Saved all, updated session."<CR>
-inoremap <C-S-S> <ESC>:wa<CR>mksession!<CR>:echo "Saved all, updated session."<CR>a
+inoremap <C-S-S> <ESC>:wa<CR>:mksession!<CR>:echo "Saved all, updated session."<CR>a
 " save all, save session, exit all
 nnoremap <C-E><C-E> :bd<CR>
 nnoremap <C-E><C-A> :mks!<CR> :qa<CR>
