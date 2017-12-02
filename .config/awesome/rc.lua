@@ -153,9 +153,9 @@ globalkeys = awful.util.table.join(
     awful.key({ mod.super, mod.shifn }, "n", function () awful.screen.focus_relative(-1) end,
               {description = "focus the previous screen", group = "screen"}),
 
-    awful.key({ mod.super,           }, "space", function () awful.layout.inc( 1)                end,
+    awful.key({ mod.super,           }, ".", function () awful.layout.inc( 1)                end,
               {description = "select next", group = "layout"}),
-    awful.key({ mod.super, mod.shift }, "space", function () awful.layout.inc(-1)                end,
+    awful.key({ mod.super, mod.shift }, ".", function () awful.layout.inc(-1)                end,
               {description = "select previous", group = "layout"}),
 
 

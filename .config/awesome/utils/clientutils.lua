@@ -118,13 +118,13 @@ function clients.make_rules ()
 
     -- Set Firefox to always map on the first tag on screen 1.
     { rule = { class = "Firefox" },
-      properties = { screen = 1, tag = awful.util.tagnames[1] } },
+      properties = { screen = 1, tag = "browse" } },
 
     { rule = { class = "Thunderbird" },
-      properties = { screen = 1, tag = awful.util.tagnames[2] } },
+      properties = { screen = 1, tag = "mail" } },
 
     { rule = { name = "Banshee Media Player" },
-      properties = { screen = 1, tag = awful.util.tagnames[3] } },
+      properties = { screen = 1, tag = "music" } },
   }
 end
 

@@ -74,11 +74,14 @@ end
 
 tagging = {}
 
-tagging.names = { "browse", "mail", "music", "x", "a", "o", "e", "u", "ga", "go", "ge", "gu", "ha", "ho", "he", "hu" }
+tagging.names = { 
+   "a",  "o",  "e",  "u", "ga", "go", "ge", "gu", "ha", "ho", "he", "hu", 
+  "ta", "to", "te", "tu", "na", "no", "ne", "nu", "sa", "so", "se", "su", 
+  "browse", "mail", "music", "x" }
 
 tagging.layouts = {
-  awful.layout.suit.magnifier,
   awful.layout.suit.floating,
+  awful.layout.suit.magnifier,
   awful.layout.suit.tile,
   --awful.layout.suit.fair,
   --awful.layout.suit.max.fullscreen,
@@ -126,21 +129,22 @@ tagging.keys = awful.util.table.join(
               {description = "goto tag 'music'", group = "tag"}),
     awful.key({ mod.super,          }, "z",  function() goto_tag_name("x") end,
               {description = "goto tag 'x'", group = "tag"}),
-    awful.key({ mod.super, mod.ctrl }, "m",  function() goto_tag_name("a") end,
+
+
+    awful.key({ mod.super, mod.alt }, "space",  function() goto_tag_name("a") end,
               {description = "goto tag 'a'", group = "tag"}),
-    awful.key({ mod.super, mod.ctrl }, "w",  function() goto_tag_name("o") end,
-              {description = "goto tag 'o'", group = "tag"}),
-    awful.key({ mod.super, mod.ctrl }, "v",  function() goto_tag_name("e") end,
-              {description = "goto tag 'e'", group = "tag"}),
-    awful.key({ mod.super, mod.ctrl }, "z",  function() goto_tag_name("u") end,
-              {description = "goto tag 'u'", group = "tag"}),
+    awful.key({ mod.super, mod.alt }, "g",  function() goto_tag_name("ga") end,
+              {description = "goto tag 'ga'", group = "tag"}),
+    awful.key({ mod.super, mod.alt }, "h",  function() goto_tag_name("ha") end,
+              {description = "goto tag 'ha'", group = "tag"}),
+    awful.key({ mod.super, mod.alt }, "t",  function() goto_tag_name("ta") end,
+              {description = "goto tag 'ta'", group = "tag"}),
+    awful.key({ mod.super, mod.alt }, "n",  function() goto_tag_name("na") end,
+              {description = "goto tag 'na'", group = "tag"}),
+    awful.key({ mod.super, mod.alt }, "s",  function() goto_tag_name("sa") end,
+              {description = "goto tag 'sa'", group = "tag"}),
+
     -- move window
-    awful.key({ mod.super,           mod.shift }, "m",  function() moveto_tag_name("browse") end,
-              {description = "moveto tag 'browse'", group = "tag"}),
-    awful.key({ mod.super,           mod.shift }, "w",  function() moveto_tag_name("mail") end,
-              {description = "moveto tag 'mail'", group = "tag"}),
-    awful.key({ mod.super,           mod.shift }, "v",  function() moveto_tag_name("music") end,
-              {description = "moveto tag 'music'", group = "tag"}),
     awful.key({ mod.super,           mod.shift }, "z",  function() moveto_tag_name("x") end,
               {description = "moveto tag 'x'", group = "tag"}),
     awful.key({ mod.super, mod.ctrl, mod.shift }, "m",  function() moveto_tag_name("a") end,
