@@ -131,7 +131,7 @@ export PATH=${HOME}/.local/bin:${PATH}
 alias :q='exit'
 
 alias gits='git status'
-alias gitl='git log --decorate --oneline --graph'
+alias gitl='git log --decorate=auto --graph --source --date=short --pretty=format:"%C(yellow)%<|(12)%h %Cblue%>(12,trunc)%ad %Cgreen%<(17,trunc)%aN%Cred%d %Creset%s"'
 
 
 
