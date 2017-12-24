@@ -23,6 +23,7 @@ local sysutils      = require("utils.sysutils")
 local launcherutils = require("utils.launcherutils")
 local tagutils      = require("utils.tagutils")
 local clientutils   = require("utils.clientutils")
+local xrandr        = require("utils.xrandr")
 
 local banshee       = require("banshee")
 
@@ -164,6 +165,8 @@ globalkeys = awful.util.table.join(
               {description = "show calendar", group = "widgets"}),
     awful.key({ mod.alt, }, "w", function () if beautiful.weather then beautiful.weather.show(7) end end,
               {description = "show weather", group = "widgets"}),
+
+    awful.key({mod.alt, mod.super, mod.shift, }, "x", function() xrandr.xrandr() end),
 
     -- Brightness
     --awful.key({ }, "XF86MonBrightnessUp", function () awful.util.spawn("xbacklight -inc 10") end,
