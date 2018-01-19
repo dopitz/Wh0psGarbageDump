@@ -124,6 +124,9 @@ stty -ixon
 stty susp undef
 export EDITOR=nvim
 
+alias vim='nvim'
+alias vi='nvim'
+
 
 export PATH=${HOME}/.local/bin:${PATH}
 
@@ -164,3 +167,5 @@ alias mr='make run'
 alias pmr='primusrun make run'
 
 
+
+eval $(thefuck --alias)
