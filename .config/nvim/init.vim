@@ -530,8 +530,7 @@ nnoremap <C-S-S> :wa<CR>:mksession!<CR>:echo "Saved all, updated session."<CR>
 inoremap <C-S-S> <ESC>:wa<CR>:mksession!<CR>:echo "Saved all, updated session."<CR>a
 " save all, save session, exit all
 nnoremap <C-E><C-E> :bd<CR>
-nnoremap <C-E><C-A> :mks!<CR> :qa<CR>
 
-
-
+nnoremap <C-Q><C-S> :!rm Session.vim<CR> :qa<CR>
+nnoremap <C-Q><C-Q> :qa<CR>
 
