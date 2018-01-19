@@ -2,3 +2,6 @@ syntax
 updatedot.sh
 copydotfiles.sh
 dotignore
+nvim_install.sh
+setup_env.sh
+Session.vim

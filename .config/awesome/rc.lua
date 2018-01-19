@@ -23,6 +23,7 @@ local sysutils      = require("utils.sysutils")
 local launcherutils = require("utils.launcherutils")
 local tagutils      = require("utils.tagutils")
 local clientutils   = require("utils.clientutils")
+local xrandr        = require("utils.xrandr")
 
 local banshee       = require("banshee")
 
@@ -153,9 +154,9 @@ globalkeys = awful.util.table.join(
     awful.key({ mod.super, mod.shifn }, "n", function () awful.screen.focus_relative(-1) end,
               {description = "focus the previous screen", group = "screen"}),
 
-    awful.key({ mod.super,           }, "space", function () awful.layout.inc( 1)                end,
+    awful.key({ mod.super,           }, ".", function () awful.layout.inc( 1)                end,
               {description = "select next", group = "layout"}),
-    awful.key({ mod.super, mod.shift }, "space", function () awful.layout.inc(-1)                end,
+    awful.key({ mod.super, mod.shift }, ".", function () awful.layout.inc(-1)                end,
               {description = "select previous", group = "layout"}),
 
 
@@ -164,6 +165,8 @@ globalkeys = awful.util.table.join(
               {description = "show calendar", group = "widgets"}),
     awful.key({ mod.alt, }, "w", function () if beautiful.weather then beautiful.weather.show(7) end end,
               {description = "show weather", group = "widgets"}),
+
+    awful.key({mod.alt, mod.super, mod.shift, }, "x", function() xrandr.xrandr() end),
 
     -- Brightness
     --awful.key({ }, "XF86MonBrightnessUp", function () awful.util.spawn("xbacklight -inc 10") end,
