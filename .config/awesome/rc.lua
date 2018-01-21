@@ -224,7 +224,6 @@ client.connect_signal("unfocus", clientutils.unfocus)
 
 
 awful.spawn("compton")
-awful.spawn("setxkbmap dvorak -option caps:swapescape -option compose:ralt")
 run_once({ "firefox" })
 run_once({ "thunderbird" })
 run_once({ "banshee" })
