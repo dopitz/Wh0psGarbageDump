@@ -76,8 +76,6 @@
 " n<C-Up/Down>            Open close error list after compile
 " n<C-Left/Right>         Navigate to next/previous error
 "
-" n<leader>ct             Run Ctags
-"
 "
 " niv<C-A>                Jumps to the next function parameter and marks it in visual mode
 " i<C-D>d|1-0             Copy the function header from the preview window
@@ -267,6 +265,10 @@ nnoremap <leader>dx :Dox<CR>
 
 
 
+" ================================================== 
+" PLUGIN  --  vimtex
+" ================================================== 
+let g:vimtex_quickfix_latexlog = {'fix_paths':0}
 
 
 
@@ -309,7 +311,7 @@ set guioptions-=L
 set guifont=Liberation\ Mono\ 10
 
 " folds
-set foldmethod=syntax
+set foldmethod=indent
 set foldlevel=0
 set foldenable
 
