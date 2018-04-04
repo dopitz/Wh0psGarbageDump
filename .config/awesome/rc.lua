@@ -166,7 +166,8 @@ globalkeys = awful.util.table.join(
     awful.key({ mod.alt, }, "w", function () if beautiful.weather then beautiful.weather.show(7) end end,
               {description = "show weather", group = "widgets"}),
 
-    awful.key({mod.alt, mod.super, mod.shift, }, "x", function() xrandr.xrandr() end),
+    awful.key({mod.alt, mod.super, mod.shift, }, "x", function() xrandr.xrandr() end, 
+              {description = "cycle through xrandr config", group = "screen"}),
 
     -- Brightness
     --awful.key({ }, "XF86MonBrightnessUp", function () awful.util.spawn("xbacklight -inc 10") end,
@@ -224,7 +225,6 @@ client.connect_signal("unfocus", clientutils.unfocus)
 
 
 awful.spawn("compton")
-awful.spawn("setxkbmap dvorak -option caps:swapescape -option compose:ralt")
 run_once({ "firefox" })
 run_once({ "thunderbird" })
 run_once({ "banshee" })
