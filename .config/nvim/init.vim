@@ -128,8 +128,17 @@ Plug 'lervag/vimtex'
 Plug 'rust-lang/rust.vim'
 Plug 'octol/vim-cpp-enhanced-highlight' 
 Plug 'beyondmarc/glsl.vim'
+Plug 'Konfekt/FastFold'
 " Initialize plugin system
 call plug#end()
+
+nmap zuz <Plug>(FastFoldUpdate)
+let g:fastfold_savehook = 1
+let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C']
+let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
+let g:tex_fold_enabled=1
+let g:vimsyn_folding='af'
+let g:xml_syntax_folding = 1
 
 
 " ================================================== 
@@ -311,7 +320,7 @@ set guioptions-=L
 set guifont=Liberation\ Mono\ 10
 
 " folds
-set foldmethod=indent
+set foldmethod=syntax
 set foldlevel=0
 set foldenable
 
