@@ -84,8 +84,7 @@ awful.util.tagnames = tagutils.names
 awful.layout.layouts = tagutils.layouts
 awful.util.taglist_buttons = tagutils.buttons
 
--- highly modified, but the icons are based on this theme
---local theme_path = string.format("%s/.config/awesome/themes/%s/theme-personal.lua", os.getenv("HOME"), "powerarrow")
+-- highly modified, but the icons are based on the powerarrow theme from https://github.com/lcpz/awesome-copycats
 local theme_path = string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), "awesomelaawesome")
 beautiful.init(theme_path)
 
