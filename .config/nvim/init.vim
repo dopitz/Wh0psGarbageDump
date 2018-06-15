@@ -76,8 +76,6 @@
 " n<C-Up/Down>            Open close error list after compile
 " n<C-Left/Right>         Navigate to next/previous error
 "
-" n<leader>ct             Run Ctags
-"
 "
 " niv<C-A>                Jumps to the next function parameter and marks it in visual mode
 " i<C-D>d|1-0             Copy the function header from the preview window
@@ -130,8 +128,17 @@ Plug 'lervag/vimtex'
 Plug 'rust-lang/rust.vim'
 Plug 'octol/vim-cpp-enhanced-highlight' 
 Plug 'beyondmarc/glsl.vim'
+Plug 'Konfekt/FastFold'
 " Initialize plugin system
 call plug#end()
+
+nmap zuz <Plug>(FastFoldUpdate)
+let g:fastfold_savehook = 1
+let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C']
+let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
+let g:tex_fold_enabled=1
+let g:vimsyn_folding='af'
+let g:xml_syntax_folding = 1
 
 
 " ================================================== 
@@ -170,6 +177,11 @@ let g:ctrlp_working_path_mode = 0
 nnoremap <leader>gs :tabe %<CR>:Gstatus<CR>:resize 30<CR>
 nnoremap <leader>gd :Gdiff<CR>
 
+
+" ================================================== 
+" PLUGIN  --  Gitgutter
+" ================================================== 
+nnoremap <leader>gg :GitGutterToggle<CR>
 
 
 " ================================================== 
@@ -267,6 +279,10 @@ nnoremap <leader>dx :Dox<CR>
 
 
 
+" ================================================== 
+" PLUGIN  --  vimtex
+" ================================================== 
+let g:vimtex_quickfix_latexlog = {'fix_paths':0}
 
 
 

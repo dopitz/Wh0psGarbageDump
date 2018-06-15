@@ -84,8 +84,7 @@ awful.util.tagnames = tagutils.names
 awful.layout.layouts = tagutils.layouts
 awful.util.taglist_buttons = tagutils.buttons
 
--- highly modified, but the icons are based on this theme
---local theme_path = string.format("%s/.config/awesome/themes/%s/theme-personal.lua", os.getenv("HOME"), "powerarrow")
+-- highly modified, but the icons are based on the powerarrow theme from https://github.com/lcpz/awesome-copycats
 local theme_path = string.format("%s/.config/awesome/themes/%s/theme.lua", os.getenv("HOME"), "awesomelaawesome")
 beautiful.init(theme_path)
 
@@ -166,7 +165,8 @@ globalkeys = awful.util.table.join(
     awful.key({ mod.alt, }, "w", function () if beautiful.weather then beautiful.weather.show(7) end end,
               {description = "show weather", group = "widgets"}),
 
-    awful.key({mod.alt, mod.super, mod.shift, }, "x", function() xrandr.xrandr() end),
+    awful.key({mod.alt, mod.super, mod.shift, }, "x", function() xrandr.xrandr() end, 
+              {description = "cycle through xrandr config", group = "screen"}),
 
     -- Brightness
     --awful.key({ }, "XF86MonBrightnessUp", function () awful.util.spawn("xbacklight -inc 10") end,
