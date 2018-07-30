@@ -282,7 +282,7 @@ nnoremap <leader>dx :Dox<CR>
 " ================================================== 
 " PLUGIN  --  vimtex
 " ================================================== 
-let g:vimtex_quickfix_latexlog = {'fix_paths':0}
+let g:vimtex_compiler_progname = 'nvr'
 
 
 
