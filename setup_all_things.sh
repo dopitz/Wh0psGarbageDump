@@ -25,8 +25,8 @@ then
 fi
 
 # programs
-sudo apt install ranger banshe silversearcher-ag neovim -y
+sudo apt install ranger banshe silversearcher-ag neovim thefuck -y
 
 # common build tools
-sudo apt install cmake cgdb python-pip -y
-sudo apt install mesa-utils mesa-vulkan-drivers vulkan-utils libglew-dev libfreetype6-dev libsqlite3-dev libncurses5-dev libnuma-dev thefuck -y
+sudo apt install cmake cgdb python-pip python-dev python3-dev -y
+sudo apt install mesa-utils mesa-vulkan-drivers vulkan-utils libglew-dev libfreetype6-dev libsqlite3-dev libncurses5-dev libnuma-dev -y

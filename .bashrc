@@ -146,10 +146,17 @@ export LD_LIBRARY_PATH=${CUDA_HOME}lib64:${LD_LIBRARY_PATH}
 
 
 # Vulkan
-VULKAN_DIR=/usr/local/VulkanSDK/1.1.73.0
-if [ -d $VULKAN_DIR ]; then
-  source ${VULKAN_DIR}/setup-env.sh
-fi
+VK_DIRS[0]="/usr/local/VulkanSDK/1.1.73.0"
+VK_DIRS[1]="/usr/local/VulkanSDK/1.1.77.0"
+VK_DIRS[2]="/usr/share/vulkanSDK/1.1.82.0"
+
+for d in "${VK_DIRS[@]}"
+do
+  if [ -d ${d} ]; then
+    source ${d}/setup-env.sh
+    break
+  fi
+done
 
 
 # cmake aliases
