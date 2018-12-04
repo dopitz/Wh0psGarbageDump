@@ -20,3 +20,5 @@ fi
 PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 
 setxkbmap dvorak -option caps:swapescape
+
+export PATH="$HOME/.cargo/bin:$PATH"

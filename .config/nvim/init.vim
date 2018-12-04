@@ -69,7 +69,6 @@
 " <F4>                    Switch header/source file (FileSwitch)
 "
 " n<leader>df             Format file with clang-format
-" n<leader>dd             Format file with clang-format
 "
 " <F7>                    Make project
 " <S-F7>                  Make clean project
@@ -98,7 +97,7 @@
 
 
 " ================================================== 
-" ABLE VI COMPATIBILITY 
+" ENABLE VI COMPATIBILITY 
 " ================================================== 
 set nocompatible
 
@@ -126,19 +125,13 @@ Plug 'mrtazz/DoxygenToolkit.vim'
 Plug 'bling/vim-airline'
 Plug 'lervag/vimtex'
 Plug 'rust-lang/rust.vim'
+Plug 'racer-rust/vim-racer'
 Plug 'octol/vim-cpp-enhanced-highlight' 
 Plug 'beyondmarc/glsl.vim'
+Plug 'https://github.com/beyondmarc/hlsl.vim'
 Plug 'Konfekt/FastFold'
 " Initialize plugin system
 call plug#end()
-
-nmap zuz <Plug>(FastFoldUpdate)
-let g:fastfold_savehook = 1
-let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C']
-let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
-let g:tex_fold_enabled=1
-let g:vimsyn_folding='af'
-let g:xml_syntax_folding = 1
 
 
 " ================================================== 
@@ -146,6 +139,21 @@ let g:xml_syntax_folding = 1
 " ================================================== 
 :let mapleader = ","
 :let maplocalleader = "\\"
+
+
+
+
+
+" ================================================== 
+" PLUGIN - fast fold
+" ================================================== 
+nmap zuz <Plug>(FastFoldUpdate)
+let g:fastfold_savehook = 1
+let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C']
+let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
+let g:tex_fold_enabled=1
+let g:vimsyn_folding='af'
+let g:xml_syntax_folding = 1
 
 
 
@@ -171,6 +179,7 @@ let g:ctrlp_custom_ignore = {
 let g:ctrlp_working_path_mode = 0
 
 
+
 " ================================================== 
 " PLUGIN  --  Fugitive
 " ================================================== 
@@ -178,10 +187,12 @@ nnoremap <leader>gs :tabe %<CR>:Gstatus<CR>:resize 30<CR>
 nnoremap <leader>gd :Gdiff<CR>
 
 
+
 " ================================================== 
 " PLUGIN  --  Gitgutter
 " ================================================== 
 nnoremap <leader>gg :GitGutterToggle<CR>
+
 
 
 " ================================================== 
@@ -192,6 +203,9 @@ let g:ycm_error_symbol = '!>'
 let g:ycm_warning_symbol = 'o>'
 let g:ycm_always_populate_location_list = 1
 let g:ycm_add_preview_to_completeopt = 0
+
+" let g:ycm_rust_src_path = '/usr/local/rust/rustc-1.5.0/src'
+
 nnoremap <leader>cc :YcmDiag<CR>
 nnoremap <leader>doc :YcmCompleter GetDoc<CR>
 nnoremap <leader>def :YcmCompleter GoToDefinition<CR>
@@ -199,6 +213,7 @@ nnoremap <leader>Def :tab split<CR> :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>dec :YcmCompleter GoToDeclaration<CR>
 nnoremap <leader>Dec :tab split<CR> :YcmCompleter GoToDeclaration<CR>
 nnoremap <leader>fix :YcmCompleter FixIt<CR>
+nnoremap <leader>cr :YcmRestartServer<CR>
 
 " Make ycm and ultisnips play along
 let g:ycm_key_list_select_completion=['<C-j>', '<C-n>', '<Down>']
@@ -341,7 +356,7 @@ let g:cycle_spell_check_modes = ["en_us", "de_de"]
 
 nnoremap <leader>sc :call CycleSpellCheck()<CR>
 
-augroup git_commits
+augroup spelling
   au!
   " enable spelling for git commits
   autocmd Filetype gitcommit setlocal spell spelllang=en_us textwidth=72
@@ -353,7 +368,7 @@ augroup END
 
 
 " ================================================== 
-" CLANG FORMAT
+" FORMAT
 " ================================================== 
 func! ClangFormatFile()
   let cursorp = getpos('.')
@@ -361,15 +376,13 @@ func! ClangFormatFile()
   call setpos('.', cursorp)
 endfunc
 
-if executable("clang-format")
-  let clangfmt = "clang-format"
-  
-  augroup clang_format
-    au!
-    autocmd Filetype cxx,cpp,c,h,hpp nnoremap <leader>df :call ClangFormatFile()<CR>
-    autocmd Filetype cxx,cpp,c,h,hpp nnoremap <leader>dd :pyf /usr/share/vim/addons/syntax/clang-format.py<CR>
-  augroup END
-endif
+augroup auto_format
+  au!
+  if executable("clang-format")
+      autocmd Filetype cxx,cpp,c,h,hpp nnoremap <leader>df :call ClangFormatFile()<CR>
+  endif
+  autocmd Filetype rust nnoremap <leader>df :RustFmt<CR>
+augroup END
 
 
 
@@ -408,7 +421,7 @@ augroup close_brackets
   autocmd Filetype cxx,cpp,c,h,hpp,tex,bib inoremap { {}<ESC>i
 augroup END
 
-" cold comments
+" Fold comments
 func! ToggleFoldComments()
   let p = getpos(".")
   call setpos(".", [p[0], 1, 1, 0])
@@ -435,10 +448,10 @@ function! ClipboardPaste()
   let @@ = system('xclip -o -selection clipboard')
 endfunction
 
-nnoremap <leader>cy y:call ClipboardYank()<CR>
-vnoremap <leader>cy y:call ClipboardYank()<CR>
-nnoremap <leader>cp :call ClipboardPaste()<CR>
-vnoremap <leader>cp :call ClipboardPaste()<CR>
+nnoremap <leader>cy \"+y
+vnoremap <leader>cy \"+y
+nnoremap <leader>cp \"+p
+vnoremap <leader>cp \"+p
 
 
 function! WipeoutBuffers()
