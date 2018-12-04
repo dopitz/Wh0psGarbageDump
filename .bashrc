@@ -145,10 +145,14 @@ export PATH=${CUDA_HOME}bin:${PATH}
 export LD_LIBRARY_PATH=${CUDA_HOME}lib64:${LD_LIBRARY_PATH}
 
 
+
 # Vulkan
-VULKAN_DIR=/usr/local/VulkanSDK/1.1.73.0
+VULKAN_DIR="$(find ~/.local/lib /usr/local /usr/lib -iname vulkanSDK | head -1)"
+VULKAN_DIR="$VULKAN_DIR/$(ls $VULKAN_DIR | tail -1)"
 if [ -d $VULKAN_DIR ]; then
   source ${VULKAN_DIR}/setup-env.sh
+else
+  echo "vulkan sdk not found"
 fi
 
 
@@ -173,5 +177,5 @@ alias mr='make run'
 alias pmr='primusrun make run'
 
 
-
 eval $(thefuck --alias)
+alias F=fuck
