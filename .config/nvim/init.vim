@@ -6,23 +6,17 @@
 "
 " Keymaps by this file:
 "
-" Open/Close/Navigate Windows/Tabs
+" Open/Close, Navigate Windows/Tabs
 " =========================================================
 " n<leader>p              Launch CtrlP
 " n<leader>o              Launch CtrlP in new tab
 "
-" n<C-S>                  Save file
-" i<C-S><C-S>             Save file
-" ni<C-S><C-A>            Save all
-" n<C-E><C-E>             Quit file
-" n<C-E><C-A>             Save session and exit all
+" ni<C-S>                 Save file
 "
-"
-" n<C-J>                  Move cursor to split window above
-" n<C-K>                  Move cursor to split window below
-" n<C-H>                  Move cursor to split window to the left
-" n<C-L>                  Move cursor to split window to the right
-"
+" nJ                      Move cursor to split window above
+" nK                      Move cursor to split window below
+" nH                      Move cursor to split window to the left
+" nL                      Move cursor to split window to the right
 " n<C-PAGEUP>             Increase size of current split
 " n<C-PAGEDOWN>           Decrease size of current split
 "
@@ -34,14 +28,19 @@
 " n<C-H/L/J/K>            Navigate to left/right/up/down split window
 " n<C-X/Z>                Navigate to next/previous tab window
 "
+" n<C-B>                  Toggles Tagbar
+" n<C-G>                  Opens Tagbar with auto close
+"
+"
 " n <space>/n/N/G         Keep cursor centered when jumping to search results
 " nv<Up/Down/Left/Right>  Don't allow arrow keys in normal and visual mode
 "
 "
-" n<leader>gs             Dublicate tab and launch :Gstatus with resized split
+" :Wipe                   Delete all buffers that are not currently active
 "
-"
-" :Wipeout                Delete all buffers that are not currently active
+" n<leader>gs             Open git status in new tab
+" n<leader>gd             Open git diff in new tab
+" n<leader>gg             Toggle git gutter
 "
 "
 "
@@ -56,19 +55,17 @@
 "
 " n<leader>sc             Cycle through spell check languages/disable spell check
 "
-" n<leader>zl             Toggle folds for all c-Style comments
-" n<leader>zL             Expand all folds recoursivly and then collaps folds for all c-Style comments
+" n zf                    fold by current search expression
+" n zi                    fold by indent
+" n zs                    fold by syntax
 "
-" nv<leader>cy           Copy to clipboard register
-" nv<leader>cp           Paste from clipboard register
+" n<leader>df             Auto format file (with clang-format, rustfmt)
 "
 "
 "
 " C++ Editing
 " =========================================================
 " <F4>                    Switch header/source file (FileSwitch)
-"
-" n<leader>df             Format file with clang-format
 "
 " <F7>                    Make project
 " <S-F7>                  Make clean project
@@ -101,6 +98,8 @@
 " ================================================== 
 set nocompatible
 
+
+
 "" ================================================== 
 "" PLUGINS
 "" ================================================== 
@@ -110,9 +109,8 @@ set nocompatible
 call plug#begin('~/.local/share/nvim/vimplug')
 " Make sure you use single quotes
 " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
-Plug 'Wh0p/FSwitch'
-Plug 'Wh0p/paraMark'
-Plug 'Wh0p/cyclespellcheck'
+Plug 'dopitz/FSwitch'
+Plug 'dopitz/cyclespellcheck'
 Plug 'rking/ag.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-fugitive'
@@ -128,8 +126,8 @@ Plug 'rust-lang/rust.vim'
 Plug 'racer-rust/vim-racer'
 Plug 'octol/vim-cpp-enhanced-highlight' 
 Plug 'beyondmarc/glsl.vim'
-Plug 'https://github.com/beyondmarc/hlsl.vim'
 Plug 'Konfekt/FastFold'
+Plug 'majutsushi/tagbar'
 " Initialize plugin system
 call plug#end()
 
@@ -141,6 +139,22 @@ call plug#end()
 :let maplocalleader = "\\"
 
 
+
+" ================================================== 
+" PLUGIN - cycle spell check
+" ================================================== 
+let g:cycle_spell_check_modes = ["en_us", "de_de"]
+let g:cycle_spell_check_indicator = len(g:cycle_spell_check_modes)
+
+nnoremap <leader>sc :call CycleSpellCheck()<CR>
+
+augroup spelling
+  au!
+  " enable spelling for git commits
+  autocmd Filetype gitcommit setlocal spell spelllang=en_us textwidth=105
+  " enable spelling for tex files
+  autocmd Filetype tex setlocal spell spelllang=en_us wrap linebreak textwidth=0 wrapmargin=0
+augroup END
 
 
 
@@ -204,8 +218,6 @@ let g:ycm_warning_symbol = 'o>'
 let g:ycm_always_populate_location_list = 1
 let g:ycm_add_preview_to_completeopt = 0
 
-" let g:ycm_rust_src_path = '/usr/local/rust/rustc-1.5.0/src'
-
 nnoremap <leader>cc :YcmDiag<CR>
 nnoremap <leader>doc :YcmCompleter GetDoc<CR>
 nnoremap <leader>def :YcmCompleter GoToDefinition<CR>
@@ -253,31 +265,6 @@ let g:airline#extensions#tabline#right_alt_sep = '<'
 
 
 
-
-
-" ================================================== 
-" PLUGIN  --  paraMark
-" ================================================== 
-nnoremap <C-A> :NextArg<CR>
-inoremap <C-A> <ESC>:NextArg<CR>
-vnoremap <C-A> <ESC>:NextArg<CR>
-
-" Copy the parameter list for up to 10 different overloads
-inoremap <C-D>d <ESC>:CpyParamList 1<CR>
-inoremap <C-D>1 <ESC>:CpyParamList 1<CR>
-inoremap <C-D>2 <ESC>:CpyParamList 2<CR>
-inoremap <C-D>3 <ESC>:CpyParamList 3<CR>
-inoremap <C-D>4 <ESC>:CpyParamList 4<CR>
-inoremap <C-D>5 <ESC>:CpyParamList 5<CR>
-inoremap <C-D>6 <ESC>:CpyParamList 6<CR>
-inoremap <C-D>7 <ESC>:CpyParamList 7<CR>
-inoremap <C-D>8 <ESC>:CpyParamList 8<CR>
-inoremap <C-D>9 <ESC>:CpyParamList 9<CR>
-inoremap <C-D>0 <ESC>:CpyParamList 0<CR>
-
-
-
-
 " ================================================== 
 " CPP-highlight enhancer
 " ================================================== 
@@ -288,9 +275,9 @@ let g:cpp_class_decl_highlight = 0
 
 
 " ================================================== 
-" PLUGIN  --  Doxy
+" PLUGIN  --  Rust
 " ================================================== 
-nnoremap <leader>dx :Dox<CR>
+let g:rust_recommended_style = 0
 
 
 
@@ -298,6 +285,28 @@ nnoremap <leader>dx :Dox<CR>
 " PLUGIN  --  vimtex
 " ================================================== 
 let g:vimtex_compiler_progname = 'nvr'
+
+
+
+" ================================================== 
+" PLUGIN  --  Tagbar
+" ================================================== 
+nnoremap <C-B> :TagbarToggle<CR>
+nnoremap <C-G> :TagbarOpenAutoClose<CR>
+
+let g:tagbar_type_rust = {
+   \ 'ctagstype' : 'rust',
+   \ 'kinds' : [
+       \'T:types,type definitions',
+       \'f:functions,function definitions',
+       \'g:enum,enumeration names',
+       \'s:structure names',
+       \'m:modules,module names',
+       \'c:consts,static constants',
+       \'t:traits',
+       \'i:impls,trait implementations',
+   \]
+   \}
 
 
 
@@ -340,29 +349,44 @@ set guioptions-=L
 set guifont=Liberation\ Mono\ 10
 
 " folds
-set foldmethod=syntax
-set foldlevel=0
 set foldenable
+set foldmethod=expr
+set foldexpr=GetFold(v:lnum)
+set foldlevel=0
+set foldcolumn=0
+
+function! GetFold(lnum)
+  "get string of current line
+  let this_line=getline(a:lnum)
+
+  let prev_i=indent(a:lnum - 1)/&shiftwidth
+  let this_i=indent(a:lnum)/&shiftwidth
+
+  " comments
+  if this_line =~? '^\s*\/\/\/.*'
+    return this_i + 1
+  endif
+
+  " empty lines are same as the one before
+  if empty(this_line) 
+    return -1
+  endif 
+
+  " something like indent folding
+  if this_i < prev_i
+    return prev_i
+  endif
+
+  return this_i
+endfunction
+
+nnoremap zf :set foldexpr=getline(v:lnum)!~@/ foldmethod=expr foldlevel=0<CR><CR>:FastFoldUpdate<CR>
+nnoremap zi :set foldexpr=GetFold(v:lnum) foldmethod=expr foldlevel=0<CR><CR>:FastFoldUpdate<CR>
+nnoremap zs :set foldmethod=syntax foldlevel=0<CR><CR>:FastFoldUpdate<CR>
+
 
 " automatically reload file if chenages detected
 set autoread
-
-
-
-" ================================================== 
-" SPELLCHECKING
-" ================================================== 
-let g:cycle_spell_check_modes = ["en_us", "de_de"]
-
-nnoremap <leader>sc :call CycleSpellCheck()<CR>
-
-augroup spelling
-  au!
-  " enable spelling for git commits
-  autocmd Filetype gitcommit setlocal spell spelllang=en_us textwidth=72
-  " enable spelling for tex files
-  autocmd Filetype tex setlocal spell spelllang=en_us wrap linebreak textwidth=0 wrapmargin=0
-augroup END
 
 
 
@@ -390,7 +414,7 @@ augroup END
 " ================================================== 
 " EDITING
 " ================================================== 
-nnoremap <C-Z> <nop>
+nnoremap <C-Z> <nop> " get rid of the suspend process
 " search replace/find word under the cursor
 nnoremap <leader>r :%s/\<<C-r><C-w>\>/
 nnoremap <leader>f /\<<C-r><C-w>\>
@@ -418,40 +442,8 @@ nnoremap <leader>hl :call ToggleSearchHL()<CR>
 augroup close_brackets
   au!
   " auto close curly bracket
-  autocmd Filetype cxx,cpp,c,h,hpp,tex,bib inoremap { {}<ESC>i
+  autocmd Filetype cxx,cpp,c,h,hpp,tex,bib,rust inoremap { {}<ESC>i
 augroup END
-
-" Fold comments
-func! ToggleFoldComments()
-  let p = getpos(".")
-  call setpos(".", [p[0], 1, 1, 0])
-
-  let last_p = search("\\/\\*\\*")
-  exec "normal! za"
-  while (last_p != search("\\/\\*\\*"))
-    exec "normal! za"
-  endwhile
-
-  call setpos(".", p)
-endfunc
-nnoremap zl :call ToggleFoldComments()<CR>
-nnoremap zL zMzR:call ToggleFoldComments()<CR>
-
-
-
-
-" Copy to/Paste from clipboard
-function! ClipboardYank()
-  call system('xclip -i -selection clipboard', @@)
-endfunction
-function! ClipboardPaste()
-  let @@ = system('xclip -o -selection clipboard')
-endfunction
-
-nnoremap <leader>cy \"+y
-vnoremap <leader>cy \"+y
-nnoremap <leader>cp \"+p
-vnoremap <leader>cp \"+p
 
 
 function! WipeoutBuffers()
@@ -491,7 +483,7 @@ nnoremap N Nzz
 nnoremap G Gzz
 set scrolloff=25
 
-" disable the arrow keys in normal mode, 'cause they suck dick
+" disable the arrow keys in normal mode
 nnoremap <Up> <NOP>
 vnoremap <Up> <NOP>
 nnoremap <Down> <NOP>
@@ -501,7 +493,7 @@ vnoremap <Left> <NOP>
 nnoremap <Right> <NOP>
 vnoremap <Right> <NOP>
 
-" make j, k, 0 and $ operate on displayed lines rather than physical lines.
+" make j, k, 0 and $ operate on displayed lines rather than physical lines
 noremap <silent> j gj
 noremap <silent> k gk
 noremap <silent> 0 g0
@@ -551,15 +543,6 @@ augroup END
 " ================================================== 
 " LOAD SAVE KEYMAPS FILES
 " ==================================================  
-" save file
-nnoremap <C-S> :w<CR>
-inoremap <C-S> <ESC>:w<CR>a
 " save all
-nnoremap <C-S-S> :wa<CR>:mksession!<CR>:echo "Saved all, updated session."<CR>
-inoremap <C-S-S> <ESC>:wa<CR>:mksession!<CR>:echo "Saved all, updated session."<CR>a
-" save all, save session, exit all
-nnoremap <C-E><C-E> :bd<CR>
-
-nnoremap <C-Q><C-S> :!rm Session.vim<CR> :qa<CR>
-nnoremap <C-Q><C-Q> :qa<CR>
-
+nnoremap <C-S> :wa<CR>:mksession!<CR>:echo "Saved all, updated session."<CR>
+inoremap <C-S> <ESC>:wa<CR>:mksession!<CR>:echo "Saved all, updated session."<CR>a
