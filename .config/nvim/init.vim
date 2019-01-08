@@ -349,8 +349,14 @@ set guioptions-=L
 set guifont=Liberation\ Mono\ 10
 
 " folds
+augroup auto_fold
+  au!
+  autocmd Filetype cxx,cpp,c,h,hpp setlocal foldmethod=syntax
+  autocmd Filetype rust setlocal foldmethod=expr
+  autocmd Filetype python setlocal foldmethod=indent
+augroup END
+
 set foldenable
-set foldmethod=expr
 set foldexpr=GetFold(v:lnum)
 set foldlevel=0
 set foldcolumn=0
@@ -359,6 +365,7 @@ function! GetFold(lnum)
   "get string of current line
   let this_line=getline(a:lnum)
 
+  let pprev_i=indent(a:lnum - 2)/&shiftwidth
   let prev_i=indent(a:lnum - 1)/&shiftwidth
   let this_i=indent(a:lnum)/&shiftwidth
 
@@ -367,12 +374,21 @@ function! GetFold(lnum)
     return this_i + 1
   endif
 
-  " empty lines are same as the one before
+  " something like indent folding, but includes the closing bracket line to the
+  " fold eg:
+  " struct A {          struct {                  struct {
+  "   a                   folded content            folded content
+  "   b                                           }
+  " }
+  " TODO: breaks when there is no blank line between two structs...
+
   if empty(this_line) 
+    if prev_i < pprev_i
+      return prev_i
+    endif
     return -1
   endif 
 
-  " something like indent folding
   if this_i < prev_i
     return prev_i
   endif
