@@ -279,7 +279,7 @@ inoremap <C-D>0 <ESC>:CpyParamList 0<CR>
 
 
 " ================================================== 
-" CPP-highlight enhancer
+" PLUGIN  --  CPP-highlight enhancer
 " ================================================== 
 let g:cpp_class_scope_highlight = 0
 let g:cpp_member_variable_highlight = 0
@@ -346,6 +346,11 @@ set foldenable
 
 " automatically reload file if chenages detected
 set autoread
+set updatetime=1500
+augroup auto_checktime
+  au!
+  autocmd CursorHold * checktime
+augroup END
 
 
 
