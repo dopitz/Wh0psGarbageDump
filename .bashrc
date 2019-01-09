@@ -178,5 +178,11 @@ alias pmr='primusrun make run'
 
 
 
+alias cb='cargo build'
+alias cr='cargo run'
+alias cre='cargo run --example'
+
+
+
 eval $(thefuck --alias)
 alias F=fuck
