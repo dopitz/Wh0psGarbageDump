@@ -178,9 +178,20 @@ alias pmr='primusrun make run'
 
 
 
+cargorun() {
+  if [ -z "$1" ]; then
+    cargo run
+  else
+    cargo run --bin $1
+  fi
+}
+export -f cargorun
+
 alias cb='cargo build'
-alias cr='cargo run'
+alias cr=cargorun
+alias ct='cargo test'
 alias cre='cargo run --example'
+
 
 
 
