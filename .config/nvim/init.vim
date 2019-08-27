@@ -111,6 +111,8 @@ call plug#begin('~/.local/share/nvim/vimplug')
 " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
 Plug 'dopitz/FSwitch'
 Plug 'dopitz/cyclespellcheck'
+Plug 'iamcco/mathjax-support-for-mkdp'
+Plug 'iamcco/markdown-preview.vim'
 Plug 'rking/ag.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-fugitive'

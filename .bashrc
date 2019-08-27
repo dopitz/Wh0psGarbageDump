@@ -180,9 +180,11 @@ alias pmr='primusrun make run'
 
 cargorun() {
   if [ -z "$1" ]; then
-    cargo run
+    cargo run "$@"
   else
-    cargo run --bin $1
+    bin=$1
+    shift
+    cargo run --bin $bin "$@"
   fi
 }
 export -f cargorun
