@@ -295,6 +295,7 @@ let g:vimtex_compiler_progname = 'nvr'
 " ================================================== 
 nnoremap <C-B> :TagbarToggle<CR>
 nnoremap <C-G> :TagbarOpenAutoClose<CR>
+nnoremap <C-F> :TagbarOpenAutoClose<CR>/
 
 let g:tagbar_type_rust = {
    \ 'ctagstype' : 'rust',
