@@ -185,13 +185,9 @@ nnoremap <leader>tl :tabe<Cr>:Ag TODO<CR>
 " ================================================== 
 " PLUGIN  --  CtrlP 
 " ================================================== 
-let g:ctrlp_user_command = 'ag %s -l --hidden -g "" --ignore-dir=.git'
+let g:ctrlp_user_command = 'ag %s -l --hidden -g "" --ignore-dir=.git --ignore-dir=target --ignore-dir=build --ignore-dir=docs --ignore=*.out --ignore=*.dat'
 nnoremap <leader>p :CtrlP<CR>
 nnoremap <leader>o :tabe<CR>:CtrlP<CR>
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\.git$\|build$\|docs$',
-  \ 'file': '\.out$\|\.dat$'
-  \ }
 let g:ctrlp_working_path_mode = 0
 
 
