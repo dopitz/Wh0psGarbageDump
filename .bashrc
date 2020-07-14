@@ -189,8 +189,21 @@ cargorun() {
 }
 export -f cargorun
 
+cargorunrelease() {
+  if [ -z "$1" ]; then
+    cargo run --release "$@"
+  else
+    bin=$1
+    shift
+    cargo run --release --bin $bin "$@"
+  fi
+}
+export -f cargorunrelease
+
 alias cb='cargo build'
+alias cbr='cargo build --release'
 alias cr=cargorun
+alias crr=cargorunrelease
 alias ct='cargo test'
 alias cre='cargo run --example'
 
