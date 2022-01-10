@@ -120,7 +120,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'ervandew/supertab'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'Valloric/YouCompleteMe'
+" Plug 'Valloric/YouCompleteMe'
 Plug 'mrtazz/DoxygenToolkit.vim'
 Plug 'bling/vim-airline'
 Plug 'lervag/vimtex'
@@ -210,24 +210,24 @@ nnoremap <leader>gg :GitGutterToggle<CR>
 " ================================================== 
 " PLUGIN  --  YouCompleteMe
 " ================================================== 
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_error_symbol = '!>'
-let g:ycm_warning_symbol = 'o>'
-let g:ycm_always_populate_location_list = 1
-let g:ycm_add_preview_to_completeopt = 0
-
-nnoremap <leader>cc :YcmDiag<CR>
-nnoremap <leader>doc :YcmCompleter GetDoc<CR>
-nnoremap <leader>def :YcmCompleter GoToDefinition<CR>
-nnoremap <leader>Def :tab split<CR> :YcmCompleter GoToDefinition<CR>
-nnoremap <leader>dec :YcmCompleter GoToDeclaration<CR>
-nnoremap <leader>Dec :tab split<CR> :YcmCompleter GoToDeclaration<CR>
-nnoremap <leader>fix :YcmCompleter FixIt<CR>
-nnoremap <leader>cr :YcmRestartServer<CR>
-
-" Make ycm and ultisnips play along
-let g:ycm_key_list_select_completion=['<C-j>', '<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion=['<C-k>', '<C-p>', '<Up>']
+"let g:ycm_confirm_extra_conf = 0
+"let g:ycm_error_symbol = '!>'
+"let g:ycm_warning_symbol = 'o>'
+"let g:ycm_always_populate_location_list = 1
+"let g:ycm_add_preview_to_completeopt = 0
+"
+"nnoremap <leader>cc :YcmDiag<CR>
+"nnoremap <leader>doc :YcmCompleter GetDoc<CR>
+"nnoremap <leader>def :YcmCompleter GoToDefinition<CR>
+"nnoremap <leader>Def :tab split<CR> :YcmCompleter GoToDefinition<CR>
+"nnoremap <leader>dec :YcmCompleter GoToDeclaration<CR>
+"nnoremap <leader>Dec :tab split<CR> :YcmCompleter GoToDeclaration<CR>
+"nnoremap <leader>fix :YcmCompleter FixIt<CR>
+"nnoremap <leader>cr :YcmRestartServer<CR>
+"
+"" Make ycm and ultisnips play along
+"let g:ycm_key_list_select_completion=['<C-j>', '<C-n>', '<Down>']
+"let g:ycm_key_list_previous_completion=['<C-k>', '<C-p>', '<Up>']
 
 let g:SuperTabDefaultCompletionType='<C-n>'
 let g:SuperTabCrMapping=0
@@ -283,6 +283,7 @@ let g:rust_recommended_style = 0
 " PLUGIN  --  vimtex
 " ================================================== 
 let g:vimtex_compiler_progname = 'nvr'
+let g:tex_flavor = 'plaintex'
 
 
 

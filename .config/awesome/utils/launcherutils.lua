@@ -22,7 +22,7 @@ launcher.keys = awful.util.table.join(
               {description = "prompt lua", group = "launcher"}),
     awful.key({ mod.super,          }, "Return", function () awful.spawn(launcher.terminal) end,
               {description = "open a terminal", group = "launcher"}),
-    awful.key({ mod.super, mod.ctrl }, "Return", function () awful.spawn(launcher.terminal .. " -e ranger") end,
+    awful.key({ mod.super, mod.ctrl }, "Return", function () awful.spawn(launcher.terminal .. " -e lf") end,
               {description = "open ranger", group = "launcher"})
   )
 
