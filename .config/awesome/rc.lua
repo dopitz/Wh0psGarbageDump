@@ -179,22 +179,35 @@ globalkeys = awful.util.table.join(
     function ()
         os.execute(string.format("pactl set-sink-volume %d +1%%", beautiful.volume.device))
         beautiful.volume.update()
-    end),
+    end, {description = "volume up", group = "volume"}),
+    awful.key({ mod.ctrl, mod.shift, }, "Page_Up",
+    function ()
+        os.execute(string.format("pactl set-sink-volume %d +10%%", beautiful.volume.device))
+        beautiful.volume.update()
+    end, {description = "volume up", group = "volume"}),
+
     awful.key({ mod.ctrl }, "Page_Down",
     function ()
         os.execute(string.format("pactl set-sink-volume %d -1%%", beautiful.volume.device))
         beautiful.volume.update()
-    end),
-    awful.key({ mod.ctrl, mod.shift }, "Page_Down",
+    end, {description = "volume down", group = "volume"}),
+    awful.key({ mod.ctrl, mod.shift, }, "Page_Down",
+    function ()
+        os.execute(string.format("pactl set-sink-volume %d -10%%", beautiful.volume.device))
+        beautiful.volume.update()
+    end, {description = "volume down", group = "volume"}),
+
+    awful.key({ mod.ctrl }, "Delete",
     function ()
         os.execute(string.format("pactl set-sink-mute %d toggle", beautiful.volume.device))
         beautiful.volume.update()
-    end),
-    awful.key({ mod.ctrl, mod.shift }, "Page_Up",
+    end, {description = "mute / unmute", group = "volume"}),
+
+    awful.key({ mod.ctrl }, "Insert",
     function ()
-        os.execute(string.format("pactl set-sink-volume %d 100%%", beautiful.volume.device))
+        os.execute("amixer -c 3 sset Mic toggle")
         beautiful.volume.update()
-    end)
+    end, {description = "mute / unmute mic", group = "volume"})
 )
 
 globalkeys = awful.util.table.join(globalkeys, sysutils.keys)
