@@ -237,6 +237,6 @@ client.connect_signal("unfocus", clientutils.unfocus)
 
 
 awful.spawn("compton")
-run_once({ "firefox" })
+run_once({ "chromium" })
 run_once({ "thunderbird" })
 run_once({ "banshee" })

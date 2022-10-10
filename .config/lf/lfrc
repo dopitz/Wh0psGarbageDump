@@ -1,0 +1,4 @@
+map V &gnome-terminal -e "nvim -S"
+map E &gnome-terminal -e "nvim $f"
+map S &gnome-terminal
+map C &code .
